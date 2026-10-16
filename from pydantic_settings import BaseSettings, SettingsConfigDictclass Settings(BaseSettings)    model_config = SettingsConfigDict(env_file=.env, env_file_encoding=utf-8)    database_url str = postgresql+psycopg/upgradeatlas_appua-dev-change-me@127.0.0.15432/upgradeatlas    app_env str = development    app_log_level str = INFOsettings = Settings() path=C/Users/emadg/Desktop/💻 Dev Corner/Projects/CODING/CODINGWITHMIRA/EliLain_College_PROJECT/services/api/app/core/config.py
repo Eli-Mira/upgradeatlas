@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.env
+.env.local
+*.log
+data/fixtures/generated/
+dist/
+build/
+node_modules/
+.next/
+.vscode/
+.idea/
+" path="C:/Users/emadg/Desktop/💻 Dev Corner/Projects/CODING/CODINGWITHMIRA/EliLain_College_PROJECT/.gitignore"
