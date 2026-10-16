@@ -1,0 +1,58 @@
+# Laravel / PHP
+vendor/
+composer.phar
+.phpunit.result.cache
+.phpunit/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database
+*.sqlite
+*.sqlite-journal
+database/production/
+*.db
+*.db-shm
+*.db-wal
+*.dump
+*.sql
+
+# Storage
+storage/*.key
+storage/oauth-private.key
+storage/oauth-public.key
+storage/logs/laravel.log
+
+# Node / Frontend
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vite/
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+.dockerenv
+
+# Test coverage
+coverage/
+coverage.xml
+clover.xml
+
+# Editor
+*.orig
+*.rej

@@ -1,0 +1,15 @@
+{
+    "name": "upgradeatlas-api",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^5.0",
+        "axios": "^1.7",
+        "laravel-vite-plugin": "^1.0",
+        "vite": "^6.0"
+    }
+}
