@@ -1,0 +1,30 @@
+{
+  "schema_sha256": "1d490af3bebaff65948203fbf63a136e4a8104ab8867fa7f1dcacd5e5d93994a",
+  "tables": {
+    "alembic_version": "1:71b0320c745783e67f0e68a5d3721f6c",
+    "audit_events": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "brands": "2:782efa5154492fc2bdbb0b80859cf29d",
+    "compatibility_assertions": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "component_classes": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "conflict_flags": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "cpus": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "displays": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "evidence": "2:da22f8bcd2c4ff276456a37cf6d8f248",
+    "favorites": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "gpus": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "laptop_families": "2:b018788553d6e3d1aa1898b2bf81b84c",
+    "laptop_skus": "2:169e4a32296c3a9f72ea075cf5955d82",
+    "laptop_variants": "2:c7727707c5a76380eb5580737c0c9e65",
+    "migrations": "1:efa19155a9b42a8a2ce88ce0a3586617",
+    "offer_price_observations": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "ram_configurations": "2:09cc62d4b75d807344bbd5e5280357ac",
+    "recommendation_sessions": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "retailer_offers": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "retailers": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "saved_comparison_items": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "saved_comparisons": "0:d41d8cd98f00b204e9800998ecf8427e",
+    "sources": "2:f59f0748178cb37b14ac4dbddd358fb6",
+    "storage_slots": "2:6e010c6d43aa4eb1891ae67734412030",
+    "users": "0:d41d8cd98f00b204e9800998ecf8427e"
+  }
+}

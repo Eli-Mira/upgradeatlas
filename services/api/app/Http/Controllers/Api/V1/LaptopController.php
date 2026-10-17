@@ -41,4 +41,28 @@ class LaptopController extends Controller
 
         return response()->json($model);
     }
+
+    /**
+     * Upgrade advisor payload: exact SKU, RAM config and SSD slots.
+     * Compatibility stays `unknown`/`documenteda_max_gb NULL` unless
+     * explicitly evidence-backed — never a guessed positive outcome.
+     */
+    public function upgrades(string $sku)
+    {
+        $model = LaptopSku::with(['ramConfiguration', 'storageSlots'])
+            ->where('manufacturer_part_number', $sku)
+            ->first();
+
+        if (! $model) {
+            throw (new ModelNotFoundException())->setModel(LaptopSku::class);
+        }
+
+        return response()->json([
+            'part_number' => $model->manufacturer_part_number,
+            'display_name' => $model->display_name,
+            'ram' => $model->ramConfiguration,
+            'storage' => $model->storageSlots,
+            'compatibility_default' => 'unknown',
+        ]);
+    }
 }

@@ -1,0 +1,13 @@
+{
+  "status": 200,
+  "response": {
+    "currency": "EGP",
+    "input_source": "user_entered",
+    "upgrade_total_egp": "2400.00",
+    "replacement_total_egp": "45000.00",
+    "cost_difference_egp": "42600.00",
+    "lower_cost_option": "upgrade",
+    "compatibility_assessed": false,
+    "performance_equivalence_assessed": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Arabic default and blank inputs rejected without treating missing cost as zero",
+    "Arabic digit input reaches real Laravel API as strings; correct totals and cheaper option",
+    "English toggle, result invalidation, signed negative difference and correct lower-cost option",
+    "Server 422 errors map to localized accessible field messages",
+    "Network failure is visible and retry succeeds against real API",
+    "Editing aborts pending request and prevents stale result overwrite",
+    "Malformed successful response is not presented as a zero-cost comparison",
+    "No horizontal overflow at 360/390/768/1440px in RTL/LTR; keyboard field navigation"
+  ],
+  "count": 8,
+  "pageErrors": []
+}

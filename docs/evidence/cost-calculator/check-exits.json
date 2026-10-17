@@ -1,0 +1,18 @@
+[
+  {
+    "check": "frontend-tests",
+    "exit": 0
+  },
+  {
+    "check": "frontend-build",
+    "exit": 0
+  },
+  {
+    "check": "frontend-lint",
+    "exit": 0
+  },
+  {
+    "check": "backend-green",
+    "exit": 0
+  }
+]

@@ -14,3 +14,7 @@
 - D11: PHP installed via winget (8.3.33); pdo_pgsql, pgsql, openssl enabled; Composer 2.10.3 installed.
 - D12: Laravel migrations will replace Python Alembic for schema ownership; existing SQL schema/constraints serve as the spec baseline.
 - D13: Phase 0b archives the Python scaffold (no deletion), then scaffolds Laravel in services/api and Vite React in apps/web.
+- D14: Prefer free/open-source and built-in capabilities; the cost calculator adds no packages/services, uses integer piasters and decimal strings, and neither queries nor persists database data. No public price is inferred from a user's cost inputs.
+- D15: Calculator mode is manual cost-only, with no automatic SKU selection or compatibility/performance recommendation. Source-backed SKU and offer flows remain separate.
+- D16: Laravel feature tests fail closed unless the resolved target is PostgreSQL `upgradeatlas_test`, before transaction traits run. A wrong-database negative control must refuse execution.
+- D17: Previous phase completion claims overstated readiness. A no-op migration baseline does not prove portable bootstrap/parity. Existing draft exposure and evidence-publication gates block public deployment.

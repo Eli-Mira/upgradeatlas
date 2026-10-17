@@ -1,0 +1,14 @@
+[
+  {
+    "name": "frontend-tests",
+    "exit": 0
+  },
+  {
+    "name": "frontend-lint",
+    "exit": 0
+  },
+  {
+    "name": "frontend-build",
+    "exit": 0
+  }
+]
