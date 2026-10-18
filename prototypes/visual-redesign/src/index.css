@@ -1,0 +1,78 @@
+/* Prototype design tokens — graphite industrial dark theme (mirrors production tokens).
+   One radius family: 8px surfaces / 4px controls. No pills, no glows. Dark only. */
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite-950: #090a0c;
+  --color-graphite-900: #0d0f12;
+  --color-graphite-850: #14171c;
+  --color-graphite-800: #1a1e24;
+  --color-graphite-700: #232830;
+  --color-graphite-600: #2e353f;
+  --color-graphite-500: #3d4552;
+  --color-graphite-400: #5a6472;
+  --color-graphite-300: #8b95a3;
+  --color-graphite-200: #b9c1cc;
+  --color-graphite-100: #dde2e8;
+  --color-graphite-50: #f2f4f7;
+
+  --color-signal: #e5484d;
+  --color-signal-strong: #d13438;
+  --color-signal-soft: color-mix(in srgb, var(--color-signal) 14%, transparent);
+  --color-positive: #3dd68c;
+  --color-positive-soft: color-mix(in srgb, var(--color-positive) 14%, transparent);
+
+  --radius-sharp: 4px;
+  --radius-surface: 8px;
+
+  --font-display: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'Segoe UI', ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  --ease-custom: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  :root { color-scheme: dark; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background-color: var(--color-graphite-950);
+    color: var(--color-graphite-100);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  html[lang='ar'] body, [lang='ar'] {
+    font-family: var(--font-arabic);
+    line-height: 1.75;
+  }
+  h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  ::selection { background: var(--color-signal-deep, #b12328); color: var(--color-graphite-50); }
+}
+
+@layer utilities {
+  .hairline { border-color: var(--color-graphite-600); }
+  .ltr-token { direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+  .tnum { font-variant-numeric: tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
