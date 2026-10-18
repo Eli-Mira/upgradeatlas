@@ -1,0 +1,175 @@
+{
+  "before": [
+    {
+      "paused": false,
+      "time": 2.414106,
+      "duration": 4.483333,
+      "ready": 4,
+      "width": 2160,
+      "height": 2160
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "duration": null,
+      "ready": 0,
+      "width": 0,
+      "height": 0
+    }
+  ],
+  "after": [
+    {
+      "paused": false,
+      "time": 4.156517,
+      "ready": 4
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    },
+    {
+      "paused": true,
+      "time": 0,
+      "ready": 0
+    }
+  ]
+}

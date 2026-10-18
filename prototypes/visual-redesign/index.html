@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#090a0c" />
+    <title>UpgradeAtlas — Visual Prototypes</title>
+    <link rel="icon" href="./favicon.svg" />
+    <script>
+      // Set lang/dir before first paint so RTL/AR does not flash as LTR/EN.
+      (function () {
+        var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ar';
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/prototype.jsx"></script>
+  </body>
+</html>

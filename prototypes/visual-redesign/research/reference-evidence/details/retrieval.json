@@ -1,0 +1,141 @@
+[
+  {
+    "name": "supahero-shaga",
+    "requested_url": "https://supahero.io/hero/shaga-odyssey",
+    "url": "https://supahero.io/hero/shaga-odyssey",
+    "http_status": 200,
+    "title": "Shaga Odyssey Hero Section - Supahero",
+    "body_characters": 424,
+    "viewport": "C:\\Desktop\\💻 Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign\\research\\reference-evidence\\details\\supahero-shaga-viewport.png",
+    "ledger_registration": "[8] https://supahero.io/hero/shaga-odyssey",
+    "candidate_links": [
+      {
+        "text": "Visit Website →",
+        "url": "https://www.odyssey.shaga.xyz/"
+      }
+    ],
+    "motion": "Still capture; timings/behavior not inferred"
+  },
+  {
+    "name": "60fps-search",
+    "requested_url": "https://60fps.design/shots/uber-search-border-highlight-animation",
+    "url": "https://60fps.design/shots/uber-search-border-highlight-animation",
+    "http_status": 200,
+    "title": "Uber Search Border Highlight Animation - 60fps UI/UX animation",
+    "body_characters": 2715,
+    "viewport": "C:\\Desktop\\💻 Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign\\research\\reference-evidence\\details\\60fps-search-viewport.png",
+    "ledger_registration": "[9] https://60fps.design/shots/uber-search-border-highlight-animation",
+    "candidate_links": [
+      {
+        "text": "Search",
+        "url": "https://60fps.design/shots/filter/search"
+      },
+      {
+        "text": "",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber Loading Animation",
+        "url": "https://60fps.design/shots/uber-loading-animation"
+      },
+      {
+        "text": "Uber",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber Dropoff Cab Animation",
+        "url": "https://60fps.design/shots/uber-dropoff-cab-animation"
+      },
+      {
+        "text": "Uber",
+        "url": "https://60fps.design/apps/uber"
+      },
+      {
+        "text": "Uber Ride Verified Tick in Sheet Animation",
+        "url": "https://60fps.design/shots/uber-ride-verified-tick-in-sheet-animation"
+      },
+      {
+        "text": "Arc Search",
+        "url": "https://60fps.design/apps/arc-search"
+      },
+      {
+        "text": "Arc Search Gradient Transition on Button Tap Interaction",
+        "url": "https://60fps.design/shots/arc-search-gradient-transition-on-button-tap-interaction"
+      }
+    ],
+    "motion": "Still capture; timings/behavior not inferred"
+  },
+  {
+    "name": "awwwards-features",
+    "requested_url": "https://www.awwwards.com/inspiration/product-features-overview-shaga-controller",
+    "url": "https://www.awwwards.com/inspiration/product-features-overview-shaga-controller",
+    "http_status": 200,
+    "title": "Product Features Overview - Awwwards",
+    "body_characters": 1327,
+    "viewport": "C:\\Desktop\\💻 Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign\\research\\reference-evidence\\details\\awwwards-features-viewport.png",
+    "ledger_registration": "[10] https://www.awwwards.com/inspiration/product-features-overview-shaga-controller",
+    "candidate_links": [
+      {
+        "text": "Odyssey Controller",
+        "url": "https://www.awwwards.com/sites/odyssey-controller"
+      },
+      {
+        "text": "",
+        "url": "https://twitter.com/intent/tweet?text=&url=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller"
+      },
+      {
+        "text": "",
+        "url": "https://www.linkedin.com/shareArticle?mini=true&url=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller&title="
+      },
+      {
+        "text": "",
+        "url": "https://www.facebook.com/sharer.php?u=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller&t="
+      },
+      {
+        "text": "",
+        "url": "https://twitter.com/intent/tweet?text=&url=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller"
+      },
+      {
+        "text": "",
+        "url": "https://www.linkedin.com/shareArticle?mini=true&url=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller&title="
+      },
+      {
+        "text": "",
+        "url": "https://www.facebook.com/sharer.php?u=https://www.awwwards.com/inspiration/product-features-overview-shaga-controller&t="
+      },
+      {
+        "text": "Odyssey Controller",
+        "url": "https://www.awwwards.com/sites/odyssey-controller"
+      },
+      {
+        "text": "",
+        "url": "https://www.odyssey.shaga.xyz/"
+      },
+      {
+        "text": "",
+        "url": "https://www.odyssey.shaga.xyz/"
+      },
+      {
+        "text": "",
+        "url": "https://www.awwwards.com/inspiration/hero-image-transition-shaga-controller"
+      },
+      {
+        "text": "",
+        "url": "https://www.awwwards.com/inspiration/text-transition-by-scroll-shaga-controller"
+      }
+    ],
+    "motion": "Still capture; timings/behavior not inferred"
+  }
+]

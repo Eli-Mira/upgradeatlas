@@ -1,0 +1,11 @@
+.studio-laptop { position: relative; width: 100%; height: 100%; overflow: hidden; background: #090a0c; }
+.studio-poster, .studio-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.studio-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.studio-poster[hidden], .studio-canvas[hidden] { display: none; }
+.studio-controls, .studio-inspect { position: absolute; bottom: 16px; inset-inline-end: 16px; z-index: 2; }
+.studio-controls { display: flex; gap: 6px; }
+.studio-inspect, .studio-controls button { min-height: 44px; min-width: 44px; padding: 10px 12px; background: #14171c; color: #f2f4f7; border: 1px solid #48505d; border-radius: 4px; font: inherit; font-size: 13px; cursor: pointer; touch-action: manipulation; }
+.studio-inspect:focus-visible, .studio-controls button:focus-visible, .studio-canvas:focus-visible { outline: 2px solid #f2f4f7; outline-offset: -4px; }
+.studio-status { position: absolute; bottom: 64px; inset-inline: 16px; color: #f2f4f7; font-size: 13px; z-index: 2; }
+@media(hover:hover) and (pointer:fine) { .studio-inspect:hover, .studio-controls button:hover { border-color: #f2f4f7; background: #252a33; } }
+@media(max-width:480px) { .studio-controls { inset-inline: 10px; justify-content: flex-end; flex-wrap: wrap; gap: 4px; } .studio-controls button { padding: 8px; } }

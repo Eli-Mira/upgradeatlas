@@ -1,0 +1,305 @@
+Log in
+Sign up
+Components
+Templates
+Themes
+Pricing
+The living
+ library
+of interfaces
+
+12,000+ crafted React components, templates, and shadcn themes. Built by real design engineers.
+
+2,000+ Marketing blocks:
+Animated heroes
+Hero sections
+Shaders
+Liquid & metal
+Backgrounds
+Gradients
+Footers
+Gradient Bar hero section
+261
+Hero Section 5
+Vercel Hero
+118
+Waitlist Hero
+1.3k
+CB
+Liquid Metal Hero
+761
+Hover Preview
+363
+Hero ASCII one
+967
+Vapour Text Effect
+1.6k
+Hover Footer
+744
+Animated Gradient Background
+1.4k
+Wave Background
+2,100+ UI components:
+Buttons
+AI chats
+Cards & grids
+Galleries & 3D
+Navigation
+Sign ins & widgets
+Sections
+Hover Button
+386
+Button Colorful with Hover Effect
+564
+Gradient Button
+1.2k
+Background Boxes
+969
+Background Beams
+648
+Not Found Page
+122
+Footer Section
+1.3k
+Horizon Hero Section
+2.8k
+Agent Plan
+Calendar
+Sign In Flow
+2.2k
+Sign In
+2.0k
+Used by 4,188,563 builders. From indie makers to the world's largest product teams
+Google
+Meta
+NVIDIA
+ByteDance
+Shopify
+PayPal
+Startups:
+Vercel
+Lovable
+Webflow
+Razorpay
+Mistral AI
+Nubank
+Atlassian
+Copy the prompt. Paste it anywhere
+
+Every component ships as a prompt. One copy — and it builds itself in whatever tool you live in.
+
+$ claude
+✓ components/ui/animated-hero.tsx
+✓ +148 lines — adapted to your theme
+❯
+[Pasted text #1 +88 lines]
+Claude Code
+
+Paste it in the terminal — the source lands in your repo.
+
+Add the Animated Hero from 21st
+acme/website · main
+animated-hero.tsx
++148 −12
++ export function AnimatedHero() {
++ return <section className="hero">…
+<main>
+− <OldHero />
++ <AnimatedHero />
+Ready to review
+Create PR
+Codex
+
+Same prompt as a task — Codex ships it with a diff.
+
+Worked for 14s
+✓
+Created src/components/AnimatedHero.tsx
+✓
+Edited src/pages/Index.tsx
+Preview updated
+Lovable
+
+Paste it in chat — the exact UI appears in your project.
+
+Code
+Preview
+shimmer-button.tsx
+1
+import { cn } from "@/lib/utils"
+2
+ 
+3
+export function ShimmerButton() {
+4
+  return (
+5
+    <button className={cn(
+6
+      "relative rounded-full bg-neutral-950",
+7
+      "px-7 py-3 text-sm font-medium text-white",
+8
+      "transition-transform hover:scale-105",
+9
+    )}>
+10
+      <span className="shimmer-ring" aria-hidden />
+11
+      Get started →
+12
+    </button>
+13
+  )
+14
+}
+Shimmer Button
+Get started →
+Real code, ready to ship
+
+React + Tailwind, shadcn/ui conventions — every component is source that lands in your repo, yours to edit.
+
+25,431
+installs this week
+455
+Saved to bookmarks
+Landing v2
+12
+Inspiration
+34
+Create list
+Number Ticker
+12.4k
+455
+Save it for later
+
+Bookmark any component into your lists — personal or team-shared — and pull it back up in one click.
+
+Built by real design engineers. Every component has an author. Indexed, searchable, one prompt away
+Aceternity UI
+87 components
+Magic UI
+62 components
+shadcn/ui
+87 components
+Origin UI
+44 components
+Geist
+87 components
+Base UI
+29 components
+Kokonut UI
+49 components
+8bitcn
+106 components
+Kibo UI
+26 components
+visx
+36 components
+ReUI
+95 components
+HextaUI
+113 components
+Tailark
+42 components
+Shadcnblocks.com
+39 components
+Ruixen UI
+390 components
+Efferd
+100 components
+UI TripleD
+89 components
+UI Layouts
+72 components
+Shailendra
+51 components
+Jolly UI
+51 components
+uimix
+49 components
+ShadcnSpace
+45 components
+shadway
+45 components
+REAVIZ
+41 components
+reuno-ui
+37 components
+Motion Primitives
+34 components
+Systaliko UI
+33 components
+lndev-ui
+30 components
+Fancy Components
+30 components
+coss
+28 components
+Cnippet
+26 components
+PR
+PrebuiltUI
+25 components
+Circle
+25 components
+SP
+Spell
+24 components
+LA
+Layouts
+24 components
+ID
+Interfaces DS
+23 components
+
+…and 700+ design engineers shipping shaders, interactions, and animated heroes.
+
+Built by humans
+Ready for agents
+Browse components
+Join for free
+Questions, answered
+
+Everything you need to know about the registry, installing components, and publishing your own.
+
+01
+What is 21st?
++
+02
+Is 21st free?
++
+03
+How is this different from a React component library?
++
+04
+How do I install a component?
++
+05
+Do components work with shadcn/ui?
++
+06
+Can I publish my own components?
++
+07
+What are React templates on 21st?
++
+Built with 21st
+Product
+Components
+Templates
+Themes
+Icons
+Pricing
+Resources
+Publish
+Sign in
+Company
+Contact
+Privacy
+Terms
+Connect
+X (Twitter)
+GitHub
+
+© 2026 21st Labs, Inc.

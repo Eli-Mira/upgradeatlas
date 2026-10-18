@@ -1,0 +1,101 @@
+{
+  "initial_legacy_commit": "1307f3a8b733e3f7405bc824720a3b9d07324b12",
+  "initial_state": "All 15 legacy source files were untracked before the initial preservation commit. No pre-existing committed prototype existed.",
+  "verified_legacy_count": 15,
+  "legacy_files": [
+    {
+      "path": "prototypes/visual-redesign/src/App.jsx",
+      "raw_sha256": "4f3cf9facd7fb5bf6de0c22687e9a8f9a041c1e020bd2c9593dad7fd3d3103e3",
+      "git_blob": "176fb64a913267882786128e202fe4f8389bf715",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/CompareTray.jsx",
+      "raw_sha256": "bddb9060f680daf0b143b83328e9080ee9366dd9529874bdc9e89eb616e30210",
+      "git_blob": "92cbfada5aef7eb309660121e38347b07da823d7",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/Footer.jsx",
+      "raw_sha256": "753789bf4bac73f87e39b9736482d060c4ff547c0d009c6931d95bb76e41a3aa",
+      "git_blob": "7e0994a5d08badbeeb86b6c9cb27a8e765293178",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/Nav.jsx",
+      "raw_sha256": "7b0b80d98af6049f18472984e1e512b506a921fa928efc08c0ca91979a0b5fa5",
+      "git_blob": "0af1d4f7ebd795bf352468636cffdf1c2ac5c6ec",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/Reveal.jsx",
+      "raw_sha256": "69e99e05f04b86c18a6d91f432040d953315a3c555c9400d0b1ca557efbdf451",
+      "git_blob": "606706a46b577938b0aae6fb20a447bc34b921c9",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/SkuCard.jsx",
+      "raw_sha256": "e8af078b33345d65c0d7da2248e136463846311869a19334b91ad36a65376688",
+      "git_blob": "3768b7199c19b94b073939af8289bc77154053cc",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/components/States.jsx",
+      "raw_sha256": "6d2c495baf5da3ce7fdf0db1dc1f0afdf59eaeb37305ac006ec59d56305672bb",
+      "git_blob": "c3152a9c18dcda8c8031e65a86a04fe4e94d6714",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/index.css",
+      "raw_sha256": "9b7a84ad1cb2bb2e217082ef7d1907490fa138756bcb2ce0e2f1e7fee3a49939",
+      "git_blob": "f2ac3df2a9b5ed5c4c6c94ff47b48872c2ecafc0",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/lib/compare-store.js",
+      "raw_sha256": "a58a4f18cac98a2cbeb3b7d5e5f16795fae04a947b4ce566625378cc4e1775d2",
+      "git_blob": "90fdfc2c9da0086366f3441d9cfb734b73140f03",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/lib/i18n.js",
+      "raw_sha256": "ac5ec01d059eddc4c1a350dc574a18790da8d3f8e5bf68b7b2b32d636911a777",
+      "git_blob": "d77f348abf7ca7d4402b2c2425a87b5f77c158a3",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/lib/router.jsx",
+      "raw_sha256": "e54cb4c1603e527b0a3030986b92fad5106d8aca98c466d7da57dcb97b2ddf48",
+      "git_blob": "17aba2e3b5e0a05de68b729bd6b622ba39d88f0f",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/main.jsx",
+      "raw_sha256": "a18f93c342285240f1489da87c01f4ec5fe1853eee60783141a395fd6c6fa9a4",
+      "git_blob": "966d2e028a621885a7d0168c97640003201070db",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/pages/Calculator.jsx",
+      "raw_sha256": "1a391c370b5034886cfaff48aab292d5e87525baa94ebc8cf5daaf5d1281de52",
+      "git_blob": "24cb60611af53142c0ea87640adc96dba03af031",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/pages/Catalog.jsx",
+      "raw_sha256": "47c0adefdab0a02dee4e448e68554b1fefcd40d7ce9829f6ff84743d22e1f61c",
+      "git_blob": "5808d486171d42bda2871bd6dfc47b1e0201f253",
+      "matches_commit_after_eol_normalization": true
+    },
+    {
+      "path": "prototypes/visual-redesign/src/pages/Home.jsx",
+      "raw_sha256": "3abdb3e2ab4d802249af2165b7ee3345fcb8dd82029fc35c2e0d5378f5fe4a76",
+      "git_blob": "b3308808d35794da9a5a9a819cbe9d0368946975",
+      "matches_commit_after_eol_normalization": true
+    }
+  ],
+  "final_archive_branch": "archive/pre-prototype-frontend",
+  "final_archive_tag": "legacy-prototype-frontend-final-2026-10-18",
+  "line_endings": "Initial commit normalized CRLF in src/pages/Catalog.jsx. The final preservation snapshot uses scoped -text attributes and raw blob equality for all 15 files.",
+  "excluded": "Build output, dependency/cache directories and local scratch files. No unrelated app/backend changes are staged."
+}
