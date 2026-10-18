@@ -10,6 +10,14 @@ Approved stack:
 
 See `docs/PRD.md`, `docs/ARCHITECTURE.md`, and `docs/DECISIONS.md`.
 
+## Current frontend authority
+
+The sole authoritative implementation of the current frontend design is `prototypes/visual-redesign/index.html` -> `prototypes/visual-redesign/src/prototype.jsx` and its imported `prototype-*` modules, `prototype.css` and scoped motion viewer. Run `npm run dev` in `prototypes/visual-redesign` and open `http://127.0.0.1:5174`. See `prototypes/visual-redesign/FRONTEND_ARCHITECTURE.md` for the source map, checks and archive recovery.
+
+The unmounted experimental frontend and its superseded self-report were removed from the laboratory's active tree after byte-exact Git preservation. Archive branch: `archive/pre-prototype-frontend`; annotated tag: `legacy-prototype-frontend-final-2026-10-18`.
+
+The API-connected application under `apps/web` remains preserved and is not replaced by this cleanup. It is an integration target, not a second design authority. No production rollout, backend change or database migration is implied.
+
 Status: Laravel + React scaffold and local catalog/upgrades API exist. The manual cost calculator works in Arabic/English; this is not a completed Phase 2 or a production release. Laravel schema bootstrap/parity and source-backed publication gates remain open.
 
 ## Local development

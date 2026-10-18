@@ -2,6 +2,12 @@
 
 Status: PLAN ONLY. No permission to implement the full redesign. Eli must first approve the three rendered prototype designs. Comparison/upgrade pages need their own visual extension gate, not silent rollout.
 
+## Source authority and path scope
+
+The only current design implementation is `index.html` -> `src/prototype.jsx` and its imported prototype modules; see `FRONTEND_ARCHITECTURE.md`. The rejected unmounted attempt is removed and recoverable only through Git tag `legacy-prototype-frontend-final-2026-10-18`.
+
+Every abbreviated application path in sections 2–5 below is relative to the separate, preserved `apps/web/src/` integration target, not this laboratory's source directory. This is a future integration plan, not a declaration that the retired laboratory files still exist or run. Eli authorized the archive/retirement commits only; production integration remains unapproved.
+
 ## 1. Approve design boundaries and capture a rollback point
 Review final screenshot matrix and unresolved independent critique. Approve homepage, catalog and calculator explicitly (or identify one revision). Before later source edits, save byte-exact copies of only files authorized for integration; keep all existing dirty/untracked work. Do not reset, stash, merge or migrate to manufacture a clean repository. Current source-baseline.json hashes 88 original frontend/backend source/config/test files; source-preservation.json records current equality, not a database checksum or a rollback archive.
 

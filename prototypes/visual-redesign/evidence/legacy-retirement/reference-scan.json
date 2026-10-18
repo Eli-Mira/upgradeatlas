@@ -1,0 +1,168 @@
+{
+  "entry": "index.html -> src/prototype.jsx",
+  "source_files": [
+    "prototype-calc.js",
+    "prototype-calculator.jsx",
+    "prototype-catalog.jsx",
+    "prototype-data.js",
+    "prototype-home.jsx",
+    "prototype-ui.jsx",
+    "prototype.css",
+    "prototype.jsx"
+  ],
+  "reachable_modules": [
+    "apps/web/src/costValidation.js",
+    "prototypes/visual-redesign/motion/StudioLaptop.css",
+    "prototypes/visual-redesign/motion/StudioLaptop.jsx",
+    "prototypes/visual-redesign/motion/laptop.js",
+    "prototypes/visual-redesign/motion/studio.js",
+    "prototypes/visual-redesign/src/prototype-calc.js",
+    "prototypes/visual-redesign/src/prototype-calculator.jsx",
+    "prototypes/visual-redesign/src/prototype-catalog.jsx",
+    "prototypes/visual-redesign/src/prototype-data.js",
+    "prototypes/visual-redesign/src/prototype-home.jsx",
+    "prototypes/visual-redesign/src/prototype-ui.jsx",
+    "prototypes/visual-redesign/src/prototype.css",
+    "prototypes/visual-redesign/src/prototype.jsx"
+  ],
+  "relative_import_edges": [
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype-home.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-home.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype-catalog.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-catalog.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype-calculator.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-calculator.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype-data.js",
+      "to": "prototypes/visual-redesign/src/prototype-data.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype.css",
+      "to": "prototypes/visual-redesign/src/prototype.css",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype.jsx",
+      "specifier": "./prototype-ui.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-ui.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-ui.jsx",
+      "specifier": "./prototype-data.js",
+      "to": "prototypes/visual-redesign/src/prototype-data.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-calculator.jsx",
+      "specifier": "./prototype-calc.js",
+      "to": "prototypes/visual-redesign/src/prototype-calc.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-calculator.jsx",
+      "specifier": "./prototype-data.js",
+      "to": "prototypes/visual-redesign/src/prototype-data.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-calculator.jsx",
+      "specifier": "./prototype-ui.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-ui.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-calc.js",
+      "specifier": "../../../apps/web/src/costValidation.js",
+      "to": "apps/web/src/costValidation.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-catalog.jsx",
+      "specifier": "./prototype-data.js",
+      "to": "prototypes/visual-redesign/src/prototype-data.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-catalog.jsx",
+      "specifier": "./prototype-ui.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-ui.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-home.jsx",
+      "specifier": "../motion/StudioLaptop.jsx",
+      "to": "prototypes/visual-redesign/motion/StudioLaptop.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-home.jsx",
+      "specifier": "./prototype-ui.jsx",
+      "to": "prototypes/visual-redesign/src/prototype-ui.jsx",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/src/prototype-home.jsx",
+      "specifier": "./prototype-data.js",
+      "to": "prototypes/visual-redesign/src/prototype-data.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/motion/StudioLaptop.jsx",
+      "specifier": "./StudioLaptop.css",
+      "to": "prototypes/visual-redesign/motion/StudioLaptop.css",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/motion/StudioLaptop.jsx",
+      "specifier": "./studio.js",
+      "to": "prototypes/visual-redesign/motion/studio.js",
+      "exists": true
+    },
+    {
+      "from": "prototypes/visual-redesign/motion/studio.js",
+      "specifier": "./laptop.js",
+      "to": "prototypes/visual-redesign/motion/laptop.js",
+      "exists": true
+    }
+  ],
+  "unresolved_imports": [],
+  "retired_imports": [],
+  "project_code_files_scanned": 54,
+  "whole_project_imports_to_retired_files": [],
+  "active_laboratory_literal_reference_hits": [],
+  "removed_legacy_source_paths": [
+    "prototypes/visual-redesign/src/App.jsx",
+    "prototypes/visual-redesign/src/components/CompareTray.jsx",
+    "prototypes/visual-redesign/src/components/Footer.jsx",
+    "prototypes/visual-redesign/src/components/Nav.jsx",
+    "prototypes/visual-redesign/src/components/Reveal.jsx",
+    "prototypes/visual-redesign/src/components/SkuCard.jsx",
+    "prototypes/visual-redesign/src/components/States.jsx",
+    "prototypes/visual-redesign/src/index.css",
+    "prototypes/visual-redesign/src/lib/compare-store.js",
+    "prototypes/visual-redesign/src/lib/i18n.js",
+    "prototypes/visual-redesign/src/lib/router.jsx",
+    "prototypes/visual-redesign/src/main.jsx",
+    "prototypes/visual-redesign/src/pages/Calculator.jsx",
+    "prototypes/visual-redesign/src/pages/Catalog.jsx",
+    "prototypes/visual-redesign/src/pages/Home.jsx"
+  ],
+  "removed_stale_doc": "prototypes/visual-redesign/evidence/implementation.md",
+  "remaining_document_references": "Archive inventory and recovery instructions intentionally name retired paths. source-baseline.json and integration plans describe the separate apps/web source, which was not deleted."
+}

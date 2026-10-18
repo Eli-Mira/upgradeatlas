@@ -6,7 +6,7 @@ Status: THREE PROTOTYPES RENDERED; independent visual and functional review in p
 - Deliver three distinct but coherent responsive prototypes: cinematic homepage, industrial laptop catalog, analytical dark calculator.
 - Keep React + JavaScript + Tailwind; reuse existing installed tooling without modifying apps/web/package.json or lockfile.
 - All new design work stays under prototypes/visual-redesign/. Existing apps/web and services/api are read-only for this round.
-- No backend, database, API, business-logic edits; no migrations, deployment, publishing, git commits or merges.
+- No backend, database, API or business-logic edits; no migrations, deployment, publishing or merges. The explicitly authorized frontend archival/retirement commits are the only exception to the original no-commit boundary.
 - All prototype products, numbers and prices must be visibly labeled illustrative. No invented verified specifications, retail offers, testimonials, coverage counts or compatibility advice.
 - Original art or assets with verified free reuse rights only. Reference images remain private study material, not assets.
 - Desktop 1440px, tablet 834px, mobile 390px and narrow 320px checks. Arabic RTL and English LTR are distinct compositions, not only mirrored screenshots.
@@ -43,8 +43,10 @@ Run `npm run dev` from this laboratory only. Existing installed application depe
 | Catalog | `/laptops?lang=en` | `/laptops?lang=ar` |
 | Calculator | `/calculator?lang=en` | `/calculator?lang=ar` |
 
-Active entry: `index.html` -> `src/prototype.jsx`; pages are `src/prototype-home.jsx`, `prototype-catalog.jsx`, `prototype-calculator.jsx`; shared UI/data/styles are `prototype-ui.jsx`, `prototype-data.js`, `prototype.css`. The original concept viewer is `motion/StudioLaptop.jsx`. Prior unmounted `src/pages/*` attempts and their original `evidence/implementation.md` are retained as historical evidence, NOT the current implementation or proof of completion.
+**Sole authoritative frontend implementation in this laboratory:** `index.html` -> `src/prototype.jsx`. Its pages are `src/prototype-home.jsx`, `src/prototype-catalog.jsx` and `src/prototype-calculator.jsx`; shared UI/data/styles are `src/prototype-ui.jsx`, `src/prototype-data.js` and `src/prototype.css`; local preview arithmetic is `src/prototype-calc.js`. The original concept viewer is `motion/StudioLaptop.jsx`.
+
+The unmounted historical frontend and its superseded implementation report have been removed from this working tree. They exist only in Git: branch `archive/pre-prototype-frontend`, annotated tag `legacy-prototype-frontend-final-2026-10-18`, commit `5559b44d6602b5721b7284383815be5d8aea38b0`. Do not restore or review them as active code. See `FRONTEND_ARCHITECTURE.md` for the import graph, archival scope and safe recovery instructions. The separate `apps/web` API-connected application remains untouched; this retirement is not a production migration.
 
 Current visual evidence: `screenshots/iteration-2/manifest.json` and its 18 actual browser captures. Captures use reduced motion for stable stills; optional on-demand 3D has separate runtime checks. All six fictional catalog configurations and initial calculator amounts are explicitly illustrative. No production data/state or local preview arithmetic is authorized for transplant into the live application.
 
-Checks: `npm run build`; `node --test tests/cost-preview.test.js`; native Python Playwright `tests/smoke.py`; final independent QA reports and later capture corrections remain separate gates. `scripts/snapshot.py verify` compares the original 88 protected source/config/test files; that does not prove database contents byte-identical.
+Checks: `npm test` (preview arithmetic and frontend-authority/import guards); `npm run build`; native Python Playwright `tests/functional_qa.py` and `tests/smoke.py`. Retirement-specific raw outputs and built-preview browser checks are in `evidence/legacy-retirement/`. Final independent visual approval and later capture corrections remain separate gates. `scripts/snapshot.py verify` compares the original 88 protected source/config/test files; that does not prove database contents byte-identical.

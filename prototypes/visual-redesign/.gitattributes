@@ -1,2 +1,4 @@
 # Preserve archived sources and hash-bound evidence byte-for-byte.
 * -text
+# Native test output may contain CRLF; do not normalize bound evidence.
+evidence/** -text -whitespace

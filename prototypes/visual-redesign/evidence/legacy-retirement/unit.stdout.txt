@@ -1,0 +1,17 @@
+✔ preview preserves normalized Arabic/Persian decimal amounts as integer cents (1.8539ms)
+✔ preview rejects ambiguous, grouped, negative, overprecision and out-of-range amounts (0.5519ms)
+✔ fractional additions are exact and equal costs have no favored option (2.3873ms)
+✔ zero costs remain valid, including an all-zero equal comparison (0.1671ms)
+✔ comparison handles either lower-cost option and all maximum inputs safely (0.567ms)
+✔ invalid preview identifies field keys and never returns a misleading partial result (0.2163ms)
+✔ HTML mounts the sole authoritative prototype source tree (4.1386ms)
+✔ retired frontend source and misleading self-report stay out of the working tree (1.4063ms)
+✔ the mounted static/dynamic import graph and local asset URLs resolve without retired files (14.0157ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 234.2853

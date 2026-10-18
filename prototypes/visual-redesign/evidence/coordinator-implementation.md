@@ -1,6 +1,6 @@
 # Current coordinator implementation and verification
 
-Phase: isolated prototypes implemented and rendered; final independent review IN PROGRESS. Not full-site integration. No user visual approval. This supersedes the prior Role D self-report without deleting its historical record.
+Phase: isolated prototypes implemented and rendered; final independent review IN PROGRESS. Not full-site integration. No user visual approval. This supersedes the prior Role D self-report. That superseded report and its unmounted source have now been removed from the working tree and preserved at Git tag `legacy-prototype-frontend-final-2026-10-18`.
 
 ## Active files
 
@@ -8,7 +8,7 @@ Phase: isolated prototypes implemented and rendered; final independent review IN
 - Calculator preview: `src/prototype-calc.js`, reusing `apps/web/src/costValidation.js` read-only. Integer-cent comparison is demonstrative; the production server remains authoritative in any later integration.
 - Original artwork/viewer: `assets/`, `motion/StudioLaptop.jsx`, `studio.js`, `laptop.js`; repaired model/renderer behavior and earlier failing checks are recorded in `motion/coordinator-verification.md`.
 - Capture harness: `scripts/capture.py`; source guard: `scripts/snapshot.py`; baseline preserved in `evidence/source-baseline.json`.
-- Current design/plan: `DESIGN.md`, `research/art-direction.md`, `research/coordinator-ux-contract.md`, `IMPLEMENTATION_PLAN.md`. Older unmounted `src/pages/*` is retained as rejected history, not counted as the current implementation.
+- Current design/plan: `DESIGN.md`, `research/art-direction.md`, `research/coordinator-ux-contract.md`, `IMPLEMENTATION_PLAN.md`. The mounted prototype import graph is the sole current frontend implementation for this laboratory; see `../FRONTEND_ARCHITECTURE.md`. The rejected historical tree is Git-only, not an alternative entry point.
 
 ## Actual current execution
 

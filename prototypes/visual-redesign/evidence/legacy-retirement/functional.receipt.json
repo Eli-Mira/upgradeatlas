@@ -1,0 +1,13 @@
+{
+  "label": "functional",
+  "argv": [
+    "C:/Users/emadg/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe",
+    "tests/functional_qa.py"
+  ],
+  "cwd": "C:\\Users\\emadg\\Desktop\\\ud83d\udcbb Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign",
+  "shell": false,
+  "direct_exit": 0,
+  "seconds": 50.068,
+  "stdout": "functional.stdout.txt",
+  "stderr": "functional.stderr.txt"
+}

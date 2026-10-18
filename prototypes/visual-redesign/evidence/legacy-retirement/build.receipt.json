@@ -1,0 +1,14 @@
+{
+  "label": "build",
+  "argv": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "cwd": "C:\\Users\\emadg\\Desktop\\\ud83d\udcbb Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign",
+  "shell": true,
+  "direct_exit": 0,
+  "seconds": 5.126,
+  "stdout": "build.stdout.txt",
+  "stderr": "build.stderr.txt"
+}

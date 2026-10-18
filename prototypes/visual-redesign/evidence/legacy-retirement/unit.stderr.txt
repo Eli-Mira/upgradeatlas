@@ -1,0 +1,2 @@
+npm notice run test
+npm notice run node --test tests/*.test.js

@@ -1,0 +1,25 @@
+RECORD-OK: / en 320 | detail len 0
+RECORD-OK: / en 390 | detail len 0
+RECORD-OK: / en 834 | detail len 0
+RECORD-OK: / en 1440 | detail len 0
+RECORD-OK: / ar 320 | detail len 0
+RECORD-OK: / ar 390 | detail len 0
+RECORD-OK: / ar 834 | detail len 0
+RECORD-OK: / ar 1440 | detail len 0
+RECORD-OK: /laptops en 320 | detail len 0
+RECORD-OK: /laptops en 390 | detail len 0
+RECORD-OK: /laptops en 834 | detail len 0
+RECORD-OK: /laptops en 1440 | detail len 0
+RECORD-OK: /laptops ar 320 | detail len 0
+RECORD-OK: /laptops ar 390 | detail len 0
+RECORD-OK: /laptops ar 834 | detail len 0
+RECORD-OK: /laptops ar 1440 | detail len 0
+RECORD-OK: /calculator en 320 | detail len 0
+RECORD-OK: /calculator en 390 | detail len 0
+RECORD-OK: /calculator en 834 | detail len 0
+RECORD-OK: /calculator en 1440 | detail len 0
+RECORD-OK: /calculator ar 320 | detail len 0
+RECORD-OK: /calculator ar 390 | detail len 0
+RECORD-OK: /calculator ar 834 | detail len 0
+RECORD-OK: /calculator ar 1440 | detail len 0
+{"page_runs": 24, "failed": 0, "screenshots": ["home-en-desktop", "catalog-en-desktop", "calculator-en-desktop", "catalog-empty-en", "calculator-equal-ar-mobile", "home-ar-mobile"]}

@@ -1,0 +1,14 @@
+{
+  "label": "protected-source",
+  "argv": [
+    "C:/Users/emadg/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe",
+    "scripts/snapshot.py",
+    "verify"
+  ],
+  "cwd": "C:\\Users\\emadg\\Desktop\\\ud83d\udcbb Dev Corner\\Projects\\CODING\\CODINGWITHMIRA\\EliLain_College_PROJECT\\prototypes\\visual-redesign",
+  "shell": false,
+  "direct_exit": 0,
+  "seconds": 0.684,
+  "stdout": "protected-source.stdout.txt",
+  "stderr": "protected-source.stderr.txt"
+}
