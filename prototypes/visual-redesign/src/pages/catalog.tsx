@@ -4,6 +4,7 @@ import { PageHeading } from '../components/page-heading';
 import { LaptopCard } from '../components/laptop-card';
 import { ArrowRight, RotateCcw, Search } from '../components/icons';
 import { brandFilters, confidenceFilters, profiles } from '../data/profiles';
+import { useCompare } from '../data/compare';
 import { useCopy } from '../data/locale';
 
 export function CatalogPage() {
@@ -11,7 +12,7 @@ export function CatalogPage() {
   const [query, setQuery] = useState('');
   const [brand, setBrand] = useState('all');
   const [confidence, setConfidence] = useState('all');
-  const [selected, setSelected] = useState<string[]>([]);
+  const { selected, toggle } = useCompare();
 
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -25,11 +26,6 @@ export function CatalogPage() {
         (confidence === 'all' || p.confidence === confidence),
     );
   }, [query, brand, confidence]);
-
-  const toggle = (slug: string) =>
-    setSelected((previous) =>
-      previous.includes(slug) ? previous.filter((s) => s !== slug) : [...previous, slug],
-    );
 
   const reset = () => {
     setQuery('');

@@ -27,9 +27,10 @@ The build was recovered from artefacts the user supplied, not rewritten from scr
 - The original source of `App.tsx`, `catalog.tsx`, `laptop-card.tsx`, `page-heading.tsx` and `index.css`.
 - The live Three.js hero scene. The `.scene-frame` / `.fallback-art` / `.scene-coordinate` /
   `.visual-readout` contract is intact, so restoring a real scene is a component swap, not a redesign.
-- The `/gaming`, `/compare`, `/upgrade` and `/laptops/:slug` pages. Their **styles are present**
-  in the recovered stylesheet (`.gpu-reference*`, `.comparison-grid`, `.calculator-layout`,
-  `.profile-*`, `.phase-modal*`), so the markup contract for them is known, but no page was captured.
+- The `/gaming`, `/compare`, `/upgrade` and `/laptops/:slug` pages were **not captured**, so
+  they have since been rebuilt against the class contract the recovered stylesheet already
+  carried (`.gpu-reference*`, `.comparison-grid`, `.calculator-layout`, `.profile-*`,
+  `.result-*`). Their layout is a reconstruction, not a recovery.
 - The Arabic copy of the recovered pages is new, written against the same class contract. The
   recovered stylesheet has no `[dir=rtl]` rules, so RTL is a first-class locale that the original
   stylesheet only partially mirrored.
@@ -51,6 +52,10 @@ Run `npm run dev` from this directory only. `http://127.0.0.1:5174`.
 |---|---|---|
 | Field guide | `/?lang=en` | `/?lang=ar` |
 | Research library | `/laptops?lang=en` | `/laptops?lang=ar` |
+| Research record | `/laptops/<slug>?lang=en` | `/laptops/<slug>?lang=ar` |
+| Graphics desk | `/gaming?lang=en` | `/gaming?lang=ar` |
+| Comparison | `/compare?lang=en` | `/compare?lang=ar` |
+| Cost workbench | `/upgrade?lang=en` | `/upgrade?lang=ar` |
 
 `?lang=` controls document language and direction. The header's `EN | ع` control switches it live.
 
@@ -60,8 +65,9 @@ Dependencies: the laboratory reuses `apps/web/node_modules` through the aliases 
 
 ## Checks
 
-- `npm test` — source-authority guards: the document entry, the mounted chain, the absence of the
-  retired legacy tree, the presence of the design tokens, and the uniqueness of the profiles.
+- `npm test` — source-authority guards (the document entry, the mounted chain, the absence of the
+  retired legacy tree, the design tokens, the uniqueness of the profiles) and a copy-integrity
+  guard that fails if any referenced interface string is missing from a locale.
 - `npm run build` — real Vite production compilation.
 - Browser sweeps were run with Playwright across 12 widths (320–1904) × 3 routes × 2 locales:
   no console errors, no page errors, no horizontal overflow.

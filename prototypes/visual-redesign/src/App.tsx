@@ -4,14 +4,18 @@ import { Menu } from './components/icons';
 import { HomePage } from './pages/home';
 import { CatalogPage } from './pages/catalog';
 import { NotFoundPage } from './pages/not-found';
+import { ProfilePage } from './pages/profile';
+import { ComparePage } from './pages/compare';
+import { GamingPage } from './pages/gaming';
+import { UpgradePage } from './pages/upgrade';
 import { useCopy, useLocale } from './data/locale';
 
 const routes = [
-  { path: '/', label: 'nav.home' },
-  { path: '/laptops', label: 'nav.laptops' },
-  { path: '/gaming', label: 'nav.gaming' },
-  { path: '/compare', label: 'nav.compare' },
-  { path: '/upgrade', label: 'nav.upgrade' },
+  { path: '/', label: 'home' },
+  { path: '/laptops', label: 'laptops' },
+  { path: '/gaming', label: 'gaming' },
+  { path: '/compare', label: 'compare' },
+  { path: '/upgrade', label: 'upgrade' },
 ] as const;
 
 function LocaleSwitch() {
@@ -82,9 +86,9 @@ export default function App() {
               className="nav-link"
               to={route.path}
               aria-current={location.pathname === route.path ? 'page' : undefined}
-              data-testid={`nav-${route.label.replace('nav.', '')}`}
+              data-testid={`nav-${route.label}`}
             >
-              {c[route.label]}
+              {c.nav[route.label]}
             </Link>
           ))}
         </nav>
@@ -113,7 +117,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/laptops" element={<CatalogPage />} />
-          <Route path="/laptops/:slug" element={<CatalogPage />} />
+          <Route path="/laptops/:slug" element={<ProfilePage />} />
+          <Route path="/gaming" element={<GamingPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/upgrade" element={<UpgradePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

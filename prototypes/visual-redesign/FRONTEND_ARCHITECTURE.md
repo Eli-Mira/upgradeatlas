@@ -14,8 +14,13 @@ index.html
     │   ├── src/pages/catalog.tsx         research library: search, brand filter, confidence filter
     │   │   ├── src/components/page-heading.tsx
     │   │   └── src/components/laptop-card.tsx
+    │   ├── src/pages/profile.tsx         one research record: specs, evidence, add to comparison
+    │   ├── src/pages/compare.tsx         up to three profiles side by side
+    │   ├── src/pages/gaming.tsx          the graphics desk, one record per GPU
+    │   ├── src/pages/upgrade.tsx         the cost workbench: four entered figures, one comparison
     │   └── src/pages/not-found.tsx
     ├── src/data/locale.tsx               locale context, `lang`/`dir` on the document
+    ├── src/data/compare.tsx              shared comparison selection, carried in `?compare=`
     ├── src/data/copy.ts                  all EN and AR interface copy
     ├── src/data/profiles.ts              the four sourced hardware profiles and the filter sets
     └── src/index.css                     the recovered design system (157 KB)
@@ -27,13 +32,15 @@ carries the Tailwind v4.3.3 base plus the application's own 151 unlayered class 
 make a page look different**: the page components are what were reconstructed, and the stylesheet
 is the authority.
 
-Routes: `/` (field guide), `/laptops` (research library), `/laptops/:slug` (currently the
-library), and a not-found page. `/gaming`, `/compare` and `/upgrade` are **styled but not yet
-built**; their class contracts are in the stylesheet (`.gpu-reference*`, `.comparison-grid`,
-`.calculator-layout`, `.profile-*`, `.phase-modal*`) and are the next build targets.
+Routes: `/` (field guide), `/laptops` (research library), `/laptops/:slug` (one research
+record), `/gaming` (the graphics desk), `/compare` (up to three profiles side by side),
+`/upgrade` (the cost workbench) and a not-found page. Each is built against the class contract
+that the recovered stylesheet already carried (`.gpu-reference*`, `.comparison-grid`,
+`.calculator-layout`, `.profile-*`, `.result-*`).
 
 Query `lang=en` or `lang=ar` controls document language and direction. The header's locale
-control switches it live and rewrites the query parameter.
+control switches it live and rewrites the query parameter. The comparison selection is carried
+in `?compare=slug,slug`, so a comparison survives a reload and can be linked to.
 
 ## Asset honesty
 
@@ -78,7 +85,8 @@ files into this active source directory.
 ## Verification and boundaries
 
 - `npm test`: source-authority guards over the entry, the mounted chain, the retired tree, the
-  design tokens and the profile data.
+  design tokens and the profile data, plus a copy-integrity guard that fails if any
+  `c.<group>.<key>` referenced in the source is missing from either locale.
 - `npm run build`: actual Vite production compilation.
 - Browser sweeps: 12 widths (320 → 1904) × 3 routes × 2 locales, no console errors, no page
   errors, no horizontal overflow; search, brand filter, confidence filter, reset, compare
