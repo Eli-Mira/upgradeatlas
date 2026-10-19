@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowDown, ArrowRight, ArrowUpRight } from '../components/icons';
+import { DecisionGrid } from '../components/decision-grid';
 import { profiles } from '../data/profiles';
 import { useCopy } from '../data/locale';
 
@@ -59,19 +60,7 @@ export function HomePage() {
               alt="Original concept render of a graphite gaming laptop with a red light sweep, recovered from the design study"
             />
           </div>
-          <span className="scene-coordinate" aria-hidden="true" />
-          <div className="visual-readout" aria-hidden="true">
-            FIELD NOTE — 001
-            <br />
-            EXACT SKU / VERIFIED PATHS
-            <br />
-            CAIRO, EG · 30°02' N
-          </div>
         </figure>
-
-        <span className="vertical-index" aria-hidden="true">
-          QA / VISUAL STUDY 001
-        </span>
 
         <div className="hero-bottomline">
           <span>{c.home.bottomLeft}</span>
@@ -195,21 +184,7 @@ export function HomePage() {
           </span>
           <span>{next.aside}</span>
         </div>
-        <div className="decision-grid">
-          {next.cards.map((card) => (
-            <Link className="decision-panel" to={card.to} key={card.to}>
-              <span className="section-label">
-                <i className="precision-tick" />
-                {card.kicker}
-              </span>
-              <h2>{card.title}</h2>
-              <p className="manifesto-copy">{card.body}</p>
-              <span className="decision-link">
-                {card.cta} <ArrowUpRight />
-              </span>
-            </Link>
-          ))}
-        </div>
+        <DecisionGrid cards={next.cards} />
       </section>
 
       <section className="home-coda">

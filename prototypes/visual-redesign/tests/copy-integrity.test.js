@@ -35,9 +35,9 @@ test('every referenced copy key exists in both locales', async () => {
   const keys = referencedKeys();
   assert.ok(keys.size > 20, 'expected the source to reference a meaningful number of copy keys');
 
-  // Split the copy object into its two locale sections.
-  const arStart = source.indexOf('\n  ar: {');
-  assert.ok(arStart > 0, 'could not find the ar locale section');
+  // Split the copy module into its two locale blocks.
+  const arStart = source.indexOf('const ar = {');
+  assert.ok(arStart > 0, 'could not find the ar locale block');
   const locales = {
     en: source.slice(0, arStart),
     ar: source.slice(arStart),

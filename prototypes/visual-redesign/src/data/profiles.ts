@@ -73,6 +73,21 @@ export const profiles: Profile[] = [
   },
 ];
 
+/**
+ * The record keeps its canonical English value; the Arabic page shows a
+ * localised reading of the same value, so the research data itself is not
+ * altered by the interface language.
+ */
+export const valueTranslations: Record<string, { ar: string }> = {
+  'Configuration varies': { ar: 'يتغيّر حسب التكوين' },
+  'Not specified': { ar: 'غير محدّد' },
+};
+
+export function displayValue(value: string, lang: 'en' | 'ar') {
+  if (lang === 'en') return value;
+  return valueTranslations[value]?.ar ?? value;
+}
+
 export const brandFilters = [
   { value: 'all', label: 'All brands' },
   { value: 'AC', label: 'Acer' },

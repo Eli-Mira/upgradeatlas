@@ -47,8 +47,10 @@ in `?compare=slug,slug`, so a comparison survives a reload and can be linked to.
 `assets/hero-laptop.webp` is a recovered still of the original Three.js hero. The live scene
 was not recoverable from the supplied artefacts. The stylesheet's contract for it is intact:
 `.hero-visual` holds `.scene-frame`, which holds `.fallback-art`; `.scene-coordinate`,
-`.visual-readout` and `.vertical-index` are DOM overlays above it. Restoring a real scene means
-swapping the image for a canvas inside `.scene-frame`, with no change to the CSS.
+`.visual-readout` and `.vertical-index` are DOM overlays above it. The still already carries
+that annotation layer as raster, so the DOM overlays are deliberately not rendered over it;
+restoring a real scene means swapping the image for a canvas inside `.scene-frame` and
+re-adding the three overlays, with no change to the CSS.
 
 ## Retired source: Git only
 
@@ -85,8 +87,9 @@ files into this active source directory.
 ## Verification and boundaries
 
 - `npm test`: source-authority guards over the entry, the mounted chain, the retired tree, the
-  design tokens and the profile data, plus a copy-integrity guard that fails if any
-  `c.<group>.<key>` referenced in the source is missing from either locale.
+  design tokens and the profile data; a copy-integrity guard that fails if any
+  `c.<group>.<key>` referenced in the source is missing from either locale; and a TypeScript
+  type check, because a missing identifier is a runtime failure the Vite build does not catch.
 - `npm run build`: actual Vite production compilation.
 - Browser sweeps: 12 widths (320 → 1904) × 3 routes × 2 locales, no console errors, no page
   errors, no horizontal overflow; search, brand filter, confidence filter, reset, compare

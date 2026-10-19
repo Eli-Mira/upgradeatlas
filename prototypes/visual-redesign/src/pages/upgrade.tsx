@@ -4,13 +4,6 @@ import { useCopy } from '../data/locale';
 
 type CostKey = 'memory' | 'storage' | 'installation' | 'replacement';
 
-const fields: { key: CostKey; label: string; hint: string }[] = [
-  { key: 'memory', label: 'Memory upgrade', hint: 'Enter 0 if no memory upgrade is planned.' },
-  { key: 'storage', label: 'Storage upgrade', hint: 'Enter 0 if you are keeping your storage.' },
-  { key: 'installation', label: 'Installation', hint: 'The installation cost you expect to pay.' },
-  { key: 'replacement', label: 'Replacement laptop', hint: 'Your own total for the alternative machine.' },
-];
-
 const parseAmount = (raw: string) => {
   const cleaned = raw.replace(/[^\d.]/g, '');
   if (!cleaned || cleaned === '.') return null;
@@ -25,6 +18,12 @@ const format = (cents: number) =>
 
 export function UpgradePage() {
   const c = useCopy();
+  const fields: { key: CostKey; label: string; hint: string }[] = [
+    { key: 'memory', label: c.upgrade.fieldMemory, hint: c.upgrade.hintMemory },
+    { key: 'storage', label: c.upgrade.fieldStorage, hint: c.upgrade.hintStorage },
+    { key: 'installation', label: c.upgrade.fieldInstallation, hint: c.upgrade.hintInstallation },
+    { key: 'replacement', label: c.upgrade.fieldReplacement, hint: c.upgrade.hintReplacement },
+  ];
   const [values, setValues] = useState<Record<CostKey, string>>({
     memory: '',
     storage: '',

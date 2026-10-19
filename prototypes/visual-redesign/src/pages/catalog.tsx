@@ -5,10 +5,11 @@ import { LaptopCard } from '../components/laptop-card';
 import { ArrowRight, RotateCcw, Search } from '../components/icons';
 import { brandFilters, confidenceFilters, profiles } from '../data/profiles';
 import { useCompare } from '../data/compare';
-import { useCopy } from '../data/locale';
+import { useCopy, useLocale } from '../data/locale';
 
 export function CatalogPage() {
   const c = useCopy();
+  const { locale } = useLocale();
   const [query, setQuery] = useState('');
   const [brand, setBrand] = useState('all');
   const [confidence, setConfidence] = useState('all');
@@ -91,11 +92,16 @@ export function CatalogPage() {
 
       {rows.length ? (
         <div className="catalog-grid">
-          {rows.map((profile, index) => (
+          {rows.map((profile) => (
             <LaptopCard
               key={profile.slug}
               profile={profile}
-              index={index}
+              labels={{
+                processor: c.catalog.processor,
+                graphics: c.catalog.graphics,
+                memory: c.catalog.memory,
+                storage: c.catalog.storage,
+              }}
               confidenceLabel={
                 profile.confidence === 'exact' ? c.catalog.exact : c.catalog.family
               }
@@ -103,6 +109,7 @@ export function CatalogPage() {
               addedLabel={c.catalog.added}
               compareLabel={c.catalog.compare}
               selected={selected.includes(profile.slug)}
+              lang={locale}
               onToggleCompare={toggle}
             />
           ))}

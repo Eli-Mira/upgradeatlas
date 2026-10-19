@@ -1,7 +1,6 @@
 export type Locale = 'en' | 'ar';
 
-export const copy = {
-  en: {
+const en = {
     localeName: 'العربية',
     localeSwitchLabel: 'Switch language',
     skipToMain: 'Skip to main content',
@@ -155,6 +154,19 @@ export const copy = {
       gpuCount: 'GRAPHICS RECORDS',
       gpuNote: 'FROM THE SAME RESEARCH RECORDS',
       genericNote: 'No graphics note has been recorded for this configuration yet.',
+      memoryLabel: 'MEMORY',
+      storageLabel: 'STORAGE',
+      partLabel: 'PART',
+      notes: {
+        'NVIDIA GeForce RTX 2050':
+          'Entry laptop GPU. Shared memory, so sustained load throttles.',
+        'NVIDIA GeForce RTX 4050 Laptop GPU':
+          'Mid-range laptop GPU. Frame generation is not available on this tier.',
+        'NVIDIA GeForce RTX 4050':
+          'Mid-range laptop GPU. Frame generation is not available on this tier.',
+        'NVIDIA GeForce RTX 4060':
+          'The discrete GPU in this configuration, with a separate 8 GB of VRAM.',
+      },
       openProfile: 'OPEN THE PROFILE',
       disclaimer:
         'Graphics notes describe the part, not the machine around it. Cooling, power limits and memory configuration change real results, and none of those are measured here.',
@@ -168,6 +180,14 @@ export const copy = {
       stepOne: 'STEP 01 / YOUR ESTIMATES',
       stepTwo: 'STEP 02 / THE COMPARISON',
       formTitle: 'What the upgrade would cost',
+      fieldMemory: 'Memory upgrade',
+      fieldStorage: 'Storage upgrade',
+      fieldInstallation: 'Installation',
+      fieldReplacement: 'Replacement laptop',
+      hintMemory: 'Enter 0 if no memory upgrade is planned.',
+      hintStorage: 'Enter 0 if you are keeping your storage.',
+      hintInstallation: 'The installation cost you expect to pay.',
+      hintReplacement: 'Your own total for the alternative machine.',
       calculate: 'CALCULATE THE COMPARISON',
       clear: 'CLEAR THE FIELDS',
       upgradeTotal: 'UPGRADE TOTAL',
@@ -197,6 +217,10 @@ export const copy = {
       reset: 'RESET',
       profilesCount: 'PROFILES',
       noPrices: 'NO PRICES · NO STOCK CLAIMS',
+      processor: 'PROCESSOR',
+      graphics: 'GRAPHICS',
+      memory: 'MEMORY',
+      storage: 'STORAGE',
       readProfile: 'READ PROFILE',
       added: 'ADDED',
       compare: 'COMPARE',
@@ -209,9 +233,10 @@ export const copy = {
       exact: 'Exact configuration',
       family: 'Model family',
     },
-  },
-  ar: {
-    localeName: 'English',
+} as const;
+
+const ar = {
+  localeName: 'English',
     localeSwitchLabel: 'تغيير اللغة',
     skipToMain: 'تخطَّ إلى المحتوى الرئيسي',
     nav: {
@@ -364,6 +389,19 @@ export const copy = {
       gpuCount: 'سجل كروت الشاشة',
       gpuNote: 'من سجلات البحث نفسها',
       genericNote: 'لم يُسجَّل بعد أي ملاحظة عن كرت الشاشة لهذا التكوين.',
+      memoryLabel: 'الذاكرة',
+      storageLabel: 'التخزين',
+      partLabel: 'القطعة',
+      notes: {
+        'NVIDIA GeForce RTX 2050':
+          'كرت شاشة بسيط. يشارك ذاكرة النظام، فالأداء المستمر يخفض تلقائيًا.',
+        'NVIDIA GeForce RTX 4050 Laptop GPU':
+          'كرت شاشة متوسط. توليد الإطارات غير متاح في هذه الفئة.',
+        'NVIDIA GeForce RTX 4050':
+          'كرت شاشة متوسط. توليد الإطارات غير متاح في هذه الفئة.',
+        'NVIDIA GeForce RTX 4060':
+          'كرت الشاشة المنفصل في هذا التكوين، بذاكرة ٨ جيجابايت مستقلة.',
+      },
       openProfile: 'افتح الملف',
       disclaimer:
         'ملاحظات كرت الشاشة تصف القطعة لا الجهاز حولها. التبريد وحدود الطاقة وإعداد الذاكرة تغيّر النتائج الفعلية، ولا شيء من ذلك مقيس هنا.',
@@ -377,6 +415,14 @@ export const copy = {
       stepOne: 'خطوة ٠١ / تقديراتك',
       stepTwo: 'خطوة ٠٢ / المقارنة',
       formTitle: 'كم ستكلف الترقية',
+      fieldMemory: 'ترقية الذاكرة',
+      fieldStorage: 'ترقية التخزين',
+      fieldInstallation: 'التركيب',
+      fieldReplacement: 'اللابتوب البديل',
+      hintMemory: 'اكتب 0 لو مش هتغيّر الرام.',
+      hintStorage: 'اكتب 0 لو هتحتفظ بالتخزين الحالي.',
+      hintInstallation: 'تكلفة التركيب اللي تتوقّع تدفعها.',
+      hintReplacement: 'إجمالي تقديرك للجهاز البديل.',
       calculate: 'احسب المقارنة',
       clear: 'امسح الحقول',
       upgradeTotal: 'إجمالي الترقية',
@@ -406,6 +452,10 @@ export const copy = {
       reset: 'إعادة ضبط',
       profilesCount: 'ملفًا بحثيًا',
       noPrices: 'لا أسعار · لا ادعاءات توافر',
+      processor: 'المعالج',
+      graphics: 'كرت الشاشة',
+      memory: 'الذاكرة',
+      storage: 'التخزين',
       readProfile: 'اقرأ الملف',
       added: 'مُضاف',
       compare: 'قارن',
@@ -418,8 +468,72 @@ export const copy = {
       exact: 'تكوين محدد',
       family: 'عائلة موديلات',
     },
-  },
 } as const;
+
+/** The four home sections have deliberately different shapes; this names them. */
+type HomeSection =
+  | {
+      index: string;
+      kicker: string;
+      aside: string;
+      heading: readonly [string, string];
+      body: string;
+      link: string;
+      railLeft: string;
+      railRight: string;
+    }
+  | {
+      index: string;
+      kicker: string;
+      aside: string;
+      heading: readonly [string, string];
+      link: string;
+      sectionLabel: string;
+    }
+  | {
+      index: string;
+      kicker: string;
+      aside: string;
+      heading: readonly [string, string];
+      body: string;
+      principles: readonly { title: string; body: string }[];
+    }
+  | {
+      index: string;
+      kicker: string;
+      aside: string;
+      cards: readonly {
+        kicker: string;
+        title: string;
+        body: string;
+        cta: string;
+        to: string;
+      }[];
+    };
+
+type HomeSections = readonly [
+  Extract<HomeSection, { railLeft: string }>,
+  Extract<HomeSection, { sectionLabel: string }>,
+  Extract<HomeSection, { principles: readonly { title: string; body: string }[] }>,
+  Extract<HomeSection, { cards: readonly { kicker: string; title: string; body: string; cta: string; to: string }[] }>,
+];
+
+/** Widen the literal types so both locales share one shape. */
+type Widen<T> = T extends string
+  ? string
+  : T extends readonly [infer A, infer B]
+    ? readonly [Widen<A>, Widen<B>]
+    : T extends readonly (infer U)[]
+      ? readonly Widen<U>[]
+      : T extends object
+        ? { [K in keyof T]: Widen<T[K]> }
+        : T;
+
+export type LocaleCopy = Omit<Widen<typeof en>, 'home'> & {
+  home: Omit<Widen<typeof en>['home'], 'sections'> & { sections: HomeSections };
+};
+
+export const copy: { en: LocaleCopy; ar: LocaleCopy } = { en, ar };
 
 export function t(locale: Locale) {
   return copy[locale];

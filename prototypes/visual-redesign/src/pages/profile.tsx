@@ -1,28 +1,29 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowUpRight, Check, Plus } from '../components/icons';
-import { profiles } from '../data/profiles';
+import { DecisionGrid } from '../components/decision-grid';
+import { displayValue, profiles } from '../data/profiles';
 import { useCompare } from '../data/compare';
-import { useCopy } from '../data/locale';
+import { useCopy, useLocale } from '../data/locale';
 
 export function ProfilePage() {
   const { slug } = useParams();
   const c = useCopy();
+  const { locale } = useLocale();
   const { selected, toggle } = useCompare();
   const profile = profiles.find((p) => p.slug === slug);
-  const [tab, setTab] = useState<'specs' | 'evidence'>('specs');
 
   const rows = useMemo(() => {
     if (!profile) return [];
     return [
       { label: c.profile.processor, value: profile.processor, known: true },
       { label: c.profile.graphics, value: profile.graphics, known: true },
-      { label: c.profile.memory, value: profile.memory, known: profile.memory !== 'Configuration varies' },
-      { label: c.profile.storage, value: profile.storage, known: profile.storage !== 'Not specified' },
+      { label: c.profile.memory, value: displayValue(profile.memory, locale), known: profile.memory !== 'Configuration varies' },
+      { label: c.profile.storage, value: displayValue(profile.storage, locale), known: profile.storage !== 'Not specified' },
       { label: c.profile.partNumber, value: profile.partNumber, known: true },
       { label: c.profile.sku, value: profile.sku, known: true },
     ];
-  }, [profile, c]);
+  }, [profile, c, locale]);
 
   if (!profile) {
     return (
@@ -122,30 +123,7 @@ export function ProfilePage() {
         </aside>
       </div>
 
-      <div className="decision-grid">
-        <Link className="decision-panel" to="/compare">
-          <span className="section-label">
-            <i className="precision-tick" />
-            {c.home.sections[3].cards[0].kicker}
-          </span>
-          <h2>{c.home.sections[3].cards[0].title}</h2>
-          <p>{c.home.sections[3].cards[0].body}</p>
-          <span className="decision-link">
-            {c.home.sections[3].cards[0].cta} <ArrowUpRight />
-          </span>
-        </Link>
-        <Link className="decision-panel" to="/upgrade">
-          <span className="section-label">
-            <i className="precision-tick" />
-            {c.home.sections[3].cards[1].kicker}
-          </span>
-          <h2>{c.home.sections[3].cards[1].title}</h2>
-          <p>{c.home.sections[3].cards[1].body}</p>
-          <span className="decision-link">
-            {c.home.sections[3].cards[1].cta} <ArrowUpRight />
-          </span>
-        </Link>
-      </div>
+      <DecisionGrid cards={c.home.sections[3].cards} />
     </main>
   );
 }

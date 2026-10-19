@@ -17,7 +17,7 @@ The build was recovered from artefacts the user supplied, not rewritten from scr
 |---|---|---|
 | `src/index.css` (157 KB) | The complete real stylesheet, serialised from the browser CSSOM of the user's saved page. Tailwind v4.3.3 output plus the app's own 151 unlayered class rules, the `--atlas-*` token set, the 10 keyframes and the mobile media queries. | Byte-faithful |
 | `src/main.tsx` | Original TypeScript recovered from the `sourcesContent` of the Vite source map embedded in the saved entry module. | Byte-faithful |
-| `assets/hero-laptop.webp` | The hero's rendered Three.js output, recovered from the supplied full-page PNG and cleaned of the adjacent headline pixels by gradient extrapolation. A still, not the live scene. | Reconstructed still |
+| `assets/hero-laptop.webp` | The hero's rendered Three.js output, recovered from the supplied full-page PNG and cleaned of the adjacent headline pixels by gradient extrapolation. A still, not the live scene, and it carries the annotation overlay (`FIELD NOTE`, the coordinate bracket, the vertical study index) as raster. | Reconstructed still |
 | `src/App.tsx`, `src/pages/*`, `src/components/*`, `src/data/*` | Reconstructed from the saved DOM. Every element in that DOM carried `data-replit-metadata` naming its source file and line, so the component tree, class contract and copy are exact; the component bodies are new. | Reconstructed |
 | `src/data/profiles.ts` | The four real hardware profiles, verbatim from the saved catalogue DOM (model names, part numbers, SKUs, processors, GPUs, memory, storage, confidence level). | Exact |
 | Lucide icon set | The six icons the DOM used, inlined as SVG in `src/components/icons.tsx` with the same paths and classes. No `lucide-react` dependency. | Exact |
@@ -60,14 +60,16 @@ Run `npm run dev` from this directory only. `http://127.0.0.1:5174`.
 `?lang=` controls document language and direction. The header's `EN | ع` control switches it live.
 
 Dependencies: the laboratory reuses `apps/web/node_modules` through the aliases in
-`vite.config.mjs`; `react-router-dom` is the one local dependency, in this directory's
-`node_modules`. Nothing is installed into `apps/web`.
+`vite.config.mjs`; `react-router-dom` and the type-check toolchain are the local dependencies,
+in this directory's `node_modules`. Nothing is installed into `apps/web`.
 
 ## Checks
 
 - `npm test` — source-authority guards (the document entry, the mounted chain, the absence of the
   retired legacy tree, the design tokens, the uniqueness of the profiles) and a copy-integrity
-  guard that fails if any referenced interface string is missing from a locale.
+  guard that fails if any referenced interface string is missing from a locale, followed by a
+  TypeScript type check. The type check is part of the gate because a missing identifier is a
+  runtime failure that the Vite build does not catch.
 - `npm run build` — real Vite production compilation.
 - Browser sweeps were run with Playwright across 12 widths (320–1904) × 3 routes × 2 locales:
   no console errors, no page errors, no horizontal overflow.

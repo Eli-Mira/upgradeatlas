@@ -1,18 +1,14 @@
 import { Link } from 'react-router-dom';
 import { PageHeading } from '../components/page-heading';
 import { ArrowUpRight } from '../components/icons';
-import { profiles } from '../data/profiles';
-import { useCopy } from '../data/locale';
-
-const gpuNotes: Record<string, string> = {
-  'NVIDIA GeForce RTX 2050': 'Entry laptop GPU. Shared memory, so sustained load throttles.',
-  'NVIDIA GeForce RTX 4050 Laptop GPU': 'Mid-range laptop GPU. Frame generation is not available on this tier.',
-  'NVIDIA GeForce RTX 4050': 'Mid-range laptop GPU. Frame generation is not available on this tier.',
-  'NVIDIA GeForce RTX 4060': 'The discrete GPU in this configuration, with a separate 8 GB of VRAM.',
-};
+import { displayValue, profiles } from '../data/profiles';
+import { useCopy, useLocale } from '../data/locale';
 
 export function GamingPage() {
   const c = useCopy();
+  const { locale } = useLocale();
+  const noteFor = (graphics: string) =>
+    (c.gaming.notes as Record<string, string>)[graphics] ?? c.gaming.genericNote;
 
   return (
     <main className="content-page">
@@ -53,22 +49,22 @@ export function GamingPage() {
 
             <dl className="gpu-facts">
               <div>
-                <dt className="source-label">MEMORY</dt>
-                <dd>{profile.memory}</dd>
+                <dt className="source-label">{c.gaming.memoryLabel}</dt>
+                <dd>{displayValue(profile.memory, locale)}</dd>
               </div>
               <div>
-                <dt className="source-label">STORAGE</dt>
-                <dd>{profile.storage}</dd>
+                <dt className="source-label">{c.gaming.storageLabel}</dt>
+                <dd>{displayValue(profile.storage, locale)}</dd>
               </div>
               <div>
-                <dt className="source-label">PART</dt>
+                <dt className="source-label">{c.gaming.partLabel}</dt>
                 <dd>{profile.sku}</dd>
               </div>
             </dl>
 
             <div className="gpu-source">
               <p className="caution-block">
-                {gpuNotes[profile.graphics] ?? c.gaming.genericNote}
+                {noteFor(profile.graphics)}
               </p>
               <Link className="gpu-profile-link" to={`/laptops/${profile.slug}`}>
                 {c.gaming.openProfile} <ArrowUpRight size={12} />

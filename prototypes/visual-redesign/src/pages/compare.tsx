@@ -1,20 +1,21 @@
 import { Link } from 'react-router-dom';
 import { PageHeading } from '../components/page-heading';
 import { ArrowUpRight } from '../components/icons';
-import { profiles } from '../data/profiles';
+import { displayValue, profiles } from '../data/profiles';
 import { useCompare } from '../data/compare';
-import { useCopy } from '../data/locale';
+import { useCopy, useLocale } from '../data/locale';
 
 export function ComparePage() {
   const c = useCopy();
+  const { locale } = useLocale();
   const { selected, toggle, clear } = useCompare();
   const chosen = profiles.filter((p) => selected.includes(p.slug));
 
   const rows = [
     { label: c.compare.processor, get: (p: (typeof profiles)[number]) => p.processor },
     { label: c.compare.graphics, get: (p: (typeof profiles)[number]) => p.graphics },
-    { label: c.compare.memory, get: (p: (typeof profiles)[number]) => p.memory },
-    { label: c.compare.storage, get: (p: (typeof profiles)[number]) => p.storage },
+    { label: c.compare.memory, get: (p: (typeof profiles)[number]) => displayValue(p.memory, locale) },
+    { label: c.compare.storage, get: (p: (typeof profiles)[number]) => displayValue(p.storage, locale) },
     { label: c.compare.partNumber, get: (p: (typeof profiles)[number]) => p.partNumber },
     { label: c.compare.confidence, get: (p: (typeof profiles)[number]) => (p.confidence === 'exact' ? c.catalog.exact : c.catalog.family) },
   ];

@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom';
-import type { Profile } from '../data/profiles';
+import { displayValue, type Profile } from '../data/profiles';
 import { ArrowUpRight, Check, Plus } from './icons';
 
 type LaptopCardProps = {
   profile: Profile;
+  labels: { processor: string; graphics: string; memory: string; storage: string };
   confidenceLabel: string;
   readProfileLabel: string;
   addedLabel: string;
   compareLabel: string;
   selected: boolean;
+  lang: 'en' | 'ar';
   onToggleCompare: (slug: string) => void;
 };
 
 export function LaptopCard({
   profile,
+  labels,
   confidenceLabel,
   readProfileLabel,
   addedLabel,
   compareLabel,
   selected,
+  lang,
   onToggleCompare,
 }: LaptopCardProps) {
   return (
@@ -39,21 +43,21 @@ export function LaptopCard({
       </Link>
 
       <div className="card-spec">
-        <span>PROCESSOR</span>
+        <span>{labels.processor}</span>
         <b>{profile.processor}</b>
       </div>
       <div className="card-spec">
-        <span>GRAPHICS</span>
+        <span>{labels.graphics}</span>
         <b>{profile.graphics}</b>
       </div>
       <div className="card-spec split">
         <div>
           <span>MEMORY</span>
-          <b>{profile.memory}</b>
+          <b>{displayValue(profile.memory, lang)}</b>
         </div>
         <div>
-          <span>STORAGE</span>
-          <b>{profile.storage}</b>
+          <span>{labels.storage}</span>
+          <b>{displayValue(profile.storage, lang)}</b>
         </div>
       </div>
 

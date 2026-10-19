@@ -1,7 +1,7 @@
 type PageHeadingProps = {
   index: string;
   eyebrow: string;
-  heading: [string, string];
+  heading: readonly [string, string];
   deck: string;
 };
 
