@@ -1,55 +1,110 @@
-# UpgradeAtlas — prototype design system
+# UpgradeAtlas — design system (field-guide build)
 
-Status: implemented proposal; Eli has not approved rollout. Actual source: `src/prototype.css` and mounted `src/prototype-*.jsx`. Art direction and reference observations: `research/art-direction.md`. This system is specific to the three isolated pages, not an assertion that production has been redesigned.
+Status: implemented. Authority: `src/index.css`. Art direction and the original design
+rationale live with the source build this laboratory recovered.
 
-## Identity and hierarchy
+## Identity
 
-The subject is a laptop decision, not a generic SaaS dashboard. Spend visual emphasis on one hardware composition on the homepage; product images and exact sample attributes in the catalog; entered totals, their difference and honest bars in the calculator. Avoid decorative fake coverage, verification badges, serial numbers, stock indicators or speculative performance promises.
+An Egypt-first **hardware intelligence** instrument, not a store and not a marketing page. The
+subject is one specific machine, and the promise is that every claim is traceable. The design
+therefore leads with structure (rules, indices, rails, grids, footnotes) and keeps imagery to
+one hero object per screen.
 
-| Role | Implemented value / use |
-|---|---|
-| Canvas | `#090a0c` |
-| Surface | `#111419` |
-| Raised controls | `#171b22` |
-| Boundary | `#2d333d` (component-specific stronger borders for controls) |
-| Main text | `#f2f4f7` |
-| Secondary text | `#a7adb8` |
-| Supporting text | `#89939f` |
-| Action | `#e5484d`, dark text on primary buttons |
-| Positive analytical state | `#3dd68c`, only the lower entered cost—not compatibility or verification |
-| Error | `#ffadb1` text, `#ff8f94` invalid border plus written instructions |
-| Surfaces / controls | 8px / 4px radius; no pills or glow effects |
+Voice: declarative and technical. "THE EVIDENCE IS THE PRODUCT." No superlatives, no urgency
+language, no prices, no stock claims, no retailer framing.
 
-## Typography and geometry
+## Tokens
 
-- Installed self-hosted Archivo Variable for English display and UI; IBM Plex Sans Arabic for Arabic. No paid font or component package was added. Weight/size contrast does the hierarchy work, not a decorative extra font.
-- Homepage Latin display: responsive 70–108px; 58px at 390px and 50px at 320px. Weight800, leading0.96–1, tighter Latin tracking. Arabic: responsive60–78px desktop,43px at390 and37px at320; weight600, leading1.45, no Latin tracking. Those independent metrics are deliberate rather than blind mirroring.
-- Page headings: catalog60px desktop/43px mobile; calculator54px desktop. Arabic page headings54px desktop/36px mobile. Exact tablet/narrow rules remain in CSS. Totals use tabular figures and explicit EGP formatting.
-- Maximum main content1344px; side gutters48px at1440,24px at834,20px at390,16px at320. Logical inline spacing follows locale.
-- Desktop nav, native dialogs, buttons, selects, inputs and focus styles are shared. Page compositions are NOT one generic grid with interchangeable labels.
+```css
+--atlas-bg:      #070809   canvas
+--atlas-surface: #101215   panels
+--atlas-raised:  #16191e   raised controls
+--atlas-line:    rgba(232,235,241,.13)   hairline boundaries
+--atlas-ink:     #f3f4f6   primary text
+--atlas-copy:    #969da9   secondary text
+--atlas-muted:   #687180   supporting text
+--atlas-red:     #ef3340   action and the single accent
+--atlas-deep-red:#a91024   accent border
+--atlas-lime:    #b7cf78   exact-configuration marker
+--atlas-cyan:    #82b8c2   reserved
+--atlas-violet:  #a496bf   reserved
+--atlas-display: 'Space Grotesk', sans-serif
+--atlas-mono:    'IBM Plex Mono', monospace
+```
 
-## Three page compositions
+Red is **action only**. It marks the primary button, the active navigation underline, section
+indices, feature numbers, the precision tick and the accent word inside a display heading. It
+is never used for a data series and never for a category.
 
-| Page | Desktop | Tablet / mobile |
-|---|---|---|
-| Home | Integrated diagonal hardware stage; large editorial decision heading, primary catalog action, secondary calculator action; narrow search strip; restrained value statements; detail-study second act | Independent portrait asset and normal-flow image; primary action before image, secondary after; stacked explanation and detail study. Product lighting is not mirrored for Arabic |
-| Catalog |204px filter rail, image-led three-column product plates, aligned three-attribute rows and illustrative costs; compact search/sort band | Two columns at tablet; one at mobile. Desktop rail replaced by real filter dialog. Same state, not a separate fake form |
-| Calculator | Editable composition on left; totals/verdict, zero-based bars and component breakdown on right | DOM order begins with summary, then form, chart and breakdown; no CSS-only form/result reading-order reversal |
+## Type
 
-## Assets and motion
+- Display and UI: **Space Grotesk**, weight 500, with negative tracking that tightens as size
+  grows (`-.085em` on page headings, `-.09em` on the hero). Weight and size carry the
+  hierarchy; there is no second decorative face.
+- Mono: **IBM Plex Mono**, 8–11px, for indices, chips, spec labels, part numbers and readouts.
+  Uppercase with wide tracking (`.1em`–`.17em`).
+- Arabic: **IBM Plex Sans Arabic**, loaded and applied through
+  `.atlas-page[dir="rtl"]`. Arabic pages are a distinct composition, not a mirrored screenshot.
+- Barlow Condensed is loaded but unused by the application's own rules; it stays available in the
+  token set as `--app-font-serif`.
 
-Original procedural laptop geometry, original contour wallpaper and studio render exports live in `motion/` and `assets/`; they are explicitly concept visuals, not exact-SKU photography. Three camera views are reused across six fictional configurations; do not mistake that for six sourced retail models.
+Type scale, as implemented: hero `clamp(66px, 7.35vw, 112px)` at `line-height .88`; page
+headings `clamp(53px, 7.4vw, 96px)`; section headings `clamp(46px, 7vw, 94px)`; decision
+panels `clamp(30px, 4vw, 51px)`; card titles 29px; body 12–15px; mono labels 8–11px.
 
-Default hero is a lightweight WebP poster. Non-reduced-motion users can explicitly load the optional inspector; Three.js is not needed for the initial poster. Rotation has buttons and keyboard alternatives, no autoplay or mandatory gesture. Reduced motion keeps the useful still. Source: `motion/StudioLaptop.jsx` and `StudioLaptop.css`.
+## Surfaces and structure
 
-Pointer feedback uses a short custom cubic-bezier; transform feedback is small and nonessential. The global reduced-motion rule disables movement. Screenshot captures deliberately use reduced motion; they are not evidence of animation playback. No scroll hijacking, magnetic pointer controls, gradient glow or imported component animation is used.
+- Surfaces 8px, controls 4px, no pills, no glow, no glass, no gradients except two functional
+  overlays on the hero (a left-to-right scrim and a screen-blend light sweep).
+- Borders encode grouping; they do not enclose everything.
+- Exactly one shadow-free layout system. The only shadow in the build is the compare tray's
+  (in the unbuilt `/compare` page).
+- Grid rails are hairlines: `.catalog-grid` is a 2-column table of product plates with a top
+  and left border, not a set of bordered cards.
 
-## States and truthfulness
+## The field-guide grammar
 
-- Catalog: actual local search, use/memory/budget filters, sort, reset, derived result count, no-match recovery, cap-four selection, sample detail and comparison dialogs. Difference rows have a visible tint as well as readable values. These are prototype states—not a replacement for production API pagination, provenance or persisted comparison state.
-- Calculator: four exact production field keys; production normalization/validation reused read-only. Local integer-cent preview handles zero, either lower option, equality and invalid fields. Editing removes outdated totals/charts until recalculation. Initial amounts are labeled illustrative; results make no performance, market-price, compatibility or financing claim.
-- Native `<dialog>` provides a real modal surface; named buttons, semantic labels, visible focus and numerical HTML labels matter independently of appearance. Actual keyboard/focus/overflow checks belong to the independent QA report, not to this specification.
+- **Index** (`.page-heading-index`, `.story-kicker`) — a numbered rail: `01 / THE QUESTION`.
+  Every section declares where it sits in the argument.
+- **Eyebrow** (`.eyebrow`) — a small uppercase label preceded by a red rule.
+- **Accent word** — the one emphasised phrase inside a display heading, wrapped in `<em>` and
+  coloured by `h2 em { color: var(--atlas-red) }`.
+- **Confidence chip** (`.confidence`) — a 6px dot plus a mono label. Lime for an exact
+  configuration, amber for a model family. The dot is the signal; the word is the explanation.
+- **Precision tick** (`.precision-tick`) — a 22px red rule used as a small marker in a label
+  row or a bottom line.
+- **Readout** (`.visual-readout`) — a mono annotation block over the hero, set flush right.
+- **Honesty note** (`.catalog-disclaimer`, `.quiet-card`) — a research note that states what the
+  page is not, always present, never dismissible.
 
-## Acceptance boundary
+## Motion
 
-Passing a build does not establish a beautiful or accessible interface. Independent criticism, actual desktop/tablet/mobile EN/AR screenshots, unresolved differences and the source-preserving rollout plan accompany this proposal. Only Eli can approve the visual direction. Full-site implementation, publication and database/backend changes remain outside this round.
+Short, functional, and secondary to the reading experience.
+
+- `entry-rise` (.72s, `cubic-bezier(.2,.7,.25,1)`, staggered .08s → .48s) for the hero copy.
+- `visual-arrive` (1.1s, same curve) for the hero object.
+- `transition: background .2s ease, padding .2s ease` on `.feature-row` hover.
+- No autoplay, no looping motion, no scroll hijacking, no magnetic pointers.
+
+## States
+
+Every interactive surface states itself.
+
+- **Loading** — a status line, not a skeleton. The field guide is static; the library filters
+  locally and reports its own count.
+- **Empty** — `.empty-state` names the cause and offers the one action that recovers.
+- **Error** — the `ErrorBoundary` renders a titled failure page, never a blank screen.
+- **Selected** — `.compare-toggle.selected` changes border and label.
+- **Confidence** — a per-record state, not a per-page one.
+- **Reduced motion** — the global `prefers-reduced-motion` rule disables movement.
+
+## Rules to hold
+
+1. Red is action. A data series gets a neutral ramp, never the accent.
+2. Every number is either a count of what is on screen, or a sourced record, or a labelled
+   placeholder. No prices, no stock, no invented specifications.
+3. A family-level reference is always labelled as a family reference.
+4. One accent word per display heading, and it is the point of the sentence.
+5. The hero object never competes with the headline: the scrim and the sweep exist so the copy
+   stays readable.
+6. Casing is a contract: interface labels are uppercase, prose is sentence case.

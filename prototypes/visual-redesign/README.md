@@ -1,52 +1,80 @@
-# UpgradeAtlas — isolated visual redesign laboratory
+# UpgradeAtlas — visual-redesign laboratory
 
-Status: THREE PROTOTYPES RENDERED; independent visual and functional review in progress. No user visual approval and no production rollout.
+Status: the gaming-laptop research build is mounted and running. No user visual approval and no production rollout.
+
+## What this laboratory now holds
+
+The design study was replaced on 2026-10-20 with the **UpgradeAtlas field-guide build**: an
+Egypt-first gaming-laptop research instrument with sourced hardware profiles, a confidence
+model, and a research-library catalogue. The previous three-page prototype (home / laptops /
+calculator) with fictional configurations and a cost workbench is **archived, not active**.
+
+### Provenance of the current build
+
+The build was recovered from artefacts the user supplied, not rewritten from scratch:
+
+| Artefact | How it was recovered | Status |
+|---|---|---|
+| `src/index.css` (157 KB) | The complete real stylesheet, serialised from the browser CSSOM of the user's saved page. Tailwind v4.3.3 output plus the app's own 151 unlayered class rules, the `--atlas-*` token set, the 10 keyframes and the mobile media queries. | Byte-faithful |
+| `src/main.tsx` | Original TypeScript recovered from the `sourcesContent` of the Vite source map embedded in the saved entry module. | Byte-faithful |
+| `assets/hero-laptop.webp` | The hero's rendered Three.js output, recovered from the supplied full-page PNG and cleaned of the adjacent headline pixels by gradient extrapolation. A still, not the live scene. | Reconstructed still |
+| `src/App.tsx`, `src/pages/*`, `src/components/*`, `src/data/*` | Reconstructed from the saved DOM. Every element in that DOM carried `data-replit-metadata` naming its source file and line, so the component tree, class contract and copy are exact; the component bodies are new. | Reconstructed |
+| `src/data/profiles.ts` | The four real hardware profiles, verbatim from the saved catalogue DOM (model names, part numbers, SKUs, processors, GPUs, memory, storage, confidence level). | Exact |
+| Lucide icon set | The six icons the DOM used, inlined as SVG in `src/components/icons.tsx` with the same paths and classes. No `lucide-react` dependency. | Exact |
+
+### What is **not** recovered
+
+- The original source of `App.tsx`, `catalog.tsx`, `laptop-card.tsx`, `page-heading.tsx` and `index.css`.
+- The live Three.js hero scene. The `.scene-frame` / `.fallback-art` / `.scene-coordinate` /
+  `.visual-readout` contract is intact, so restoring a real scene is a component swap, not a redesign.
+- The `/gaming`, `/compare`, `/upgrade` and `/laptops/:slug` pages. Their **styles are present**
+  in the recovered stylesheet (`.gpu-reference*`, `.comparison-grid`, `.calculator-layout`,
+  `.profile-*`, `.phase-modal*`), so the markup contract for them is known, but no page was captured.
+- The Arabic copy of the recovered pages is new, written against the same class contract. The
+  recovered stylesheet has no `[dir=rtl]` rules, so RTL is a first-class locale that the original
+  stylesheet only partially mirrored.
 
 ## Contract
-- Deliver three distinct but coherent responsive prototypes: cinematic homepage, industrial laptop catalog, analytical dark calculator.
-- Keep React + JavaScript + Tailwind; reuse existing installed tooling without modifying apps/web/package.json or lockfile.
-- All new design work stays under prototypes/visual-redesign/. Existing apps/web and services/api are read-only for this round.
-- No backend, database, API or business-logic edits; no migrations, deployment, publishing or merges. The explicitly authorized frontend archival/retirement commits are the only exception to the original no-commit boundary.
-- All prototype products, numbers and prices must be visibly labeled illustrative. No invented verified specifications, retail offers, testimonials, coverage counts or compatibility advice.
-- Original art or assets with verified free reuse rights only. Reference images remain private study material, not assets.
-- Desktop 1440px, tablet 834px, mobile 390px and narrow 320px checks. Arabic RTL and English LTR are distinct compositions, not only mirrored screenshots.
-- Screenshot review and independent criticism are required; passing builds do not confer visual acceptance. Eli alone approves full-site rollout.
 
-## Current reference authority
-The newest user brief overrides earlier light/cobalt drafts. Black/graphite, white typography, restrained #e5484d red, #3dd68c only for positive analytical states, 8px surfaces and 4px controls, no pills or decorative glows. References A cinematic hardware, B industrial typography/grid, C analytical clarity. Study SHAGA Odyssey principles without copying artwork or layout.
+- All new design work stays under `prototypes/visual-redesign/`. `apps/web` and `services/api` are read-only.
+- No backend, database, API or business-logic edits; no migrations, deployment or publishing.
+- The product is honest by construction: **no prices, no stock claims, no invented specifications**.
+  Every profile is a research record, and a family-level reference is labelled as such.
+- Screenshots and independent criticism are required; passing builds do not confer visual acceptance.
+  Eli alone approves full-site rollout.
 
-The user's brief controls the design. Premium quality here means composition, material lighting, hierarchy and readability—not pills, giant whitespace or decorative glows. Skill application must remain specific to this brief and supported by rendered evidence.
+## Running
 
-## Specialist ownership
-A Creative Director: research/art-direction.md and research/reference-evidence/ only; public references and saved reference mapping, no app code.
-B UI/UX Designer: research/ux-spec.md only; responsive/locale/component specs, no app code.
-C Motion/Visual Engineering: assets/ and motion module only after a concrete direction contract; no page files.
-D Frontend Implementation: isolated prototype page/styles only after direction synthesis; no production integration.
-E Independent Visual QA: reviews/ only; independent baseline then prototype screenshot critique; never implementation.
-F Functional/Accessibility QA: tests/ and evidence/ reports only; run actual browser checks, no implementation.
-Coordinator: scope snapshots, tooling, integration, consolidated evidence and final rollout plan.
-
-## Acceptance evidence
-- Three visually complete rendered pages, interactive representative states.
-- EN/AR screenshots for each page at desktop, tablet and mobile; screenshot manifest generated from files, no hand-counted claims.
-- Exact source URL, observed pattern/type/layout/motion, application, reuse boundary and access limitation for every selected reference.
-- Skill Execution Matrix: installed vs inspected/loaded vs applied with tangible evidence; no artificial quota.
-- Independent differences/findings, bounded correction rounds, unresolved limits.
-- Existing source hash preservation and existing working tests verified separately from prototype checks.
-
-## Current running prototype
-Run `npm run dev` from this laboratory only. Existing installed application dependencies are reused by the laboratory's Vite config; no package installation is needed. Prototype server: `http://127.0.0.1:5174`.
+Run `npm run dev` from this directory only. `http://127.0.0.1:5174`.
 
 | Page | English | Arabic |
 |---|---|---|
-| Homepage | `/?lang=en` | `/?lang=ar` |
-| Catalog | `/laptops?lang=en` | `/laptops?lang=ar` |
-| Calculator | `/calculator?lang=en` | `/calculator?lang=ar` |
+| Field guide | `/?lang=en` | `/?lang=ar` |
+| Research library | `/laptops?lang=en` | `/laptops?lang=ar` |
 
-**Sole authoritative frontend implementation in this laboratory:** `index.html` -> `src/prototype.jsx`. Its pages are `src/prototype-home.jsx`, `src/prototype-catalog.jsx` and `src/prototype-calculator.jsx`; shared UI/data/styles are `src/prototype-ui.jsx`, `src/prototype-data.js` and `src/prototype.css`; local preview arithmetic is `src/prototype-calc.js`. The original concept viewer is `motion/StudioLaptop.jsx`.
+`?lang=` controls document language and direction. The header's `EN | ع` control switches it live.
 
-The unmounted historical frontend and its superseded implementation report have been removed from this working tree. They exist only in Git: branch `archive/pre-prototype-frontend`, annotated tag `legacy-prototype-frontend-final-2026-10-18`, commit `5559b44d6602b5721b7284383815be5d8aea38b0`. Do not restore or review them as active code. See `FRONTEND_ARCHITECTURE.md` for the import graph, archival scope and safe recovery instructions. The separate `apps/web` API-connected application remains untouched; this retirement is not a production migration.
+Dependencies: the laboratory reuses `apps/web/node_modules` through the aliases in
+`vite.config.mjs`; `react-router-dom` is the one local dependency, in this directory's
+`node_modules`. Nothing is installed into `apps/web`.
 
-Current visual evidence: `screenshots/iteration-2/manifest.json` and its 18 actual browser captures. Captures use reduced motion for stable stills; optional on-demand 3D has separate runtime checks. All six fictional catalog configurations and initial calculator amounts are explicitly illustrative. No production data/state or local preview arithmetic is authorized for transplant into the live application.
+## Checks
 
-Checks: `npm test` (preview arithmetic and frontend-authority/import guards); `npm run build`; native Python Playwright `tests/functional_qa.py` and `tests/smoke.py`. Retirement-specific raw outputs and built-preview browser checks are in `evidence/legacy-retirement/`. Final independent visual approval and later capture corrections remain separate gates. `scripts/snapshot.py verify` compares the original 88 protected source/config/test files; that does not prove database contents byte-identical.
+- `npm test` — source-authority guards: the document entry, the mounted chain, the absence of the
+  retired legacy tree, the presence of the design tokens, and the uniqueness of the profiles.
+- `npm run build` — real Vite production compilation.
+- Browser sweeps were run with Playwright across 12 widths (320–1904) × 3 routes × 2 locales:
+  no console errors, no page errors, no horizontal overflow.
+
+## Archive
+
+Two generations of archived source exist in Git. Both are local, not pushed.
+
+| Generation | Branch | Annotated tag | Commit |
+|---|---|---|---|
+| Pre-archive experimental frontend | `archive/pre-prototype-frontend` | `legacy-prototype-frontend-final-2026-10-18` | `5559b44` |
+| Previous three-page prototype (this build's predecessor) | `archive/pre-replit-prototype` | `prototype-pre-replit-20261020-011151` | see `git rev-parse` |
+
+Do not restore either generation into the active source directory. See
+`FRONTEND_ARCHITECTURE.md` for the import graph, archival scope and safe recovery instructions.
+The separate `apps/web` API-connected application remains untouched; this is not a production migration.

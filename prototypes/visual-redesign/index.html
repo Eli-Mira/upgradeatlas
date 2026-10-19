@@ -1,23 +1,30 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#090a0c" />
-    <title>UpgradeAtlas — Visual Prototypes</title>
-    <link rel="icon" href="./favicon.svg" />
-    <script>
-      // Set lang/dir before first paint so RTL/AR does not flash as LTR/EN.
-      (function () {
-        var lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ar';
-        document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      })();
-    </script>
+    <title>UpgradeAtlas — Gaming Laptop Research & Upgrade Intelligence</title>
+    <meta
+      name="description"
+      content="Independent gaming-laptop research for Egypt. Search sourced configurations, compare hardware details, and estimate upgrade-versus-replacement costs."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="UpgradeAtlas — Gaming Laptop Research & Upgrade Intelligence" />
+    <meta
+      property="og:description"
+      content="Independent gaming-laptop research for Egypt. Search sourced configurations, compare hardware details, and estimate upgrade-versus-replacement costs."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/prototype.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

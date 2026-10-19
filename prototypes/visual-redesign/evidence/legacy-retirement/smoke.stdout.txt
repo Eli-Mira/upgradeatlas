@@ -1,7 +1,0 @@
-PASS / en
-PASS /laptops en
-PASS /calculator en
-PASS / ar
-PASS /laptops ar
-PASS /calculator ar
-PASS: all six page/locale smoke controls

@@ -12,11 +12,11 @@ See `docs/PRD.md`, `docs/ARCHITECTURE.md`, and `docs/DECISIONS.md`.
 
 ## Current frontend authority
 
-The sole authoritative implementation of the current frontend design is `prototypes/visual-redesign/index.html` -> `prototypes/visual-redesign/src/prototype.jsx` and its imported `prototype-*` modules, `prototype.css` and scoped motion viewer. Run `npm run dev` in `prototypes/visual-redesign` and open `http://127.0.0.1:5174`. See `prototypes/visual-redesign/FRONTEND_ARCHITECTURE.md` for the source map, checks and archive recovery.
+The sole authoritative implementation of the current frontend design is `prototypes/visual-redesign/index.html` -> `prototypes/visual-redesign/src/main.tsx` and its imported `App.tsx`, `pages/`, `components/`, `data/` modules and the recovered `src/index.css` design system. Run `npm run dev` in `prototypes/visual-redesign` and open `http://127.0.0.1:5174`. See `prototypes/visual-redesign/FRONTEND_ARCHITECTURE.md` for the source map, checks and archive recovery.
 
-The unmounted experimental frontend and its superseded self-report were removed from the laboratory's active tree after byte-exact Git preservation. Archive branch: `archive/pre-prototype-frontend`; annotated tag: `legacy-prototype-frontend-final-2026-10-18`.
+The laboratory now holds the **UpgradeAtlas field-guide build**: an Egypt-first gaming-laptop research instrument with sourced hardware profiles, an exact-versus-family confidence model and a research-library catalogue. It was recovered from the user's own saved build (its real stylesheet, entry module, component structure and hardware data) and rebuilt as working source. The previous three-page prototype and, before it, the unmounted experimental frontend are both archived, not active: branches `archive/pre-replit-prototype` and `archive/pre-prototype-frontend`; annotated tags `prototype-pre-replit-20261020-011151` and `legacy-prototype-frontend-final-2026-10-18`.
 
-The API-connected application under `apps/web` remains preserved and is not replaced by this cleanup. It is an integration target, not a second design authority. No production rollout, backend change or database migration is implied.
+The API-connected application under `apps/web` remains preserved and is not replaced by this change. It is an integration target, not a second design authority. No production rollout, backend change or database migration is implied.
 
 Status: Laravel + React scaffold and local catalog/upgrades API exist. The manual cost calculator works in Arabic/English; this is not a completed Phase 2 or a production release. Laravel schema bootstrap/parity and source-backed publication gates remain open.
 

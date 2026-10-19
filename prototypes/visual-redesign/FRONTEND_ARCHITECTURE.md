@@ -2,56 +2,89 @@
 
 ## One entry, one implementation
 
-This laboratory has exactly one frontend implementation. `index.html` mounts `/src/prototype.jsx`; it does not mount an alternative application shell.
+This laboratory has exactly one frontend implementation. `index.html` mounts `/src/main.tsx`;
+it does not mount an alternative application shell.
 
 ```text
 index.html
-└── src/prototype.jsx                  route selection, locale, navigation, footer
-    ├── src/prototype-home.jsx
-    │   └── motion/StudioLaptop.jsx
-    │       ├── motion/StudioLaptop.css
-    │       └── motion/studio.js       on-demand 3D
-    │           └── motion/laptop.js
-    ├── src/prototype-catalog.jsx      illustrative products, filters, compare/detail dialogs
-    ├── src/prototype-calculator.jsx   illustrative cost workbench
-    │   └── src/prototype-calc.js      integer-cent preview, shared input validation
-    ├── src/prototype-ui.jsx           native dialog and arrow primitive
-    ├── src/prototype-data.js          fictional configurations, locale formatting, asset URLs
-    └── src/prototype.css              shared styles and self-hosted font imports
+└── src/main.tsx                          React root, ErrorBoundary, LocaleProvider, BrowserRouter
+    ├── src/App.tsx                       header, primary nav, locale switch, footer, routes
+    │   ├── src/components/icons.tsx      inlined Lucide paths (menu, search, reset, arrows, check, plus)
+    │   ├── src/pages/home.tsx            field guide: hero, manifesto, research desk, method, decisions
+    │   ├── src/pages/catalog.tsx         research library: search, brand filter, confidence filter
+    │   │   ├── src/components/page-heading.tsx
+    │   │   └── src/components/laptop-card.tsx
+    │   └── src/pages/not-found.tsx
+    ├── src/data/locale.tsx               locale context, `lang`/`dir` on the document
+    ├── src/data/copy.ts                  all EN and AR interface copy
+    ├── src/data/profiles.ts              the four sourced hardware profiles and the filter sets
+    └── src/index.css                     the recovered design system (157 KB)
 ```
 
-The page modules also share the UI/data modules. The arithmetic module imports the existing `../../apps/web/src/costValidation.js` relative to this laboratory root (its source-level import is `../../../apps/web/src/costValidation.js` from `src/`). Dependencies/fonts come from the existing `apps/web/node_modules` aliases. These are intentional read-only cross-project dependencies, not imports of a retired frontend.
+`src/index.css` is the real stylesheet recovered from the user's saved page, not a rewrite. It
+carries the Tailwind v4.3.3 base plus the application's own 151 unlayered class rules, the
+`--atlas-*` token set, ten keyframes and the responsive media queries. **Do not hand-edit it to
+make a page look different**: the page components are what were reconstructed, and the stylesheet
+is the authority.
 
-Routes: `/`, `/laptops`, `/calculator`. Query `lang=en` or `lang=ar` controls document language/direction; all products and starting costs remain visibly illustrative. `motion/studio.html` and `motion/inspect.html` are viewer diagnostics, not alternate application shells.
+Routes: `/` (field guide), `/laptops` (research library), `/laptops/:slug` (currently the
+library), and a not-found page. `/gaming`, `/compare` and `/upgrade` are **styled but not yet
+built**; their class contracts are in the stylesheet (`.gpu-reference*`, `.comparison-grid`,
+`.calculator-layout`, `.profile-*`, `.phase-modal*`) and are the next build targets.
+
+Query `lang=en` or `lang=ar` controls document language and direction. The header's locale
+control switches it live and rewrites the query parameter.
+
+## Asset honesty
+
+`assets/hero-laptop.webp` is a recovered still of the original Three.js hero. The live scene
+was not recoverable from the supplied artefacts. The stylesheet's contract for it is intact:
+`.hero-visual` holds `.scene-frame`, which holds `.fallback-art`; `.scene-coordinate`,
+`.visual-readout` and `.vertical-index` are DOM overlays above it. Restoring a real scene means
+swapping the image for a canvas inside `.scene-frame`, with no change to the CSS.
 
 ## Retired source: Git only
 
-The unmounted experimental tree was deleted from this working tree after preservation:
+Two earlier generations were removed from this working tree after preservation.
+
+**Generation 1 — the unmounted experimental frontend** (before the previous three-page prototype):
 
 - `src/App.jsx`, `src/main.jsx`, `src/index.css`.
 - `src/pages/` (3 files), `src/components/` (6 files), `src/lib/` (3 files).
 - The superseded `evidence/implementation.md` self-report.
 
-Archive branch: `archive/pre-prototype-frontend`.
-Annotated tag: `legacy-prototype-frontend-final-2026-10-18`.
-Final snapshot commit: `5559b44d6602b5721b7284383815be5d8aea38b0`.
+Archive branch `archive/pre-prototype-frontend`, annotated tag
+`legacy-prototype-frontend-final-2026-10-18`, commit
+`5559b44d6602b5721b7284383815be5d8aea38b0`. All 15 retired source files were initially
+untracked and were committed before removal; the archive preserves their raw bytes, including
+CRLF, with scoped Git attributes.
 
-All 15 retired source files were initially untracked. They were committed before removal; the final archive preserves their raw bytes, including CRLF, with scoped Git attributes. Source inventory: `evidence/legacy-preservation.json`. The archive also preserves the pre-cleanup laboratory and original documentation. It is provenance, not a runnable replacement or current specification.
+**Generation 2 — the previous three-page prototype** (home / laptops / calculator, fictional
+configurations, a cost workbench and a procedural `motion/` laptop viewer). It was committed,
+manifested with SHA-256 digests, and archived before this build replaced it.
 
-Inspect the snapshot without checking out or resetting this dirty working tree:
+Archive branch `archive/pre-replit-prototype`, annotated tag `prototype-pre-replit-20261020-011151`.
+
+Inspect a snapshot without checking out or resetting this dirty working tree:
 
 ```bash
 git show legacy-prototype-frontend-final-2026-10-18:prototypes/visual-redesign/src/App.jsx
+git ls-tree -r --name-only archive/pre-replit-prototype prototypes/visual-redesign
 ```
 
-For a full comparison, use an isolated worktree at the archive branch. Do not restore retired files into this active source directory.
+For a full comparison, use an isolated worktree at the archive branch. Do not restore archived
+files into this active source directory.
 
 ## Verification and boundaries
 
-- `npm test`: preview arithmetic plus entry/import/retirement guards.
+- `npm test`: source-authority guards over the entry, the mounted chain, the retired tree, the
+  design tokens and the profile data.
 - `npm run build`: actual Vite production compilation.
-- Native Python Playwright: `tests/functional_qa.py` and `tests/smoke.py` against port 5174.
-- Built-preview browser checks against port 5175: responsive EN/AR pages, runtime/network errors and representative interactions.
-- Fresh archival/reference-scan/test results: `evidence/legacy-retirement/`.
+- Browser sweeps: 12 widths (320 → 1904) × 3 routes × 2 locales, no console errors, no page
+  errors, no horizontal overflow; search, brand filter, confidence filter, reset, compare
+  selection, locale switch and the mobile menu were each exercised.
 
-The separate `apps/web` API-connected application, backend, database and existing uncommitted work are preserved. This is a laboratory cleanup, not production integration, visual approval, deployment or a database migration. The archive branch/tag are local unless explicitly pushed later; no force-push or history rewriting is part of this task.
+The separate `apps/web` API-connected application, backend, database and existing uncommitted
+work are preserved. This is a laboratory replacement, not production integration, visual
+approval, deployment or a database migration. The archive branch/tags are local unless
+explicitly pushed later; no force-push or history rewriting is part of this task.

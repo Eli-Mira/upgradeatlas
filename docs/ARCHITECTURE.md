@@ -2,11 +2,11 @@
 
 ## Current frontend design authority
 
-`prototypes/visual-redesign/index.html` mounts `prototypes/visual-redesign/src/prototype.jsx`, the sole authoritative implementation of the current frontend design. It imports `prototype-home.jsx`, `prototype-catalog.jsx`, `prototype-calculator.jsx`, `prototype-ui.jsx`, `prototype-data.js`, `prototype-calc.js` and `prototype.css`; the original hardware viewer is scoped under the laboratory's `motion/` directory. Detailed import graph and checks: `../prototypes/visual-redesign/FRONTEND_ARCHITECTURE.md`.
+`prototypes/visual-redesign/index.html` mounts `prototypes/visual-redesign/src/main.tsx`, the sole authoritative implementation of the current frontend design. It renders `src/App.tsx` (header, navigation, locale switch, footer, routes), which imports `src/pages/home.tsx`, `src/pages/catalog.tsx` and `src/pages/not-found.tsx`, the shared `src/components/` primitives, the `src/data/` copy and profile records, and the recovered `src/index.css` design system. Detailed import graph, provenance of the recovered artefacts and checks: `../prototypes/visual-redesign/FRONTEND_ARCHITECTURE.md`.
 
-The unmounted experimental frontend and its superseded implementation self-report are no longer present in the active laboratory tree. Git-only recovery is available at branch `archive/pre-prototype-frontend` and annotated tag `legacy-prototype-frontend-final-2026-10-18` (commit `5559b44d6602b5721b7284383815be5d8aea38b0`). Do not use the retired snapshot as an active route, component reference or architecture specification.
+Two earlier generations of the laboratory are Git-only and must not be used as an active route, component reference or architecture specification: the unmounted experimental frontend (branch `archive/pre-prototype-frontend`, tag `legacy-prototype-frontend-final-2026-10-18`) and the previous three-page prototype (branch `archive/pre-replit-prototype`, tag `prototype-pre-replit-20261020-011151`).
 
-`apps/web` remains the preserved API-connected integration target. This retirement changes neither its source nor Laravel/PostgreSQL, and does not authorize transplanting illustrative products or local arithmetic into production.
+`apps/web` remains the preserved API-connected integration target. These laboratory changes affect neither its source nor Laravel/PostgreSQL, and do not authorize transplanting research profiles or local preview arithmetic into production.
 
 ## Preserved API-connected architecture
 

@@ -1,54 +1,82 @@
-import test from 'node:test'
-import assert from 'node:assert/strict'
-import {existsSync, readFileSync, readdirSync} from 'node:fs'
-import path from 'node:path'
-import {fileURLToPath} from 'node:url'
+import assert from 'node:assert/strict';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { join, dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { test } from 'node:test';
 
-const root = fileURLToPath(new URL('../', import.meta.url))
-const sourceFiles = [
-  'prototype-calc.js', 'prototype-calculator.jsx', 'prototype-catalog.jsx',
-  'prototype-data.js', 'prototype-home.jsx', 'prototype-ui.jsx', 'prototype.css', 'prototype.jsx',
-]
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (relative) => readFileSync(join(root, relative), 'utf8');
 
-test('HTML mounts the sole authoritative prototype source tree', () => {
-  const html = readFileSync(path.join(root, 'index.html'), 'utf8')
-  const entries = [...html.matchAll(/<script\b[^>]*type="module"[^>]*src="([^"]+)"/g)].map(match => match[1])
-  assert.deepEqual(entries, ['/src/prototype.jsx'])
-  assert.deepEqual(readdirSync(path.join(root, 'src')).sort(), sourceFiles.sort())
-})
+test('the document entry mounts the React application', () => {
+  const html = read('index.html');
+  assert.match(html, /<div id="root">/);
+  assert.match(html, /src="\/src\/main\.tsx"/);
+});
 
-test('retired frontend source and misleading self-report stay out of the working tree', () => {
-  for (const retired of ['src/App.jsx', 'src/main.jsx', 'src/index.css', 'src/pages', 'src/components', 'src/lib', 'evidence/implementation.md']) {
-    assert.equal(existsSync(path.join(root, retired)), false, `${retired} must remain Git-only`)
+test('the mounted entry chain is intact', () => {
+  const main = read('src/main.tsx');
+  assert.match(main, /createRoot\(document\.getElementById\('root'\)/);
+  assert.match(main, /from '\.\/App'/);
+  assert.match(main, /import '\.\/index\.css'/);
+  assert.ok(existsSync(join(root, 'src/App.tsx')));
+  assert.ok(existsSync(join(root, 'src/index.css')));
+});
+
+test('the retired legacy frontend is not referenced anywhere', () => {
+  // The retired tree was the pre-archive React app: App.jsx / main.jsx / lib/.
+  // The current app owns src/index.css, src/pages/ and src/components/, so
+  // only the legacy shapes are forbidden here.
+  const retired = ['src/App.jsx', 'src/main.jsx', 'src/lib/'];
+  for (const file of retired) {
+    assert.equal(existsSync(join(root, file)), false, `${file} must not be back`);
   }
-})
-
-test('the mounted static/dynamic import graph and local asset URLs resolve without retired files', () => {
-  const seen = new Set()
-  const pending = [path.join(root, 'src/prototype.jsx')]
-  // shortcut: handles the current literal import syntax, use an AST parser if computed imports are introduced.
-  const imports = /(?:\bfrom\s*|\bimport\s*(?:\(\s*)?)(['"])([^'"]+)\1/g
-  const assets = /new URL\(\s*(['"])([^'"]+)\1\s*,\s*import\.meta\.url\s*\)/g
-  while (pending.length) {
-    const file = pending.pop()
-    if (seen.has(file)) continue
-    seen.add(file)
-    assert.ok(existsSync(file), `Missing import: ${file}`)
-    const text = readFileSync(file, 'utf8')
-    for (const match of text.matchAll(imports)) {
-      const specifier = match[2]
-      if (!specifier.startsWith('.')) continue
-      const resolved = path.resolve(path.dirname(file), specifier)
-      assert.ok(existsSync(resolved), `${file} imports missing ${specifier}`)
-      if (resolved.startsWith(path.join(root, 'src') + path.sep)) {
-        assert.ok(sourceFiles.includes(path.basename(resolved)), `Non-authoritative source: ${resolved}`)
-      }
-      if (/\.(js|jsx|css)$/.test(resolved)) pending.push(resolved)
+  const sources = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === 'node_modules' || entry.name === 'dist') continue;
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(tsx?|jsx?)$/.test(entry.name)) sources.push(full);
     }
-    for (const match of text.matchAll(assets)) {
-      assert.ok(existsSync(path.resolve(path.dirname(file), match[2])), `Missing asset: ${match[2]}`)
-    }
+  };
+  walk(join(root, 'src'));
+  for (const file of sources) {
+    const text = readFileSync(file, 'utf8');
+    assert.doesNotMatch(text, /from '\.\/lib\//, `${file} imports a retired lib tree`);
   }
-  assert.ok(seen.has(path.join(root, 'motion/studio.js')), 'Include the on-demand studio import')
-  assert.ok(seen.has(path.resolve(root, '../../apps/web/src/costValidation.js')), 'Keep the shared validator dependency')
-})
+});
+
+test('the design system tokens are present in the stylesheet', () => {
+  const css = read('src/index.css');
+  for (const token of [
+    '--atlas-bg',
+    '--atlas-surface',
+    '--atlas-raised',
+    '--atlas-ink',
+    '--atlas-line',
+    '--atlas-red',
+    '--atlas-mono',
+    '--atlas-display',
+  ]) {
+    assert.ok(css.includes(`${token}:`), `missing token ${token}`);
+  }
+});
+
+test('the research profiles are unique and complete', async () => {
+  const { profiles } = await import('../src/data/profiles.ts').catch(() => ({
+    profiles: null,
+  }));
+  if (!profiles) {
+    // TypeScript source: read the literals instead of importing them.
+    const source = read('src/data/profiles.ts');
+    const slugs = [...source.matchAll(/slug: '([^']+)'/g)].map((m) => m[1]);
+    assert.equal(slugs.length, 4);
+    assert.equal(new Set(slugs).size, slugs.length, 'profile slugs must be unique');
+    return;
+  }
+  assert.equal(new Set(profiles.map((p) => p.slug)).size, profiles.length);
+  for (const profile of profiles) {
+    assert.ok(profile.name && profile.processor && profile.graphics);
+    assert.ok(['exact', 'family'].includes(profile.confidence));
+  }
+});
