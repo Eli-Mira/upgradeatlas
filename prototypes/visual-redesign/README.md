@@ -22,7 +22,30 @@ The build was recovered from artefacts the user supplied, not rewritten from scr
 | `src/data/profiles.ts` | The four real hardware profiles, verbatim from the saved catalogue DOM (model names, part numbers, SKUs, processors, GPUs, memory, storage, confidence level). | Exact |
 | Lucide icon set | The six icons the DOM used, inlined as SVG in `src/components/icons.tsx` with the same paths and classes. No `lucide-react` dependency. | Exact |
 
-### What is **not** recovered
+### The cinematic layer
+
+`src/cinematic.css` re-skins the recovered system for a scroll-driven
+direction: a pinned hero over 2.3 viewport heights, alternating near-black and
+warm-white sections that tuck under one another, an editorial serif for the
+one emotional phrase in a heading, and a radial architecture explorer with
+eight real, focusable systems.
+
+The hero product is a **pre-rendered 16-frame sequence** in
+`assets/sequence/`, produced from the original procedural geometry in
+`motion/laptop.js` by `motion/product-studio.js` and
+`motion/render-sequence.py`. The lid opens on its hinge while the camera
+orbits and closes in. Two more frames are the conceptual exploded view. The
+sequence is scrubbed to a canvas, so the page carries no 3D runtime and nothing
+animates while the tab is hidden.
+
+Motion is driven entirely by scroll position: nothing loops, nothing
+autoplays, and reduced-motion readers get a complete static composition.
+Content is visible by default, so a page that is never scrolled, printed, or
+opened without scripting still shows every word.
+
+`DESIGN.md` records both layers and the rules that hold across them.
+
+## What is **not** recovered
 
 - The original source of `App.tsx`, `catalog.tsx`, `laptop-card.tsx`, `page-heading.tsx` and `index.css`.
 - The live Three.js hero scene. The `.scene-frame` / `.fallback-art` / `.scene-coordinate` /
@@ -60,8 +83,13 @@ Run `npm run dev` from this directory only. `http://127.0.0.1:5174`.
 `?lang=` controls document language and direction. The header's `EN | ع` control switches it live.
 
 Dependencies: the laboratory reuses `apps/web/node_modules` through the aliases in
-`vite.config.mjs`; `react-router-dom` and the type-check toolchain are the local dependencies,
-in this directory's `node_modules`. Nothing is installed into `apps/web`.
+`vite.config.mjs`; `react-router-dom`, `gsap`, `@gsap/react` and the type-check toolchain are
+the local dependencies, in this directory's `node_modules`. Nothing is installed into
+`apps/web`.
+
+`motion/render-sequence.py` regenerates the product sequence. It needs the dev server running
+and the Hermes Python interpreter:
+`C:/Users/emadg/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe motion/render-sequence.py`.
 
 ## Checks
 

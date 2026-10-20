@@ -19,11 +19,25 @@ index.html
     │   ├── src/pages/gaming.tsx          the graphics desk, one record per GPU
     │   ├── src/pages/upgrade.tsx         the cost workbench: four entered figures, one comparison
     │   └── src/pages/not-found.tsx
+    │   ├── src/components/cinematic/    the cinematic layer
+    │   │   ├── hero-sequence.tsx        the pinned hero, GSAP ScrollTrigger
+    │   │   ├── product-sequence.tsx     the pre-rendered frame sequence, scrubbed to a canvas
+    │   │   ├── architecture-explorer.tsx  eight focusable systems around the machine
+    │   │   ├── exploded-view.tsx        the conceptual exploded view
+    │   │   ├── system-icons.tsx         the eight system glyphs
+    │   │   └── use-reveal.ts            reveal-on-scroll, as progressive enhancement
     ├── src/data/locale.tsx               locale context, `lang`/`dir` on the document
+    ├── src/data/cinematic-copy.ts        the narrative copy, both locales
     ├── src/data/compare.tsx              shared comparison selection, carried in `?compare=`
     ├── src/data/copy.ts                  all EN and AR interface copy
     ├── src/data/profiles.ts              the four sourced hardware profiles and the filter sets
-    └── src/index.css                     the recovered design system (157 KB)
+    ├── src/index.css                     the recovered design system (157 KB)
+    ├── src/cinematic.css                 the cinematic layer, loaded after it
+    └── motion/                           the product studio and its render harness
+        ├── laptop.js                     the original procedural geometry
+        ├── product-studio.js             the transparent studio that renders the sequence
+        ├── product.html                  the render harness
+        └── render-sequence.py            writes assets/sequence/
 ```
 
 `src/index.css` is the real stylesheet recovered from the user's saved page, not a rewrite. It
@@ -90,6 +104,8 @@ files into this active source directory.
   design tokens and the profile data; a copy-integrity guard that fails if any
   `c.<group>.<key>` referenced in the source is missing from either locale; and a TypeScript
   type check, because a missing identifier is a runtime failure the Vite build does not catch.
+- `motion/render-sequence.py`: regenerates the product sequence and the exploded frames from
+  the procedural geometry. Requires the dev server on port 5174.
 - `npm run build`: actual Vite production compilation.
 - Browser sweeps: 12 widths (320 → 1904) × 3 routes × 2 locales, no console errors, no page
   errors, no horizontal overflow; search, brand filter, confidence filter, reset, compare

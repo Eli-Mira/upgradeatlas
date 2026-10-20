@@ -14,6 +14,7 @@ export default {
       '@': path.join(root, 'src'),
       react: path.join(modules, 'react'),
       'react-dom': path.join(modules, 'react-dom'),
+      three: path.join(modules, 'three'),
     },
   },
   server: { host: '127.0.0.1', port: 5174, strictPort: true, fs: { allow: [project] } },

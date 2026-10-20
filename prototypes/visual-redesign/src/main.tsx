@@ -7,6 +7,7 @@ import { LocaleProvider } from '@/data/locale';
 import { CompareProvider } from '@/data/compare';
 
 import './index.css';
+import './cinematic.css';
 
 createRoot(document.getElementById('root')!, {
   // Keeps caught errors off reportError(), which would raise the dev overlay.

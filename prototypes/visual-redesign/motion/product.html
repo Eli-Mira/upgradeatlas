@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UpgradeAtlas — Product Sequence Render Harness</title>
+<style>
+  :root { --bg:#05070a; --fg:#f2f4f7; --muted:#8b95a3; --cyan:#18e1db; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,sans-serif; font-size:13px; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #1b2230; }
+  h1 { font-size:14px; margin:0; font-weight:600; }
+  .hint { font-size:11px; color:var(--muted); }
+  #viewport { position:relative; background:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px) 0 0/60px 60px,
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0/60px 60px, #070a10;
+    border:1px solid #1b2230; border-radius:8px; overflow:hidden; display:grid; place-items:center; margin:16px; }
+  canvas { max-width:100%; max-height:64vh; }
+  #status { padding:0 16px 16px; color:var(--muted); font-size:12px; }
+  #status.ok { color:var(--cyan); }
+</style>
+</head>
+<body>
+<header>
+  <h1>UpgradeAtlas — Product Sequence Render Harness</h1>
+  <span class="hint">ORIGINAL procedural geometry. Pre-rendered frames, no runtime 3D.</span>
+</header>
+<div id="viewport"><canvas id="c" width="1400" height="900"></canvas></div>
+<div id="status">booting…</div>
+<script type="module">
+import { buildProductStudio, FRAME_COUNT } from '/motion/product-studio.js';
+
+const canvas = document.getElementById('c');
+const status = document.getElementById('status');
+const studio = buildProductStudio({ canvas, width: 1400, height: 900, dpr: 1 });
+window.__studio = studio;
+
+function frameDataUrl(index) {
+  const t = FRAME_COUNT === 1 ? 0 : index / (FRAME_COUNT - 1);
+  studio.applyFrame(t);
+  return canvas.toDataURL('image/png');
+}
+
+window.__renderFrame = frameDataUrl;
+
+window.__exploded = (index) => {
+  studio.applyExploded(index === 0 ? 0 : 1);
+  return canvas.toDataURL('image/png');
+};
+window.__frames = async () => {
+  const out = [];
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    out.push(frameDataUrl(i));
+    status.textContent = `frame ${i + 1} / ${FRAME_COUNT}`;
+  }
+  status.textContent = `done: ${FRAME_COUNT} frames`;
+  status.classList.add('ok');
+  return out;
+};
+
+studio.applyFrame(0);
+status.textContent = 'ready';
+status.classList.add('ok');
+</script>
+</body>
+</html>
