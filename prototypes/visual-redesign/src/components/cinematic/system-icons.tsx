@@ -15,7 +15,7 @@ const base = (size: number) => ({
   'aria-hidden': true,
 });
 
-export function ProcessorIcon({ size = 18 }: IconProps) {
+function ProcessorIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <rect x="7" y="7" width="10" height="10" rx="1.5" />
@@ -24,7 +24,7 @@ export function ProcessorIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function DisplayIcon({ size = 18 }: IconProps) {
+function DisplayIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <rect x="2.5" y="4" width="19" height="13" rx="2" />
@@ -33,7 +33,7 @@ export function DisplayIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function MemoryIcon({ size = 18 }: IconProps) {
+function MemoryIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <rect x="2.5" y="7" width="19" height="10" rx="1.5" />
@@ -42,7 +42,7 @@ export function MemoryIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function StorageIcon({ size = 18 }: IconProps) {
+function StorageIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <ellipse cx="12" cy="6" rx="8" ry="3" />
@@ -51,7 +51,7 @@ export function StorageIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function CoolingIcon({ size = 18 }: IconProps) {
+function CoolingIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <circle cx="12" cy="12" r="2.2" />
@@ -60,7 +60,7 @@ export function CoolingIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function WirelessIcon({ size = 18 }: IconProps) {
+function WirelessIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <path d="M2.5 9a15 15 0 0 1 19 0M5.5 12.5a10 10 0 0 1 13 0M8.8 16a5 5 0 0 1 6.4 0" />
@@ -69,7 +69,7 @@ export function WirelessIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function AudioIcon({ size = 18 }: IconProps) {
+function AudioIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <path d="M4 9.5h3.5L12 5v14l-4.5-4.5H4z" />
@@ -78,16 +78,7 @@ export function AudioIcon({ size = 18 }: IconProps) {
   );
 }
 
-export function CameraIcon({ size = 18 }: IconProps) {
-  return (
-    <svg {...base(size)}>
-      <path d="M3 8.5h3.5L8 6h8l1.5 2.5H21v10H3z" />
-      <circle cx="12" cy="13" r="3.2" />
-    </svg>
-  );
-}
-
-export function SecurityIcon({ size = 18 }: IconProps) {
+function SecurityIcon({ size = 18 }: IconProps) {
   return (
     <svg {...base(size)}>
       <path d="M12 3l7.5 3v6c0 4.6-3.1 8.4-7.5 9.8C7.6 20.4 4.5 16.6 4.5 12V6z" />
@@ -96,6 +87,10 @@ export function SecurityIcon({ size = 18 }: IconProps) {
   );
 }
 
+/**
+ * The eight system glyphs. They are internal: the map is the only public
+ * surface, so the explorer can look a glyph up by system key.
+ */
 export const systemIcons: Record<string, (props: IconProps) => ReactElement> = {
   processor: ProcessorIcon,
   display: DisplayIcon,
