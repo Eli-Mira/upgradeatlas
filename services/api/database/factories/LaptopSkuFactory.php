@@ -43,6 +43,11 @@ class LaptopSkuFactory extends Factory
         return $this->state(fn () => ['status' => 'draft']);
     }
 
+    public function published(): static
+    {
+        return $this->state(fn () => ['status' => 'published']);
+    }
+
     public function review(): static
     {
         return $this->state(fn () => ['status' => 'review']);

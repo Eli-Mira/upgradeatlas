@@ -14,4 +14,9 @@ class RamConfiguration extends Model
     {
         return $this->belongsTo(LaptopSku::class, 'sku_id');
     }
+
+    public function evidence(): BelongsTo
+    {
+        return $this->belongsTo(Evidence::class, 'evidence_id');
+    }
 }

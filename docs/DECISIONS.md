@@ -45,3 +45,17 @@
 
 - No browser journey was exercised in this milestone (build + unit/feature evidence only); M4 owns browser evidence at 360/390/768/1440.
 - The dev database still contains only 2 synthetic demo SKUs, both `draft`, so the public catalog is now intentionally empty until the owner approves verified data (M3 gate).
+
+## 2026-10-26 — Protected admin/evidence API (M2)
+
+- D29: Approved admin model (PRD §2, journey C): `users.role` of `admin` or `editor` gates the admin API. Guest browsing stays guest-first; no consumer sign-in was added. Authentication is Laravel Sanctum tokens (first-party, directive-sanctioned); the `staff` middleware alias enforces the role server-side. Hidden-button-less: the API refuses non-staff tokens and anonymous requests outright.
+- D30: The `User` model was aligned to the baseline `users` table (`hashed_password`, `role`, `locale`, `display_name`, `external_auth_id`, `deleted_at`). The previously shipped Laravel-default model (name/password/remember_token) did not match the schema and would fail any real use. `UserFactory` now provides `admin()`/`editor()` states.
+- D31: Admin API surface under `/api/v1/admin`: token issue/revoke, SKU list (all statuses)/create/patch, `publish`, `retire`, RAM-configuration upsert, storage-slot create, sources, evidence. Every mutation runs in a transaction with an actor-bound `audit_events` row (old/new values). Status is server-owned: direct status edits via PATCH are rejected; drafts are the only entry state regardless of client payload.
+- D32: Publication gate (fail closed): `publish` requires verified evidence attached through `ram_configurations`/`storage_slots`/`compatibility_assertions`, no unreviewed compatibility assertions, and no open `conflict_flags`; otherwise 409 with the blocking reasons. Retiring a published SKU removes it from the public API (verified end-to-end in tests).
+- D33: Evidence records bind `reviewer_id` to the authenticated actor. Sources record an explicit `usage_permission_status` (`permitted|unclear|not_permitted`) — supplied descriptions are never treated as licenses. Source URLs are shape-validated only and never fetched by the API, so there is no SSRF surface.
+- D34: The `personal_access_tokens` migration is reversible and was verified up/down on a disposable database before commit; migration parity from M1 remains intact.
+
+### Not verified in M2
+
+- No admin UI was built (deliberately: secure API and tests first, per the execution directive). Forms come later within approved PRD scope.
+- Sanctum token expiration stays at the library default (non-expiring, revocable). A rotation/expiry policy is an owner decision.
