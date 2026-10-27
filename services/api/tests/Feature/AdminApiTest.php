@@ -333,8 +333,10 @@ class AdminApiTest extends TestCase
         $this->postJson("/api/v1/admin/skus/{$sku->id}/storage-slots", $slot, ['Authorization' => "Bearer {$token}"])
             ->assertCreated();
 
+        // Duplicate natural key is a validation failure (PRD §12 reserves
+        // 409 for conflicting publication).
         $this->postJson("/api/v1/admin/skus/{$sku->id}/storage-slots", $slot, ['Authorization' => "Bearer {$token}"])
-            ->assertStatus(409);
+            ->assertStatus(422);
         $this->assertSame(1, StorageSlot::where('sku_id', $sku->id)->count());
 
         $this->postJson("/api/v1/admin/skus/{$sku->id}/storage-slots", ['slot_index' => 2, 'protocol' => 'IDE', 'occupied_status' => 'free'], ['Authorization' => "Bearer {$token}"])

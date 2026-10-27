@@ -23,7 +23,7 @@ class AdminEvidenceController extends Controller
             $query->where('verification_status', $request->string('verification_status'));
         }
 
-        return response()->json($query->orderBy('id')->paginate(min((int) $request->input('per_page', 50), 100)));
+        return response()->json($query->orderBy('id')->paginate(max(1, min((int) $request->input('per_page', 50), 100))));
     }
 
     public function store(Request $request): JsonResponse

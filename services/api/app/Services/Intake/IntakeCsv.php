@@ -45,7 +45,8 @@ class IntakeCsv
             if (count($cells) > $maxColumns) {
                 throw new \RuntimeException("Intake CSV row exceeds the column cap ({$maxColumns}).");
             }
-            if (count($rows) > $maxRows) {
+            // $rows includes the header line; the cap bounds DATA rows only.
+            if (count($rows) - 1 > $maxRows) {
                 throw new \RuntimeException("Intake CSV exceeds the row cap ({$maxRows} data rows).");
             }
 

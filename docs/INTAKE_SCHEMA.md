@@ -73,7 +73,9 @@ writes no audit events (tested).
 ## CSV mapping
 
 The CSV uses the same field names as JSON in one flat header
-(`IntakeValidator::csvHeader()`, 34 columns; each row fills the columns its `type` needs).
+(`IntakeValidator::csvHeader()`, 57 columns; each row fills the columns its `type` needs —
+assertion/offer rows use the flat `component_*`/`retailer_*` columns, and dependent rows cite
+evidence via `source_url` + `locator` + `evidence_fact_scope`).
 `evidence`/`retailer`/`component` sub-objects of JSON map to flat columns. CSV export for human
 review escapes spreadsheet formula injection (cells starting `= + - @` get an apostrophe prefix —
 tested). CSV input accepts quoted fields, embedded commas, and UTF-8 Arabic (tested round trip).

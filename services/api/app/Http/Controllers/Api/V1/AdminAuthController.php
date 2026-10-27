@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Audit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,14 @@ class AdminAuthController extends Controller
 
         $token = $user->createToken($data['device_name'] ?? 'admin-api');
 
+        // Token lifecycle is a security-relevant mutation: audit it like
+        // every other administrative change (no secret material in the
+        // audit payload — the token id only).
+        Audit::record($user->id, 'personal_access_tokens', $token->accessToken->id, 'token_issue', null, [
+            'user_id' => $user->id,
+            'device_name' => $data['device_name'] ?? 'admin-api',
+        ]);
+
         return response()->json([
             'token' => $token->plainTextToken,
             'role' => $user->role,
@@ -41,7 +50,15 @@ class AdminAuthController extends Controller
 
     public function destroy(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $accessToken = $request->user()->currentAccessToken();
+        $tokenId = $accessToken?->id;
+        $accessToken?->delete();
+
+        if ($tokenId !== null) {
+            Audit::record($request->user()->id, 'personal_access_tokens', $tokenId, 'token_revoke', null, [
+                'user_id' => $request->user()->id,
+            ]);
+        }
 
         return response()->json(['message' => 'Token revoked.']);
     }

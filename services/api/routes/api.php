@@ -23,14 +23,17 @@ Route::prefix('v1')->group(function () {
         Route::post('/token/logout', [AdminAuthController::class, 'destroy'])
             ->middleware('auth:sanctum');
 
-        Route::middleware(['auth:sanctum', 'staff'])->group(function () {
+        Route::middleware(['auth:sanctum', 'staff', 'throttle:60,1'])->group(function () {
             Route::get('/skus', [AdminSkuController::class, 'index']);
             Route::post('/skus', [AdminSkuController::class, 'store']);
             Route::patch('/skus/{sku}', [AdminSkuController::class, 'update']);
             Route::post('/skus/{sku}/publish', [AdminSkuController::class, 'publish']);
             Route::post('/skus/{sku}/retire', [AdminSkuController::class, 'retire']);
+            Route::post('/skus/{sku}/review', [AdminSkuController::class, 'markForReview']);
             Route::put('/skus/{sku}/ram-configuration', [AdminSkuController::class, 'upsertRamConfiguration']);
             Route::post('/skus/{sku}/storage-slots', [AdminSkuController::class, 'storeStorageSlot']);
+            Route::post('/skus/{sku}/conflicts/{conflict}/resolve', [AdminSkuController::class, 'resolveConflict']);
+            Route::post('/skus/{sku}/assertions/{assertion}/review', [AdminSkuController::class, 'reviewAssertion']);
 
             Route::get('/sources', [AdminSourceController::class, 'index']);
             Route::post('/sources', [AdminSourceController::class, 'store']);

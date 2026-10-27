@@ -24,8 +24,8 @@ return [
     'max_rows' => 2000,
     'max_field_length' => 2048,
     // The canonical intake CSV header (see IntakeValidator::csvHeader) is
-    // 34 columns; the cap leaves modest headroom for future columns.
-    'max_columns' => 40,
+    // 57 columns; the cap leaves modest headroom for future columns.
+    'max_columns' => 60,
 
     // Evidence older than this only produces a warning, never an error.
     'stale_days' => 365,

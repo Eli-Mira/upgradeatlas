@@ -94,7 +94,7 @@ class IntakeValidator
             }
 
             $fields = $format === 'csv'
-                ? $this->csvRowToFields($header, $row)
+                ? $this->expandCsvFields($this->csvRowToFields($header, $row))
                 : $this->normaliseJsonRow($row);
 
             $result = $this->validateRow($index, $fields);
@@ -190,6 +190,49 @@ class IntakeValidator
             $value = trim((string) $row[$i]);
             $fields[$column] = $value === '' ? null : $value;
         }
+
+        return $fields;
+    }
+
+    /**
+     * CSV rows carry the JSON sub-objects as flat columns; rebuild the
+     * shapes the row types expect. The shared source_url/locator columns
+     * become an evidence reference for the dependent row types only —
+     * for `evidence` rows themselves they ARE the row's own fields.
+     */
+    private function expandCsvFields(array $fields): array
+    {
+        $type = $fields['type'] ?? null;
+
+        if ($type === 'compatibility_assertion' && array_key_exists('component_type', $fields)) {
+            $fields['component'] = [
+                'component_type' => $fields['component_type'] ?? null,
+                'standard' => $fields['component_standard'] ?? null,
+                'form_factor' => $fields['component_form_factor'] ?? null,
+                'protocol' => $fields['component_protocol'] ?? null,
+                'capacity_gb' => $fields['component_capacity_gb'] ?? null,
+            ];
+        }
+        unset($fields['component_type'], $fields['component_standard'], $fields['component_form_factor'], $fields['component_protocol'], $fields['component_capacity_gb']);
+
+        if ($type === 'offer' && array_key_exists('retailer_name', $fields)) {
+            $fields['retailer'] = [
+                'name' => $fields['retailer_name'] ?? null,
+                'website_url' => $fields['retailer_website_url'] ?? null,
+                'country' => $fields['retailer_country'] ?? null,
+            ];
+        }
+        unset($fields['retailer_name'], $fields['retailer_website_url'], $fields['retailer_country']);
+
+        if (in_array($type, ['ram_configuration', 'storage_slot', 'compatibility_assertion', 'offer'], true)
+            && ($fields['source_url'] ?? null) !== null) {
+            $fields['evidence'] = [
+                'source_url' => $fields['source_url'],
+                'locator' => $fields['locator'] ?? null,
+                'fact_scope' => $fields['evidence_fact_scope'] ?? null,
+            ];
+        }
+        unset($fields['evidence_fact_scope']);
 
         return $fields;
     }
@@ -304,7 +347,8 @@ class IntakeValidator
             'brand' => 'brand:'.$fields['slug'],
             'family' => 'family:'.($fields['brand'] ?? '').'|'.$fields['slug'],
             'variant' => 'variant:'.($fields['family'] ?? '').'|'.$fields['manufacturer_model_code'].'|'.($fields['region_code'] ?? ''),
-            'sku', 'ram_configuration', 'storage_slot', 'compatibility_assertion', 'offer' => $type.':'.($fields['manufacturer_part_number'] ?? '').($type === 'storage_slot' ? '|'.$fields['slot_index'] : ''),
+            'offer' => 'offer:'.($fields['manufacturer_part_number'] ?? '').'|'.($fields['retailer']['name'] ?? '').'|'.($fields['product_url'] ?? ''),
+            default => $type.':'.($fields['manufacturer_part_number'] ?? '').($type === 'storage_slot' ? '|'.$fields['slot_index'] : ''),
         };
     }
 
@@ -319,7 +363,7 @@ class IntakeValidator
         return ($value === '' || $value === 'null') ? null : $value;
     }
 
-    private function str(mixed $value, string $label, int $max, array &$errors, bool $required = false): ?string
+    private function str(mixed $value, string $label, ?int $max, array &$errors, bool $required = false): ?string
     {
         if ($value === null) {
             if ($required) {
@@ -334,8 +378,12 @@ class IntakeValidator
 
             return null;
         }
-        if (mb_strlen($value) > max($max, $this->maxFieldLength)) {
-            $errors[] = "{$label} exceeds its maximum length ({$max}).";
+        // A declared per-field cap binds; the global ceiling only applies
+        // to fields without one. Without this, every small cap (64, 512…)
+        // would be silently raised to the global 2048.
+        $cap = $max ?? $this->maxFieldLength;
+        if (mb_strlen($value) > $cap) {
+            $errors[] = "{$label} exceeds its maximum length ({$cap}).";
 
             return null;
         }
@@ -859,14 +907,29 @@ class IntakeValidator
             if ($existing === null) {
                 return null;
             }
-            foreach (['base_ram_gb', 'base_storage_gb'] as $field) {
+
+            foreach (['base_ram_gb' => 'ram', 'base_storage_gb' => 'storage'] as $field => $kind) {
                 $incoming = $this->field($fields, $field);
-                if ($incoming !== null && (string) ($existing->{$field} ?? '') !== (string) $incoming) {
+                if ($incoming === null || (string) ($existing->{$field} ?? '') === (string) $incoming) {
+                    continue;
+                }
+
+                // Base-spec diffs only block when the stored value is backed
+                // by verified evidence in the corresponding table; otherwise
+                // the row stays a plain update (the report already warns
+                // that the part number exists).
+                $verified = $kind === 'ram'
+                    ? RamConfiguration::where('sku_id', $existing->id)
+                        ->whereHas('evidence', fn ($e) => $e->where('verification_status', 'verified'))->exists()
+                    : StorageSlot::where('sku_id', $existing->id)
+                        ->whereHas('evidence', fn ($e) => $e->where('verification_status', 'verified'))->exists();
+
+                if ($verified) {
                     return [
                         'field' => $field,
                         'stored' => $existing->{$field},
                         'incoming' => $incoming,
-                        'note' => 'Base specification differs from the stored SKU record; flagged for human review.',
+                        'note' => "Stored base specification is backed by verified {$kind} evidence; a differing intake row becomes a review conflict.",
                     ];
                 }
             }
@@ -889,6 +952,14 @@ class IntakeValidator
             'mass_g', 'use_case', 'demo_label', 'soldered_gb', 'slot_count', 'occupied_slot_count', 'standard',
             'documented_max_gb', 'max_meaning', 'slot_index', 'protocol', 'form_factor', 'pcie_generation',
             'occupied_status', 'constraints_text',
+            // Assertion rows (flat component columns):
+            'component_type', 'component_standard', 'component_form_factor', 'component_protocol',
+            'component_capacity_gb', 'outcome', 'reason', 'scope_notes', 'confidence_level',
+            // Offer rows:
+            'retailer_name', 'retailer_website_url', 'retailer_country', 'product_url',
+            'displayed_price_egp', 'available_status', 'active',
+            // Evidence reference scope for dependent rows:
+            'evidence_fact_scope',
         ];
     }
 

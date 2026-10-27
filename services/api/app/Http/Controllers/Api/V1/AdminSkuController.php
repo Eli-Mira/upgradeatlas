@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConflictFlag;
 use App\Models\LaptopSku;
 use App\Models\RamConfiguration;
 use App\Models\StorageSlot;
@@ -40,9 +41,107 @@ class AdminSkuController extends Controller
             });
         }
 
-        $perPage = min((int) $request->input('per_page', 50), 100);
+        $perPage = max(1, min((int) $request->input('per_page', 50), 100));
 
         return response()->json($query->orderBy('id')->paginate($perPage));
+    }
+
+    /**
+     * Resolve an open conflict flag on this SKU (the human step the
+     * publication gate waits for). Status and resolver are server-set.
+     */
+    public function resolveConflict(Request $request, LaptopSku $sku, int $conflict): JsonResponse
+    {
+        $data = $request->validate([
+            'resolution_notes' => ['required', 'string', 'max:1024'],
+        ]);
+
+        $flag = ConflictFlag::where('id', $conflict)
+            ->where('entity_type', 'laptop_skus')
+            ->where('entity_id', $sku->id)
+            ->where('status', 'open')
+            ->firstOrFail();
+
+        [$flag] = DB::transaction(function () use ($flag, $data, $request) {
+            $old = $flag->only(['status', 'resolution_notes']);
+            $flag->status = 'resolved';
+            $flag->resolution_notes = $data['resolution_notes'];
+            $flag->resolved_by = $request->user()->id;
+            $flag->save();
+            Audit::record(
+                $request->user()->id,
+                'conflict_flags',
+                $flag->id,
+                'resolve',
+                $old,
+                ['status' => 'resolved', 'resolution_notes' => $data['resolution_notes']]
+            );
+
+            return [$flag];
+        });
+
+        return response()->json($flag);
+    }
+
+    /**
+     * Human review of a compatibility assertion: stamps reviewer and time
+     * so the publication gate can accept it.
+     */
+    public function reviewAssertion(Request $request, LaptopSku $sku, int $assertion): JsonResponse
+    {
+        $data = $request->validate([
+            'review_notes' => ['nullable', 'string', 'max:1024'],
+        ]);
+
+        $row = DB::table('compatibility_assertions')
+            ->where('id', $assertion)->where('sku_id', $sku->id)->firstOrFail();
+
+        DB::transaction(function () use ($row, $data, $request) {
+            $old = ['reviewed_by' => $row->reviewed_by, 'reviewed_at' => $row->reviewed_at];
+            DB::table('compatibility_assertions')->where('id', $row->id)->update([
+                'reviewed_by' => $request->user()->id,
+                'reviewed_at' => now(),
+                'updated_at' => now(),
+            ]);
+            Audit::record(
+                $request->user()->id,
+                'compatibility_assertions',
+                $row->id,
+                'review',
+                $old,
+                ['reviewed_by' => $request->user()->id, 'review_notes' => $data['review_notes'] ?? null]
+            );
+        });
+
+        return response()->json(['message' => 'Assertion reviewed.', 'id' => $row->id]);
+    }
+
+    /**
+     * draft → review transition (the `review` status in the PRD §8
+     * contract is reachable only through this server-owned endpoint).
+     */
+    public function markForReview(Request $request, LaptopSku $sku): JsonResponse
+    {
+        [$locked, $blocked] = DB::transaction(function () use ($sku, $request) {
+            $row = LaptopSku::whereKey($sku->id)->lockForUpdate()->firstOrFail();
+
+            if (! in_array($row->status, ['draft', 'review'], true)) {
+                return [$row, $row->status];
+            }
+
+            $old = $row->only(['status']);
+            $row->status = 'review';
+            $row->save();
+            Audit::record($request->user()->id, 'laptop_skus', $row->id, 'submit_for_review', $old, ['status' => 'review']);
+
+            return [$row, null];
+        });
+
+        if ($blocked !== null) {
+            return response()->json(['message' => "Only draft or review SKUs can be submitted for review; SKU is {$blocked}."], 409);
+        }
+
+        return response()->json($locked);
     }
 
     public function store(Request $request): JsonResponse
@@ -90,28 +189,40 @@ class AdminSkuController extends Controller
 
     public function publish(Request $request, LaptopSku $sku): JsonResponse
     {
-        // Publication is a state transition, not an idempotent set: a
-        // second publish on a published SKU is refused so repeated or
-        // racing requests cannot fabricate new audit "publish" events.
-        if ($sku->status === 'published') {
-            return response()->json(['message' => 'SKU is already published.'], 409);
-        }
+        // Publication is a state transition under a row lock: the status
+        // check, gate check, save and audit all happen inside one
+        // transaction, so concurrent publishes serialize and a loser sees
+        // the post-transition state instead of fabricating a second
+        // publish audit event.
+        [$locked, $blocked] = DB::transaction(function () use ($sku, $request) {
+            $row = LaptopSku::whereKey($sku->id)->lockForUpdate()->firstOrFail();
 
-        $reasons = $this->gate->blocks($sku);
-        if ($reasons !== []) {
-            return response()->json(['message' => 'Publication blocked.', 'blocked_by' => $reasons], 409);
-        }
+            if ($row->status === 'published') {
+                return [$row, ['already_published' => true]];
+            }
 
-        $sku = DB::transaction(function () use ($sku, $request) {
-            $old = $sku->only(['status']);
-            $sku->status = 'published';
-            $sku->save();
-            Audit::record($request->user()->id, 'laptop_skus', $sku->id, 'publish', $old, ['status' => 'published']);
+            $reasons = $this->gate->blocks($row);
+            if ($reasons !== []) {
+                return [$row, ['blocked_by' => $reasons]];
+            }
 
-            return $sku;
+            $old = $row->only(['status']);
+            $row->status = 'published';
+            $row->save();
+            Audit::record($request->user()->id, 'laptop_skus', $row->id, 'publish', $old, ['status' => 'published']);
+
+            return [$row, null];
         });
 
-        return response()->json($sku);
+        if ($blocked !== null) {
+            if (isset($blocked['already_published'])) {
+                return response()->json(['message' => 'SKU is already published.'], 409);
+            }
+
+            return response()->json(['message' => 'Publication blocked.', 'blocked_by' => $blocked['blocked_by']], 409);
+        }
+
+        return response()->json($locked);
     }
 
     public function retire(Request $request, LaptopSku $sku): JsonResponse
@@ -199,7 +310,9 @@ class AdminSkuController extends Controller
                 return $slot;
             });
         } catch (UniqueConstraintViolationException) {
-            return response()->json(['message' => 'A storage slot with this index already exists for the SKU.'], 409);
+            // PRD §12 reserves 409 for conflicting publication; a duplicate
+            // natural key is a validation failure.
+            return response()->json(['message' => 'A storage slot with this index already exists for the SKU.'], 422);
         }
 
         return response()->json($slot, 201);

@@ -103,7 +103,28 @@ class IntakeApplier
     private function changed(object $model, array $new): bool
     {
         foreach ($new as $field => $value) {
-            if ((string) ($model->{$field} ?? '') !== (string) $value) {
+            $stored = $model->{$field} ?? null;
+
+            // Representation-drift-proof comparison (D36 idempotence):
+            // numbers compare numerically ("16" == "16.00"), dates compare
+            // as instants, everything else as trimmed strings.
+            if (is_numeric($value) && is_numeric($stored)) {
+                if (abs((float) $value - (float) $stored) >= 0.001) {
+                    return true;
+                }
+                continue;
+            }
+            if ($value instanceof \DateTimeInterface || $stored instanceof \DateTimeInterface) {
+                try {
+                    if (Carbon::parse($value)?->notEqualTo(Carbon::parse($stored))) {
+                        return true;
+                    }
+                    continue;
+                } catch (\Exception) {
+                    // fall through to string comparison
+                }
+            }
+            if (trim((string) $stored) !== trim((string) $value)) {
                 return true;
             }
         }
@@ -578,14 +599,19 @@ class IntakeApplier
         $skuId = (int) (LaptopSku::where('manufacturer_part_number', (string) ($fields['manufacturer_part_number'] ?? ''))
             ->value('id') ?? 0);
 
-        ConflictFlag::create([
+        // Re-committing the same conflicting fixture must not accumulate
+        // duplicate open flags for the same field.
+        ConflictFlag::firstOrCreate([
             'entity_type' => 'laptop_skus',
             'entity_id' => $skuId,
             'field_name' => $conflict['field'],
-            'evidence_ids' => json_encode(['stored' => $conflict['stored'], 'incoming' => $conflict['incoming']]),
             'status' => 'open',
+        ], [
+            // The column is text: intake conflicts record the disagreeing
+            // VALUES (what a resolver needs), not evidence row IDs.
+            'evidence_ids' => json_encode(['stored' => $conflict['stored'], 'incoming' => $conflict['incoming']]),
             'resolution_notes' => 'Manual intake conflict: '.($conflict['note'] ?? ''),
-            'resolved_by' => $actorId,
+            'resolved_by' => null, // open flag: nobody has resolved it yet
         ]);
     }
 }

@@ -51,7 +51,7 @@ class LaptopController extends Controller
             });
         }
 
-        $perPage = min((int) $request->input('per_page', 20), 100);
+        $perPage = max(1, min((int) $request->input('per_page', 20), 100));
         $skus = $query->orderBy('id')->paginate($perPage);
 
         return response()->json($skus);
