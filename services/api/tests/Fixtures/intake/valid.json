@@ -1,0 +1,125 @@
+{
+    "intake_version": 1,
+    "rows": [
+        {
+            "type": "source",
+            "url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+            "source_type": "oem_specification",
+            "publisher": "ExampleTech (fixture)",
+            "usage_permission_status": "unclear",
+            "notes": "SYNTHETIC fixture source; not a real manufacturer page; never fetched."
+        },
+        {
+            "type": "evidence",
+            "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+            "locator": "Memory section",
+            "concise_paraphrase": "Fixture claims two SO-DIMM slots, both occupied at base configuration.",
+            "fact_scope": "RAM configuration",
+            "observed_at": "2026-10-01",
+            "verification_status": "verified"
+        },
+        {
+            "type": "brand",
+            "name": "ExampleTech",
+            "slug": "exampletech"
+        },
+        {
+            "type": "family",
+            "brand": "exampletech",
+            "family_name": "Campus 15",
+            "slug": "exampletech-campus-15",
+            "launch_year": 2024
+        },
+        {
+            "type": "variant",
+            "family": "exampletech-campus-15",
+            "manufacturer_model_code": "EX-C15",
+            "region_code": "EG"
+        },
+        {
+            "type": "sku",
+            "family": "exampletech-campus-15",
+            "variant_model_code": "EX-C15",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "display_name": "ExampleTech Campus 15 (intake fixture)",
+            "base_ram_gb": 16,
+            "base_storage_gb": 512,
+            "mass_g": 1500,
+            "use_case": "study",
+            "demo_label": "SYNTHETIC DEMO DATA"
+        },
+        {
+            "type": "ram_configuration",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "soldered_gb": 0,
+            "slot_count": 2,
+            "occupied_slot_count": 2,
+            "standard": "DDR5 SO-DIMM",
+            "max_meaning": "unknown",
+            "evidence": {
+                "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+                "locator": "Memory section",
+                "fact_scope": "RAM configuration"
+            }
+        },
+        {
+            "type": "evidence",
+            "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+            "locator": "Storage section",
+            "concise_paraphrase": "Fixture claims one M.2 2280 NVMe slot, occupied at base configuration.",
+            "fact_scope": "Storage configuration",
+            "observed_at": "2026-10-01",
+            "verification_status": "verified"
+        },
+        {
+            "type": "storage_slot",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "slot_index": 1,
+            "form_factor": "M.2 2280",
+            "protocol": "NVMe",
+            "occupied_status": "occupied",
+            "evidence": {
+                "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+                "locator": "Storage section",
+                "fact_scope": "Storage configuration"
+            }
+        },
+        {
+            "type": "compatibility_assertion",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "component": {
+                "component_type": "ssd",
+                "standard": "PCIe 4.0 NVMe",
+                "form_factor": "M.2 2280"
+            },
+            "outcome": "unknown",
+            "reason": "Fixture: slot physically present but controller compatibility is undocumented.",
+            "scope_notes": "Applies only to INTAKE-EX-C15-01-DEMO, not to the Campus 15 family.",
+            "confidence_level": "unverified",
+            "evidence": {
+                "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+                "locator": "Storage section",
+                "fact_scope": "Storage configuration"
+            }
+        },
+        {
+            "type": "offer",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "retailer": {
+                "name": "Fixture Demo Shop",
+                "website_url": "https://fixtures.example.test/shop",
+                "country": "EG"
+            },
+            "product_url": "https://fixtures.example.test/shop/intake-ex-c15-01-demo",
+            "displayed_price_egp": "23999.99",
+            "available_status": "unknown",
+            "observed_at": "2026-10-01",
+            "active": true,
+            "evidence": {
+                "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+                "locator": "Storage section",
+                "fact_scope": "Storage configuration"
+            }
+        }
+    ]
+}

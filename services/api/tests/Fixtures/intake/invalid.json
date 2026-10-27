@@ -1,0 +1,65 @@
+{
+    "intake_version": 1,
+    "rows": [
+        {
+            "type": "source",
+            "url": "not-a-url",
+            "source_type": "oem_specification",
+            "usage_permission_status": "trust_me"
+        },
+        {
+            "type": "evidence",
+            "source_url": "https://fixtures.example.test/oem/never-defined",
+            "locator": "Nowhere",
+            "concise_paraphrase": "References an unknown source.",
+            "fact_scope": "RAM configuration",
+            "observed_at": "2026-10-01",
+            "verification_status": "verified"
+        },
+        {
+            "type": "sku",
+            "family": "exampletech-campus-15",
+            "variant_model_code": "EX-C15",
+            "manufacturer_part_number": "INTAKE-BAD-01",
+            "display_name": "Bad fixture",
+            "base_ram_gb": -4,
+            "status": "published"
+        },
+        {
+            "type": "ram_configuration",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "slot_count": 2,
+            "occupied_slot_count": 3,
+            "max_meaning": "guessed"
+        },
+        {
+            "type": "ram_configuration",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "slot_count": 2,
+            "max_meaning": "manufacturer_tested",
+            "documented_max_gb": null
+        },
+        {
+            "type": "ram_configuration",
+            "manufacturer_part_number": "INTAKE-EX-C15-01-DEMO",
+            "max_meaning": "unknown",
+            "documented_max_gb": 64
+        },
+        {
+            "type": "evidence",
+            "source_url": "https://fixtures.example.test/oem/ex-campus-15-spec",
+            "locator": "Memory section",
+            "concise_paraphrase": "Future-dated observation.",
+            "fact_scope": "RAM configuration",
+            "observed_at": "2099-01-01",
+            "verification_status": "verified"
+        },
+        {
+            "type": "sku",
+            "variant_model_code": "EX-NOSUCH",
+            "manufacturer_part_number": "INTAKE-BAD-02",
+            "display_name": "Wrong variant",
+            "use_case": "crypto_mining"
+        }
+    ]
+}

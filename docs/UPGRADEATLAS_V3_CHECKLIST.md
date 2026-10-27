@@ -5,12 +5,12 @@ Statuses: PASS / FAIL / BLOCKED / IN_PROGRESS / TODO / DEFERRED. Updated per bat
 
 | ID | Task | Depends | Acceptance (abbreviated) | Status |
 |---|---|---|---|---|
-| M3-00 | Exact-state recovery; progress register; DB isolation triage | — | HEAD verified; register docs exist; isolated DB available or BLOCKED recorded | IN_PROGRESS |
-| M3-01 | Trace M2 mutation/publication invariants; provenance field list | M3-00 | Documented trace incl. unknown semantics (M3.1) | TODO |
-| M3-02 | Deterministic manual JSON+CSV intake, dry-run default, zero writes | M3-01 | Offline fixture suite; actionable per-row report; idempotent; size-bounded; commit gated by owner permit | TODO |
-| M3-03 | Conflict rules + fail-closed publication hardening | M3-02 | Contradictory evidence blocks; no gate bypass via intake/bulk/role | TODO |
-| M3-04 | Owner approval dossier `docs/SKU_SOURCE_APPROVAL.md` | M3-01 | Structured slots, permission gates, no fabricated part numbers | TODO |
-| M3-05 | Batch 1 commit + evidence receipt | M3-02..04 | Scoped commit; backend suite green on final bytes | TODO |
+| M3-00 | Exact-state recovery; progress register; DB isolation triage | — | HEAD verified; register docs exist; isolated DB available or BLOCKED recorded | PASS |
+| M3-01 | Trace M2 mutation/publication invariants; provenance field list | M3-00 | Documented trace incl. unknown semantics (M3.1) | PASS |
+| M3-02 | Deterministic manual JSON+CSV intake, dry-run default, zero writes | M3-01 | Offline fixture suite; actionable per-row report; idempotent; size-bounded; commit gated by owner permit | PASS |
+| M3-03 | Conflict rules + fail-closed publication hardening | M3-02 | Contradictory evidence blocks; no gate bypass via intake/bulk/role | PASS |
+| M3-04 | Owner approval dossier `docs/SKU_SOURCE_APPROVAL.md` | M3-01 | Structured slots, permission gates, no fabricated part numbers | PASS |
+| M3-05 | Batch 1 commit + evidence receipt | M3-02..04 | Scoped commit; backend suite green on final bytes | IN_PROGRESS |
 | M4-01 | Contract map + integration strategy decision (no redesign) | M3-00 | Written decision; no dirty-file overwrite | TODO |
 | M4-02 | Public client flows: honest empty state, unknowns, RTL/LTR, filters | M4-01 | Verified against zero-record API and test-only fixture DB | TODO |
 | M4-03 | Admin UI decision (bounded or documented CLI/API-only) | M4-01 | Either minimal safe UI or documented deferral | TODO |
