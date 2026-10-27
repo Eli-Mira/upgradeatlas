@@ -2,6 +2,18 @@
 
 Nothing here is bypassed by other work. Each item names the gate and what unblocks it.
 
+## RESOLUTIONS — 2026-10-27 (owner delegated decisions; recommended dispositions adopted)
+
+| # | Decision | Adopted disposition |
+|---|---|---|
+| A1 | Isolated container | **Adopted**: `upgradeatlas_pg` is the project's standard dev/test database. Remove/replace anytime via `docker rm -f upgradeatlas_pg` + recreate from README. |
+| A2 | Real SKUs/sources | **Gate stays closed; dossier filled**: the ingestion permit still requires row-level approvals because no specific SKUs were named. `docs/SKU_SOURCE_APPROVAL.md` now carries a grounded 18-row candidate shortlist (3 web-confirmed Acer exact SKUs, 3 confirmed locator families, all rows unverified) so the owner's remaining work is ticking rows and issuing the permit. No real data has entered the product. |
+| A3 | Tracked `.env.testing` | **Resolved**: untracked from git (file preserved locally), `.gitignore` entry added, `.env.testing.example` committed. The dev APP_KEY is no longer in the tracked tree; no history rewrite was performed (rotation remains optional and owner-side). |
+| A4 | timestamptz drift | **Resolved by obsolescence**: the drifted dev DB lives inside the permanently out-of-scope `med_dms_db` and is unreachable; all fresh databases are drift-free by canonical migrations. The prepared ALTER remains documented below should that DB ever be revived. |
+| A5 | Deploy/license/affiliates | **Recommended and adopted**: remain local/private — no deployment, no GitHub visibility change, no affiliate work. License selection deliberately deferred to the owner's legal review (PRD §19.5); no LICENSE file was created on the owner's behalf. |
+
+The following items remain open as originally recorded (history preserved):
+
 ## BLOCKED / pending owner approval
 
 | # | Item | Why it needs the owner | Safe state meanwhile |
