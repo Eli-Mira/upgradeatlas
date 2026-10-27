@@ -100,8 +100,11 @@ export default function Catalog({ copy, localeKey, navigate, compare }) {
       if (!useCase || ![...useCases].some(u => u.toLowerCase() === useCase)) return false
     }
     if (maxPrice < MAX_PRICE) {
-      const price = sku.price_egp ?? 0
-      if (price > maxPrice) return false
+      // A missing price is not EGP 0 (D6): a SKU with an unknown price
+      // cannot be confirmed to fit the budget, so budget filters exclude
+      // it instead of treating it as free.
+      if (sku.price_egp === null || sku.price_egp === undefined) return false
+      if (sku.price_egp > maxPrice) return false
     }
     return true
   }
@@ -355,10 +358,19 @@ export default function Catalog({ copy, localeKey, navigate, compare }) {
             ) : null}
 
             {status === 'ready' && displayRows.length === 0 ? (
-              <EmptyState
-                title={copy.states.emptyTitle}
-                body={copy.catalog.noResults}
-              />
+              hasFilters ? (
+                <EmptyState
+                  title={copy.states.emptyTitle}
+                  body={copy.catalog.noResults}
+                />
+              ) : (
+                // The genuinely empty catalog: the honest pre-data state,
+                // not a "no results for your filters" message.
+                <EmptyState
+                  title={copy.catalog.preDataTitle}
+                  body={copy.catalog.preDataBody}
+                />
+              )
             ) : null}
 
             {status === 'ready' && displayRows.length > 0 ? (
