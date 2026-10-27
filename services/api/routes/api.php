@@ -15,10 +15,11 @@ Route::prefix('v1')->group(function () {
     Route::get('/laptops/{sku}/upgrades', [LaptopController::class, 'upgrades']);
 
     Route::prefix('admin')->group(function () {
-        // Token issuance is the only unauthenticated admin route; every
-        // other admin route requires a Sanctum token AND the staff role
-        // gate (server-enforced, not hidden buttons).
-        Route::post('/token', [AdminAuthController::class, 'store']);
+        // Token issuance is the only unauthenticated admin route; it is
+        // rate-limited because it accepts credentials. Every other admin
+        // route requires a Sanctum token AND the staff role gate
+        // (server-enforced, not hidden buttons).
+        Route::post('/token', [AdminAuthController::class, 'store'])->middleware('throttle:10,1');
         Route::post('/token/logout', [AdminAuthController::class, 'destroy'])
             ->middleware('auth:sanctum');
 

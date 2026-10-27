@@ -90,6 +90,13 @@ class AdminSkuController extends Controller
 
     public function publish(Request $request, LaptopSku $sku): JsonResponse
     {
+        // Publication is a state transition, not an idempotent set: a
+        // second publish on a published SKU is refused so repeated or
+        // racing requests cannot fabricate new audit "publish" events.
+        if ($sku->status === 'published') {
+            return response()->json(['message' => 'SKU is already published.'], 409);
+        }
+
         $reasons = $this->gate->blocks($sku);
         if ($reasons !== []) {
             return response()->json(['message' => 'Publication blocked.', 'blocked_by' => $reasons], 409);
