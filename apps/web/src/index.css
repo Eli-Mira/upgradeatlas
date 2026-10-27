@@ -1,1 +1,163 @@
 @import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   UpgradeAtlas design system - graphite industrial (red accent).
+
+   Shape lock: ONE radius family. 8px for every surface, input and button.
+   4px for chips and badges only. Nothing is a pill; this is a spec instrument,
+   not a consumer app.
+   Accent lock: `signal` (red) is the only accent. It marks the primary action
+   and the active nav item. It never becomes a glow. `positive` (green) marks
+   verified/lower-cost outcomes. It is never decorative.
+   Theme lock: dark only. The whole page is graphite; no section inverts.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  --color-graphite-950: #0a0b0d;
+  --color-graphite-900: #101216;
+  --color-graphite-850: #14171c;
+  --color-graphite-800: #1a1e24;
+  --color-graphite-700: #232830;
+  --color-graphite-600: #2e353f;
+  --color-graphite-500: #3d4552;
+  --color-graphite-400: #5a6472;
+  --color-graphite-300: #8b95a3;
+  --color-graphite-200: #b9c1cc;
+  --color-graphite-100: #dde2e8;
+  --color-graphite-50: #f2f4f7;
+
+  --color-signal: #e5484d;
+  --color-signal-strong: #d13438;
+  --color-signal-deep: #b12328;
+  --color-signal-soft: color-mix(in srgb, var(--color-signal) 14%, transparent);
+
+  /* Positive = verified, lower-cost, upgradeable. Green only. */
+  --color-positive: #3dd68c;
+  --color-positive-deep: #1f7a4d;
+  --color-positive-soft: color-mix(in srgb, var(--color-positive) 14%, transparent);
+
+  /* State colours carry meaning only. No decorative use. */
+  --color-caution: #c9973f;
+  --color-stop: #c0574f;
+
+  --radius-sharp: 4px;
+  --radius-surface: 8px;
+
+  --font-display: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Segoe UI", ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-graphite-950);
+    color: var(--color-graphite-100);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Arabic gets its own face and a touch more line-height, on every surface. */
+  html[lang="ar"] body,
+  [lang="ar"] {
+    font-family: var(--font-arabic);
+    line-height: 1.75;
+  }
+
+  /* Model numbers, part numbers and money must never be reordered by the
+     bidi algorithm, and must never wrap mid-token. */
+  .ltr-token {
+    direction: ltr;
+    unicode-bidi: isolate;
+    white-space: nowrap;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-signal-deep);
+    color: var(--color-graphite-50);
+  }
+}
+
+/* --- Lenis (required for correct smooth scroll) --------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* --- Reveal on scroll ---------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 700ms var(--ease-out-expo),
+    transform 700ms var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

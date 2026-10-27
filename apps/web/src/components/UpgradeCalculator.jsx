@@ -97,10 +97,22 @@ export default function UpgradeCalculator({ localeKey }) {
               <dt>{label}</dt><dd><bdi dir="ltr">{amount}</bdi> {text.currency}</dd>
             </div>)}
           </dl>
+          <div className="uc-chart" role="img" aria-label={text.costComparison}>
+            <div className="uc-bar-row">
+              <span className="uc-bar-name">{text.upgradeTotal}</span>
+              <div className="uc-bar-track"><div className="uc-bar uc-bar-upgrade" style={{ width: `${((parseFloat(result.upgrade_total_egp) || 0) / Math.max(parseFloat(result.upgrade_total_egp), parseFloat(result.replacement_total_egp), 1)) * 100}%` }} /></div>
+            </div>
+            <div className="uc-bar-row">
+              <span className="uc-bar-name">{text.replacementTotal}</span>
+              <div className="uc-bar-track"><div className="uc-bar uc-bar-replacement" style={{ width: `${((parseFloat(result.replacement_total_egp) || 0) / Math.max(parseFloat(result.upgrade_total_egp), parseFloat(result.replacement_total_egp), 1)) * 100}%` }} /></div>
+            </div>
+          </div>
+          {result.lower_cost_option === 'upgrade' && <span className="uc-tag uc-tag-positive">{text.lowerCost}</span>}
           <p className="uc-verdict">{text.lower[result.lower_cost_option]}</p>
         </section>}
       </div>
       <p className="uc-disclaimer">{text.disclaimer}</p>
+      <p className="uc-illustrative">{text.illustrative}</p>
     </section>
   )
 }

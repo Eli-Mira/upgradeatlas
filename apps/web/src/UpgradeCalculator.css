@@ -1,24 +1,131 @@
-body { color: #263647; background: #f3f6fa; }
+/* Graphite dark-only cost calculator.
+   No light-theme rules: the component is dark by design. */
+
 button, input { font: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: wait; opacity: .65; }
-button:focus-visible, input:focus-visible { outline: 3px solid #087f8c; outline-offset: 3px; }
-.uc-section { background: #fff; padding: clamp(1rem, 3vw, 2rem); border: 1px solid #ccd7e3; border-radius: .7rem; margin-block: 1.5rem 2rem; }
-.uc-title { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; color: #173c68; }
-.uc-subtitle { margin-block: .6rem; max-width: 70ch; }
-.uc-hint, .uc-disclaimer { color: #41566c; font-size: .9rem; line-height: 1.8; max-width: 75ch; }
-.uc-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-block: 1.5rem; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 2px; }
+
+.uc-section {
+  background: var(--color-graphite-900);
+  border: 1px solid color-mix(in srgb, var(--color-graphite-50) 9%, transparent);
+  border-radius: var(--radius-surface);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+.uc-title { font-size: clamp(1.15rem, 3vw, 1.5rem); font-weight: 600; color: var(--color-graphite-50); }
+.uc-subtitle { margin-block: .6rem; max-width: 70ch; color: var(--color-graphite-300); }
+.uc-hint, .uc-disclaimer { color: var(--color-graphite-400); font-size: .875rem; line-height: 1.75; max-width: 75ch; }
+
+.uc-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-block: 1.75rem; }
 .uc-field { display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
-.uc-field label { font-weight: 600; }
-.uc-field input { background: #fff; color: #263647; border: 1px solid #7c8fa3; border-radius: .3rem; padding: .65rem; width: 100%; min-width: 0; }
-.uc-field input[aria-invalid="true"] { border: 2px solid #a52424; }
-.uc-error { color: #a52424; line-height: 1.7; }
+.uc-field label { font-weight: 500; font-size: .875rem; color: var(--color-graphite-200); }
+.uc-field input {
+  background: var(--color-graphite-950);
+  color: var(--color-graphite-100);
+  border: 1px solid color-mix(in srgb, var(--color-graphite-50) 12%, transparent);
+  border-radius: var(--radius-surface);
+  padding: .65rem .75rem;
+  width: 100%;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+.uc-field input::placeholder { color: var(--color-graphite-500); }
+.uc-field input[aria-invalid="true"] { border-color: var(--color-stop); }
+
+.uc-error { color: var(--color-stop); line-height: 1.7; font-size: .875rem; }
+
 .uc-actions { grid-column: 1 / -1; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-.uc-actions button { background: #173c68; color: #fff; border-radius: .3rem; padding: .7rem 1.3rem; min-height: 44px; }
-.uc-results { border-block-start: 2px solid #087f8c; padding-block: 1rem; }
-.uc-results h3 { font-size: 1.2rem; font-weight: 700; margin-block-end: .6rem; }
-.uc-dl-row { display: flex; justify-content: space-between; gap: 1rem; padding-block: .6rem; border-block-end: 1px solid #e0e6ed; flex-wrap: wrap; }
-.uc-dl-row dd { font-variant-numeric: tabular-nums; font-weight: 600; }
-.uc-verdict { color: #173c68; font-weight: 700; margin-block-start: 1rem; }
-.uc-disclaimer { border-inline-start: 3px solid #087f8c; padding-inline-start: .8rem; }
-@media (max-width: 520px) { .uc-form { grid-template-columns: 1fr; } }
+.uc-actions button {
+  background: var(--color-signal);
+  color: var(--color-graphite-950);
+  font-weight: 600;
+  border: 0;
+  border-radius: var(--radius-surface);
+  padding: .7rem 1.35rem;
+  min-height: 44px;
+  transition: background-color 200ms var(--ease-out-expo);
+}
+.uc-actions button:hover:not(:disabled) { background: var(--color-signal-strong); }
+
+.uc-results { border-block-start: 2px solid var(--color-signal); padding-block: 1.25rem; }
+.uc-results h3 { font-size: 1.05rem; font-weight: 600; color: var(--color-graphite-50); margin-block-end: .75rem; }
+.uc-dl-row {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding-block: .65rem; flex-wrap: wrap;
+  border-block-end: 1px solid color-mix(in srgb, var(--color-graphite-50) 9%, transparent);
+}
+.uc-dl-row dt { color: var(--color-graphite-400); }
+.uc-dl-row dd { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--color-graphite-50); }
+.uc-verdict { color: var(--color-signal); font-weight: 600; margin-block-start: 1rem; }
+.uc-disclaimer {
+  border-inline-start: 2px solid var(--color-graphite-600);
+  padding-inline-start: .85rem;
+  margin-block-start: 1.25rem;
+}
+
+/* Bar chart comparing upgrade vs replacement cost */
+.uc-chart {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-block: 1rem;
+  padding-block: .75rem;
+  border-block: 1px solid color-mix(in srgb, var(--color-graphite-50) 9%, transparent);
+}
+.uc-bar-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.uc-bar-name {
+  width: clamp(90px, 20vw, 140px);
+  font-size: .8rem;
+  color: var(--color-graphite-300);
+  flex-shrink: 0;
+  text-align: end;
+}
+.uc-bar-track {
+  flex: 1;
+  height: 22px;
+  background: var(--color-graphite-700);
+  border-radius: var(--radius-sharp);
+  overflow: hidden;
+}
+.uc-bar {
+  height: 100%;
+  border-radius: var(--radius-sharp);
+  transition: width 400ms var(--ease-out-expo);
+}
+.uc-bar-upgrade { background: var(--color-signal); }
+.uc-bar-replacement { background: var(--color-graphite-500); }
+
+/* Green lower-cost tag */
+.uc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  background: var(--color-positive-soft);
+  color: var(--color-positive);
+  border: 1px solid var(--color-positive);
+  border-radius: var(--radius-sharp);
+  padding: .15rem .6rem;
+  font-size: .75rem;
+  font-weight: 600;
+  margin-block-start: .75rem;
+}
+
+/* Illustrative costs disclaimer */
+.uc-illustrative {
+  color: var(--color-graphite-500);
+  font-size: .75rem;
+  font-style: italic;
+  margin-block-start: .5rem;
+  padding-inline-start: .75rem;
+  border-inline-start: 2px solid var(--color-graphite-600);
+}
+
+@media (max-width: 520px) {
+  .uc-form { grid-template-columns: 1fr; }
+  .uc-bar-name { width: 80px; }
+}
+

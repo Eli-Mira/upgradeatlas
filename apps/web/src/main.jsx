@@ -1,5 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
+// Self-hosted fonts. No CDN request, and no flash of a fallback face.
+import '@fontsource-variable/archivo'
+import '@fontsource/ibm-plex-sans-arabic/400.css'
+import '@fontsource/ibm-plex-sans-arabic/500.css'
+import '@fontsource/ibm-plex-sans-arabic/600.css'
+
 import './index.css'
 import './UpgradeCalculator.css'
 import App from './App.jsx'
