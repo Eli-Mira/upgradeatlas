@@ -11,6 +11,10 @@ One row per meaningful step. Newest last. Real results only.
 | 2026-10-26 | M3-02 intake implementation | `laptops:intake` (JSON+CSV) + `laptops:intake-template`; validator/applier/CSV services; dry-run default; permit-gated commit; 14 intake tests covering zero-write dry-run, per-row errors, permit refusal, drafts-only commit, idempotence, conflicts→conflict_flags→publish 409, CSV Arabic/quoting round trip, formula-escape export, caps, malformed input | PHPUnit receipts below |
 | 2026-10-26 | M3-04 dossier | `docs/SKU_SOURCE_APPROVAL.md` (structured empty decision blocks, permission gates, no fabricated candidates) + `docs/INTAKE_SCHEMA.md` (provenance contract, unknown semantics, CSV mapping) | docs |
 | 2026-10-26 | M3 full-suite receipt | `DB_PORT=5434 php artisan test` → **81 passed, 477 assertions, 0 failed** | final-bytes run before commit |
+| 2026-10-26 | M4.1 integration branch | Branch `integration/cinematic-api` off main: baseline commit `f1ab261` snapshots the pre-existing dirty apps/web work with provenance (bytes unchanged, hashes pre-recorded); main keeps its dirty state untouched | git log |
+| 2026-10-26 | M4.2 integration fixes | Commit `fac397a`: unknown-price SKUs excluded from budget filter (D6 fix — was treated as EGP 0); distinct bilingual pre-data empty state for a genuinely empty catalog | build + node tests pass |
+| 2026-10-26 | M4.4 browser matrix | Playwright/Chromium headless: **30/30 journeys PASS** — phase A (empty DB: honest pre-data state en+ar, RTL dir, no overflow, unknown-SKU 404 UI), phase B (fixture DB: published card at 360/390/768/1024/1440, draft hidden in cards+detail+counts, compare/upgrade/calculator-math (42,600 EGP), keyboard focus, anonymous admin POST→401, zero console errors) | `C:\Users\emadg\upgradeatlas-evidence\browser\receipt.json` + 12 screenshots |
+| 2026-10-26 | M4.3 admin UI decision | Deferred with documented rationale: M2's Sanctum admin API is the verified supported mode; a staff UI would touch protected dirty frontend files and add unapproved dashboard scope | DECISIONS D40 |
 
 ## Standing facts (re-verify before relying)
 

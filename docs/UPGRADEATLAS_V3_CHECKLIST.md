@@ -11,10 +11,11 @@ Statuses: PASS / FAIL / BLOCKED / IN_PROGRESS / TODO / DEFERRED. Updated per bat
 | M3-03 | Conflict rules + fail-closed publication hardening | M3-02 | Contradictory evidence blocks; no gate bypass via intake/bulk/role | PASS |
 | M3-04 | Owner approval dossier `docs/SKU_SOURCE_APPROVAL.md` | M3-01 | Structured slots, permission gates, no fabricated part numbers | PASS |
 | M3-05 | Batch 1 commit + evidence receipt | M3-02..04 | Scoped commit; backend suite green on final bytes | IN_PROGRESS |
-| M4-01 | Contract map + integration strategy decision (no redesign) | M3-00 | Written decision; no dirty-file overwrite | TODO |
-| M4-02 | Public client flows: honest empty state, unknowns, RTL/LTR, filters | M4-01 | Verified against zero-record API and test-only fixture DB | TODO |
-| M4-03 | Admin UI decision (bounded or documented CLI/API-only) | M4-01 | Either minimal safe UI or documented deferral | TODO |
-| M4-04 | Browser matrix REAL runs (360/390/768/1024/1440; ar/en) | M4-02 | Playwright receipts + screenshots or exact BLOCKED reason | TODO |
+| M4-01 | Contract map + integration strategy decision (no redesign) | M3-00 | Written decision; no dirty-file overwrite | PASS |
+| M4-02 | Public client flows: honest empty state, unknowns, RTL/LTR, filters | M4-01 | Verified against zero-record API and test-only fixture DB | PASS |
+| M4-03 | Admin UI decision (bounded or documented CLI/API-only) | M4-01 | Either minimal safe UI or documented deferral | PASS (deferral documented) |
+| M4-04 | Browser matrix REAL runs (360/390/768/1024/1440; ar/en) | M4-02 | Playwright receipts + screenshots or exact BLOCKED reason | PASS |
+| M4-05 | Batch 2 commit + evidence receipt | M4-01..04 | Scoped commits on integration branch; register updated | IN_PROGRESS |
 | M5-01 | Schema parity + timestamptz drift remediation proposal (no dev-DB ALTER) | M3-00 | Reversible migration plan doc; isolated-DB up/down proof | TODO |
 | M5-02 | Auth/token lifecycle, IDOR, mass-assignment, rate-limit audit + fixes | M3-00 | Threat checks tested; token endpoint throttled | TODO |
 | M5-03 | Tracked `.env.testing` disposition proposal (no history rewrite) | M3-00 | Documented scope + safe transition proposal | TODO |
