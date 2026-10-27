@@ -18,13 +18,27 @@ The laboratory now holds the **UpgradeAtlas field-guide build**: an Egypt-first 
 
 The API-connected application under `apps/web` remains preserved and is not replaced by this change. It is an integration target, not a second design authority. No production rollout, backend change or database migration is implied.
 
-Status: Laravel + React scaffold and local catalog/upgrades API exist. The manual cost calculator works in Arabic/English; this is not a completed Phase 2 or a production release. Laravel schema bootstrap/parity and source-backed publication gates remain open.
+Status (internal RC, 2026-10-27): publication gates, staff admin API, manual intake readiness and browser-verified frontend integration are complete; schema bootstrap/parity is proven on a disposable database. The public catalog is **intentionally empty** — verified real SKUs: **0** (synthetic demo: 2, draft and hidden) until the owner approves exact SKUs and sources via `docs/SKU_SOURCE_APPROVAL.md`. This is an internal release candidate, not a production release; nothing is deployed.
 
-## Local development
+## Local development (Windows)
 
-1. Keep the existing PostgreSQL database unchanged. Configure `services/api/.env` for your local connection; never commit credentials. Do not run resets or fresh migrations.
-2. From `services/api`, run `php -S 127.0.0.1:8000 -t public` with PHP 8.3 and the required extensions.
-3. From `apps/web`, run `npm run dev -- --host 127.0.0.1 --port 5173`. Open `http://127.0.0.1:5173`. The Vite proxy forwards `/api` to Laravel.
-4. Backend tests: from `services/api`, `php vendor/bin/phpunit`. The test guard requires PostgreSQL `upgradeatlas_test`. Frontend checks: from `apps/web`, `npm test`, `npm run lint`, `npm run build`.
+Prerequisites: PHP 8.3 (+pdo_pgsql, openssl, mbstring, fileinfo), Composer 2.10+, Node 24, Docker Desktop for the disposable PostgreSQL.
+
+1. Isolated disposable database (project-owned, never shared with other projects):
+
+```bash
+docker run -d --name upgradeatlas_pg -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=ua-local-only-disposable -e POSTGRES_DB=postgres -p 127.0.0.1:5434:5432 postgres:16-alpine
+docker exec upgradeatlas_pg psql -U postgres -c "CREATE ROLE upgradeatlas_app LOGIN PASSWORD 'ua-dev-change-me'"
+docker exec upgradeatlas_pg psql -U postgres -c "CREATE DATABASE upgradeatlas OWNER upgradeatlas_app"
+docker exec upgradeatlas_pg psql -U postgres -c "CREATE DATABASE upgradeatlas_test OWNER upgradeatlas_app"
+cd services/api && DB_PORT=5434 php artisan migrate --force
+```
+
+2. API: from `services/api`, `DB_PORT=5434 php artisan serve --host=127.0.0.1 --port=8000`.
+3. Frontend: from `apps/web`, `npm run dev` → `http://127.0.0.1:5173` (Vite proxies `/api` to Laravel).
+4. Backend tests (fail-closed to `upgradeatlas_test` per D16): from `services/api`, `DB_PORT=5434 php artisan test`.
+5. Frontend checks: from `apps/web`, `npm test`, `npm run lint`, `npm run build`. Prototype: from `prototypes/visual-redesign`, `npm test` and `npm run build`.
+6. Synthetic demo walkthrough (guest + staff flows): `docs/DEMO_SCRIPT.md`.
+7. Data intake (dry-run first): `php artisan laptops:intake <file>` — see `docs/INTAKE_SCHEMA.md`. Real ingestion requires the owner permit in `docs/SKU_SOURCE_APPROVAL.md`.
 
 The calculator needs no paid services, AI keys or new runtime dependencies. See `docs/COST_CALCULATOR.md` for its contract, evidence, limitations and browser-check instructions.

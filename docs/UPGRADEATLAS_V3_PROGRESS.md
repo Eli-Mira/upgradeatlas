@@ -22,3 +22,7 @@ One row per meaningful step. Newest last. Real results only.
 - Frontend build: `cd apps/web && npm run build` · Prototype: `cd prototypes/visual-redesign && npm run build && npm test`
 - Disposable DB container: `upgradeatlas_pg` (port 5434) — removable with `docker rm -f upgradeatlas_pg` without affecting anything else.
 - `med_dms_db` is permanently out of scope from 2026-10-26 onward (directive §A.4).
+| 2026-10-26 | M5/M6/M7 hardening | Commit `12bed70`: token endpoint throttled 10/min; double-publish 409 (single audit event); SecurityLoopTest 10 threat cases; EngineeringTest N+1 bounds; timestamptz remediation SQL in BLOCKERS B3 | 93 tests green (507 assertions) |
+| 2026-10-27 | M8 internal RC | `docs/UPGRADEATLAS_V3_FINAL_REPORT.md` (directive template, all gates PASS, approvals A1-A5 consolidated); `docs/DEMO_SCRIPT.md`; README Windows quick-start; checklist fully closed | Final suite 93/507 exit 0 on final bytes |
+| 2026-10-27 | Dirty-work preservation proof | Baseline f1ab261 byte-verified against M0 hash records for App.jsx / UpgradeCalculator.jsx / vite.config.js (match=YES) | git rev-parse vs evidence file |
+
