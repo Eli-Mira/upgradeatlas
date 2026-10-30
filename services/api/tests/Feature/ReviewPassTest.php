@@ -183,6 +183,33 @@ class ReviewPassTest extends TestCase
     // Spec fix: token lifecycle is audited.
     // ------------------------------------------------------------------
 
+    public function test_variant_with_null_region_upserts_without_duplicates(): void
+    {
+        // where(col, null) never matches SQL NULL: the variant locate must
+        // use whereNull or every commit of a null-region variant creates a
+        // duplicate row.
+        config(['intake.owner_permit' => 'UA-APPROVED-2026-10-26-deadbeef']);
+
+        $jsonPath = storage_path('framework/testing/intake-null-region.json');
+        file_put_contents($jsonPath, json_encode([
+            'intake_version' => 1,
+            'rows' => [
+                ['type' => 'brand', 'name' => 'ExampleTech', 'slug' => 'exampletech'],
+                ['type' => 'family', 'brand' => 'exampletech', 'family_name' => 'Null Region 15', 'slug' => 'exampletech-null-region-15'],
+                ['type' => 'variant', 'family' => 'exampletech-null-region-15', 'manufacturer_model_code' => 'EX-NR15'],
+                ['type' => 'sku', 'family' => 'exampletech-null-region-15', 'variant_model_code' => 'EX-NR15',
+                    'manufacturer_part_number' => 'INTAKE-NR15-01-DEMO', 'display_name' => 'Null region fixture'],
+            ],
+        ]));
+
+        $this->runIntakePath($jsonPath, 'review-pass-null-region.json');
+        $this->runIntakePath($jsonPath, 'review-pass-null-region.json');
+
+        $variants = \App\Models\LaptopVariant::where('manufacturer_model_code', 'EX-NR15')->get();
+        $this->assertSame(1, $variants->count(), 'Null-region variant must not duplicate.');
+        $this->assertNull($variants->first()->region_code);
+    }
+
     public function test_token_issue_and_revoke_are_audited(): void
     {
         $user = User::factory()->admin()->create(['email' => 'audit@example.test', 'hashed_password' => 'password']);

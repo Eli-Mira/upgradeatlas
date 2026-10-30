@@ -2,7 +2,6 @@
 
 namespace App\Services\Intake;
 
-use App\Models\AuditEvent;
 use App\Models\Brand;
 use App\Models\ComponentClass;
 use App\Models\ConflictFlag;
@@ -63,12 +62,6 @@ class IntakeApplier
                     continue;
                 }
 
-                if ($status === 'warning') {
-                    // Warnings (stale evidence, existing record) are still
-                    // applicable; the report surfaces them for review.
-                    $row['warnings'] = $row['warnings'] ?? [];
-                }
-
                 $action = $this->applyRow($row['_fields'], $row['type'], $actorId);
                 if ($action !== 'unchanged') {
                     $applied++;
@@ -98,6 +91,44 @@ class IntakeApplier
             'compatibility_assertion' => $this->applyAssertion($fields, $actorId),
             'offer' => $this->applyOffer($fields, $actorId),
         };
+    }
+
+    /**
+     * Shared upsert for rows with boring semantics: locate by natural key
+     * (null-safe — `where(col, null)` never matches SQL NULL), create with
+     * locate+extra attributes, update only when `changed()`, audit both.
+     * Evidence/assertion/offer are hand-written: their update semantics
+     * (frozen reviewer status, supersede-not-overwrite) are the point.
+     *
+     * @param  array<string, mixed>  $locate  natural-key attributes; null values match SQL NULL
+     * @param  array<string, mixed>  $new  the updatable attributes
+     * @param  array<string, mixed>  $createAttributes  create-only extras (e.g. server-owned status)
+     * @param  array<string, mixed>  $auditNew  what the audit event records for creates
+     */
+    private function upsert(string $modelClass, array $locate, array $new, ?int $actorId, string $entity, array $auditNew, array $createAttributes = []): string
+    {
+        $query = $modelClass::query();
+        foreach ($locate as $column => $value) {
+            $value === null ? $query->whereNull($column) : $query->where($column, $value);
+        }
+        $existing = $query->first();
+
+        if ($existing === null) {
+            $model = $modelClass::create($new + $locate + $createAttributes);
+            Audit::record($actorId, $entity, $model->id, 'intake_create', null, $auditNew);
+
+            return 'created';
+        }
+
+        if (! $this->changed($existing, $new)) {
+            return 'unchanged';
+        }
+
+        $old = $existing->only(array_keys($new));
+        $existing->fill($new)->save();
+        Audit::record($actorId, $entity, $existing->id, 'intake_update', $old, $new);
+
+        return 'updated';
     }
 
     private function changed(object $model, array $new): bool
@@ -132,39 +163,16 @@ class IntakeApplier
         return false;
     }
 
-    private function audit(?int $actorId, string $entity, string|int $pk, string $operation, ?array $old, array $new): void
-    {
-        Audit::record($actorId, $entity, $pk, $operation, $old, $new);
-    }
-
     // ------------------------------------------------------------------
 
     private function applySource(array $f, ?int $actorId): string
     {
-        $existing = Source::where('url', $f['url'])->first();
-        $new = [
+        return $this->upsert(Source::class, ['url' => $f['url']], [
             'source_type' => $f['source_type'],
             'publisher' => $f['publisher'] ?? null,
             'usage_permission_status' => $f['usage_permission_status'],
             'notes' => $f['notes'] ?? null,
-        ];
-
-        if ($existing === null) {
-            $source = Source::create($new + ['url' => $f['url']]);
-            $this->audit($actorId, 'sources', $source->id, 'intake_create', null, ['url' => $f['url']] + $new);
-
-            return 'created';
-        }
-
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'sources', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        ], $actorId, 'sources', ['url' => $f['url'], 'usage_permission_status' => $f['usage_permission_status']]);
     }
 
     private function applyEvidence(array $f, ?int $actorId): string
@@ -191,7 +199,7 @@ class IntakeApplier
                 'locator' => $f['locator'] ?? null,
                 'fact_scope' => $f['fact_scope'],
             ]);
-            $this->audit($actorId, 'evidence', $evidence->id, 'intake_create', null, [
+            Audit::record($actorId, 'evidence', $evidence->id, 'intake_create', null, [
                 'source_url' => $f['source_url'], 'fact_scope' => $f['fact_scope'],
             ]);
 
@@ -209,94 +217,39 @@ class IntakeApplier
         $applied = $new;
         $applied['verification_status'] = $existing->verification_status;
         $existing->fill($applied)->save();
-        $this->audit($actorId, 'evidence', $existing->id, 'intake_update', $old, $applied);
+        Audit::record($actorId, 'evidence', $existing->id, 'intake_update', $old, $applied);
 
         return 'updated';
     }
 
     private function applyBrand(array $f, ?int $actorId): string
     {
-        $existing = Brand::where('slug', $f['slug'])->first();
-        if ($existing === null) {
-            $brand = Brand::create(['name' => $f['name'], 'slug' => $f['slug']]);
-            $this->audit($actorId, 'brands', $brand->id, 'intake_create', null, ['slug' => $f['slug']]);
-
-            return 'created';
-        }
-
-        if ((string) $existing->name === (string) $f['name']) {
-            return 'unchanged';
-        }
-
-        // Brand display-name drift is cosmetic, not a compatibility fact.
-        $old = ['name' => $existing->name];
-        $existing->name = $f['name'];
-        $existing->save();
-        $this->audit($actorId, 'brands', $existing->id, 'intake_update', $old, ['name' => $f['name']]);
-
-        return 'updated';
+        return $this->upsert(Brand::class, ['slug' => $f['slug']], [
+            'name' => $f['name'],
+        ], $actorId, 'brands', ['slug' => $f['slug']]);
     }
 
     private function applyFamily(array $f, ?int $actorId): string
     {
         $brand = Brand::where('slug', $f['brand'])->firstOrFail();
-        $new = [
+
+        return $this->upsert(LaptopFamily::class, ['brand_id' => $brand->id, 'slug' => $f['slug']], [
             'family_name' => $f['family_name'],
             'launch_year' => isset($f['launch_year']) && $f['launch_year'] !== null && $f['launch_year'] !== '' ? (int) $f['launch_year'] : null,
-        ];
-
-        $existing = LaptopFamily::where('brand_id', $brand->id)->where('slug', $f['slug'])->first();
-        if ($existing === null) {
-            $family = LaptopFamily::create($new + ['brand_id' => $brand->id, 'slug' => $f['slug']]);
-            $this->audit($actorId, 'laptop_families', $family->id, 'intake_create', null, ['brand' => $f['brand'], 'slug' => $f['slug']]);
-
-            return 'created';
-        }
-
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'laptop_families', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        ], $actorId, 'laptop_families', ['brand' => $f['brand'], 'slug' => $f['slug']]);
     }
 
     private function applyVariant(array $f, ?int $actorId): string
     {
         $family = LaptopFamily::where('slug', $f['family'])->firstOrFail();
-        $new = ['notes' => $f['notes'] ?? null];
 
-        $existing = LaptopVariant::where('family_id', $family->id)
-            ->where('manufacturer_model_code', $f['manufacturer_model_code'])
-            ->where('region_code', $f['region_code'] ?? null)
-            ->first();
-
-        if ($existing === null) {
-            $variant = LaptopVariant::create([
-                'family_id' => $family->id,
-                'manufacturer_model_code' => $f['manufacturer_model_code'],
-                'region_code' => $f['region_code'] ?? null,
-                'notes' => $f['notes'] ?? null,
-            ]);
-            $this->audit($actorId, 'laptop_variants', $variant->id, 'intake_create', null, [
-                'family' => $f['family'], 'manufacturer_model_code' => $f['manufacturer_model_code'],
-            ]);
-
-            return 'created';
-        }
-
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'laptop_variants', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        return $this->upsert(LaptopVariant::class, [
+            'family_id' => $family->id,
+            'manufacturer_model_code' => $f['manufacturer_model_code'],
+            'region_code' => $f['region_code'] ?? null,
+        ], ['notes' => $f['notes'] ?? null], $actorId, 'laptop_variants', [
+            'family' => $f['family'], 'manufacturer_model_code' => $f['manufacturer_model_code'],
+        ]);
     }
 
     private function applySku(array $f, ?int $actorId): string
@@ -311,94 +264,37 @@ class IntakeApplier
             'use_case' => $f['use_case'] ?? null,
         ];
 
-        $existing = LaptopSku::where('manufacturer_part_number', $f['manufacturer_part_number'])->first();
-        if ($existing === null) {
-            // Status is server-owned: intake drafts only, never published.
-            $sku = LaptopSku::create($new + [
-                'variant_id' => $variant->id,
-                'manufacturer_part_number' => $f['manufacturer_part_number'],
-                'status' => 'draft',
-            ]);
-            $this->audit($actorId, 'laptop_skus', $sku->id, 'intake_create', null, [
-                'manufacturer_part_number' => $f['manufacturer_part_number'], 'status' => 'draft',
-            ]);
-
-            return 'created';
-        }
-
-        // Status is never in $new, so an existing published SKU stays
-        // published and a draft stays draft; the publication gate is
+        // Status is server-owned and create-only: an existing published SKU
+        // stays published and a draft stays draft; the publication gate is
         // untouched by intake.
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'laptop_skus', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        return $this->upsert(LaptopSku::class, ['manufacturer_part_number' => $f['manufacturer_part_number']], $new, $actorId, 'laptop_skus', [
+            'manufacturer_part_number' => $f['manufacturer_part_number'], 'status' => 'draft',
+        ], ['variant_id' => $variant->id, 'status' => 'draft']);
     }
 
     private function applyRam(array $f, ?int $actorId): string
     {
         $sku = LaptopSku::where('manufacturer_part_number', $f['manufacturer_part_number'])->firstOrFail();
-        $new = $this->intFields($f, ['soldered_gb', 'slot_count', 'occupied_slot_count', 'documented_max_gb'])
-            + [
-                'standard' => $f['standard'] ?? null,
-                'max_meaning' => $f['max_meaning'],
-                'evidence_id' => $this->resolveEvidenceId($f),
-            ];
 
-        $existing = RamConfiguration::where('sku_id', $sku->id)->first();
-        if ($existing === null) {
-            $ram = RamConfiguration::create($new + ['sku_id' => $sku->id]);
-            $this->audit($actorId, 'ram_configurations', $ram->id, 'intake_create', null, ['sku' => $sku->manufacturer_part_number] + $new);
-
-            return 'created';
-        }
-
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'ram_configurations', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        return $this->upsert(RamConfiguration::class, ['sku_id' => $sku->id], $this->intFields($f, ['soldered_gb', 'slot_count', 'occupied_slot_count', 'documented_max_gb']) + [
+            'standard' => $f['standard'] ?? null,
+            'max_meaning' => $f['max_meaning'],
+            'evidence_id' => $this->resolveEvidenceId($f),
+        ], $actorId, 'ram_configurations', ['sku' => $sku->manufacturer_part_number]);
     }
 
     private function applySlot(array $f, ?int $actorId): string
     {
         $sku = LaptopSku::where('manufacturer_part_number', $f['manufacturer_part_number'])->firstOrFail();
-        $new = [
-            'slot_index' => (int) $f['slot_index'],
+
+        return $this->upsert(StorageSlot::class, ['sku_id' => $sku->id, 'slot_index' => (int) $f['slot_index']], [
             'form_factor' => $f['form_factor'] ?? null,
             'protocol' => $f['protocol'],
             'pcie_generation' => $f['pcie_generation'] ?? null,
             'occupied_status' => $f['occupied_status'],
             'constraints_text' => $f['constraints_text'] ?? null,
             'evidence_id' => $this->resolveEvidenceId($f),
-        ];
-
-        $existing = StorageSlot::where('sku_id', $sku->id)->where('slot_index', $new['slot_index'])->first();
-        if ($existing === null) {
-            $slot = StorageSlot::create($new + ['sku_id' => $sku->id]);
-            $this->audit($actorId, 'storage_slots', $slot->id, 'intake_create', null, ['sku' => $sku->manufacturer_part_number] + $new);
-
-            return 'created';
-        }
-
-        if (! $this->changed($existing, $new)) {
-            return 'unchanged';
-        }
-
-        $old = $existing->only(array_keys($new));
-        $existing->fill($new)->save();
-        $this->audit($actorId, 'storage_slots', $existing->id, 'intake_update', $old, $new);
-
-        return 'updated';
+        ], $actorId, 'storage_slots', ['sku' => $sku->manufacturer_part_number, 'slot_index' => (int) $f['slot_index']]);
     }
 
     private function applyAssertion(array $f, ?int $actorId): string
@@ -438,7 +334,7 @@ class IntakeApplier
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            $this->audit($actorId, 'compatibility_assertions', $id, 'intake_create', null, ['sku' => $sku->manufacturer_part_number] + $new);
+            Audit::record($actorId, 'compatibility_assertions', $id, 'intake_create', null, ['sku' => $sku->manufacturer_part_number] + $new);
 
             return 'created';
         }
@@ -450,7 +346,7 @@ class IntakeApplier
         }
 
         DB::table('compatibility_assertions')->where('id', $current['id'])->update($new + ['updated_at' => now()]);
-        $this->audit($actorId, 'compatibility_assertions', $current['id'], 'intake_update',
+        Audit::record($actorId, 'compatibility_assertions', $current['id'], 'intake_update',
             collect($new)->mapWithKeys(fn ($v, $k) => [$k => $current[$k] ?? null])->all(), $new);
 
         return 'updated';
@@ -497,7 +393,7 @@ class IntakeApplier
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            $this->audit($actorId, 'retailer_offers', $offerId, 'intake_create', null, [
+            Audit::record($actorId, 'retailer_offers', $offerId, 'intake_create', null, [
                 'sku' => $sku->manufacturer_part_number, 'retailer' => $retailer->name,
                 'displayed_price_egp' => $new['displayed_price_egp'],
             ]);
@@ -524,7 +420,7 @@ class IntakeApplier
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $this->audit($actorId, 'retailer_offers', $offerId, 'intake_supersede', [
+        Audit::record($actorId, 'retailer_offers', $offerId, 'intake_supersede', [
             'displayed_price_egp' => $current['displayed_price_egp'], 'available_status' => $current['available_status'],
         ], ['displayed_price_egp' => $new['displayed_price_egp'], 'available_status' => $new['available_status']]);
 
