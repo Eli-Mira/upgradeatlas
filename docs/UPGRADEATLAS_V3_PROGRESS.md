@@ -26,4 +26,5 @@ One row per meaningful step. Newest last. Real results only.
 | 2026-10-27 | M8 internal RC | `docs/UPGRADEATLAS_V3_FINAL_REPORT.md` (directive template, all gates PASS, approvals A1-A5 consolidated); `docs/DEMO_SCRIPT.md`; README Windows quick-start; checklist fully closed | Final suite 93/507 exit 0 on final bytes |
 | 2026-10-27 | Dirty-work preservation proof | Baseline f1ab261 byte-verified against M0 hash records for App.jsx / UpgradeCalculator.jsx / vite.config.js (match=YES) | git rev-parse vs evidence file |
 | 2026-10-31 | Owner sign-off | Branch `integration/cinematic-api` at `516b707` approved: refactor (single null-safe upsert, SQL-NULL variant fix), compliance posture, YAGNI deferrals (row-DTO). Tree clean, 104/104 tests. Next owner act when ready: tick dossier rows + issue permit; merge to main on request. | this ledger |
+| 2026-10-31 | Merged to main | Fast-forward `fdb0933` → `ddfa74a` (55 files, +4553/−421). Final receipt on main: 104 passed, 542 assertions, tree clean. Branch `integration/cinematic-api` kept for reference. Remaining gate: dossier row-ticks + permit before any real intake. | this ledger; suite receipt |
 
