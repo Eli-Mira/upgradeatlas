@@ -10,7 +10,7 @@ Append-only. Every entry: command, scope, exit status, and where the raw output 
 | Backend suite on isolated DB | `cd services/api && DB_PORT=5434 php artisan test --compact` | **67 passed, 376 assertions, 0 failed** — exit 0 |
 | Isolated DB reachable | PDO connect `127.0.0.1:5434` as `upgradeatlas_app` | `upgradeatlas_test`: 25 tables after suite; `upgradeatlas`: 25 tables, 0 rows after clean migrate |
 | Fresh-migration proof | `DB_PORT=5434 DB_DATABASE=upgradeatlas php artisan migrate --force` | All 3 migrations applied cleanly on empty DB (portable bootstrap proven on project-owned container) |
-| ERP isolation | `docker ps -a` (read-only) | `med_dms_db` left running untouched; `b01_isolated_pg` untouched; no queries against any ERP resource |
+| ERP isolation | `docker ps -a` (read-only) | `the previously-shared development container` left running untouched; `another project container` untouched; no queries against any other project resource |
 
 Interpretation notes:
 

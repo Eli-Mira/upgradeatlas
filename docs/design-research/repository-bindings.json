@@ -1,0 +1,54 @@
+[
+  {
+    "repo": "vellum-ai/originkit",
+    "homepage": null,
+    "description": "Browse and import animated components from Originkit free library of 50 animated components via MCP",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "default_branch": "main"
+  },
+  {
+    "repo": "leovvx/unlumen-ui-docs",
+    "homepage": "https://ui.unlumen.com/docs",
+    "description": "Open-source documentation and public component registry for unlumen UI",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "default_branch": "main"
+  },
+  {
+    "repo": "educlopez/smoothui",
+    "homepage": "https://smoothui.dev",
+    "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, Shadcn/ui and Motion",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "default_branch": "main"
+  },
+  {
+    "repo": "Jakubantalik/transitions.dev",
+    "homepage": "https://transitions.dev/",
+    "description": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "default_branch": "main"
+  }
+]

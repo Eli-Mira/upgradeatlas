@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/darkroomengineering/lenis/main/LICENSE",
+    "status": 200,
+    "sha256": "7d1896b31f2eed9f286b05faca067c4e35b2f109ae7c4ed5105220e2d2820228",
+    "license_heading": "The MIT License"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/darkroomengineering/lenis/main/README.md",
+    "status": 200,
+    "sha256": "1fe6f31fda0d76593b1c732271c6e9b78c051ce5a6b094e1ebec04d234b75552",
+    "documented_terms_present": {
+      "autoRaf": true,
+      "smoothWheel": true,
+      "syncTouch": true,
+      "prefers-reduced-motion": true,
+      "lenis/react": true
+    }
+  }
+]

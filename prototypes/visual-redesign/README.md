@@ -88,8 +88,8 @@ the local dependencies, in this directory's `node_modules`. Nothing is installed
 `apps/web`.
 
 `motion/render-sequence.py` regenerates the product sequence. It needs the dev server running
-and the Hermes Python interpreter:
-`C:/Users/emadg/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe motion/render-sequence.py`.
+and the a local Python interpreter:
+`python motion/render-sequence.py`.
 
 ## Checks
 

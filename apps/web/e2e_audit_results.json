@@ -1,0 +1,416 @@
+{
+  "desktop_ltr_home": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": true,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_ltr_catalog": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/laptops",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_ltr_upgrade": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_ltr_calc": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade-or-replace",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_ltr_compare": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/compare",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_ltr_home": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": true,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_ltr_catalog": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/laptops",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_ltr_upgrade": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_ltr_calc": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade-or-replace",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_ltr_compare": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/compare",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_rtl_home": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": true,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_rtl_catalog": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/laptops",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_rtl_upgrade": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_rtl_calc": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade-or-replace",
+    "title": "UpgradeAtlas"
+  },
+  "desktop_rtl_compare": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/compare",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_rtl_home": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": true,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_rtl_catalog": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/laptops",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_rtl_upgrade": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_rtl_calc": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/upgrade-or-replace",
+    "title": "UpgradeAtlas"
+  },
+  "mobile_rtl_compare": {
+    "dir": "rtl",
+    "lang": "ar",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "hasHero3D": false,
+    "hasNav": true,
+    "hasFooter": true,
+    "url": "http://127.0.0.1:5173/compare",
+    "title": "UpgradeAtlas"
+  },
+  "interactions_catalog": {
+    "searchInput": true,
+    "searchPlaceholder": "ابحث برقم الموديل أو الاسم",
+    "ramFilters": 4,
+    "brandChecks": 10,
+    "priceRange": true,
+    "useCaseChecks": 10,
+    "compareTray": false
+  },
+  "interactions_calc": {
+    "fieldCount": 4,
+    "fieldNames": [
+      "ram_cost_egp",
+      "ssd_cost_egp",
+      "installation_cost_egp",
+      "replacement_cost_egp"
+    ],
+    "calculateBtn": true,
+    "resultSection": false
+  },
+  "interactions_compare": {
+    "tableExists": false,
+    "captionExists": false,
+    "headerRows": 0
+  },
+  "rtl_switcher": {
+    "arBtn": true,
+    "enBtn": true,
+    "currentDir": "rtl",
+    "currentLang": "ar"
+  },
+  "rtl_after_switch": {
+    "dir": "rtl",
+    "lang": "ar"
+  },
+  "contrast_audit": {
+    "graphite-950": {
+      "hex": "#0a0b0d",
+      "luminance": 0.003329325314100941,
+      "rgb": "10,11,13"
+    },
+    "graphite-900": {
+      "hex": "#101216",
+      "luminance": 0.006006990362409302,
+      "rgb": "16,18,22"
+    },
+    "graphite-800": {
+      "hex": "#1a1e24",
+      "luminance": 0.012755334221282154,
+      "rgb": "26,30,36"
+    },
+    "graphite-700": {
+      "hex": "#232830",
+      "luminance": 0.020883087752391394,
+      "rgb": "35,40,48"
+    },
+    "graphite-600": {
+      "hex": "#2e353f",
+      "luminance": 0.03485929602513586,
+      "rgb": "46,53,63"
+    },
+    "graphite-500": {
+      "hex": "#3d4552",
+      "luminance": 0.05857539736287241,
+      "rgb": "61,69,82"
+    },
+    "graphite-400": {
+      "hex": "#5a6472",
+      "luminance": 0.12502907219580106,
+      "rgb": "90,100,114"
+    },
+    "graphite-300": {
+      "hex": "#8b95a3",
+      "luminance": 0.2962820336995308,
+      "rgb": "139,149,163"
+    },
+    "graphite-200": {
+      "hex": "#b9c1cc",
+      "luminance": 0.5281384952695893,
+      "rgb": "185,193,204"
+    },
+    "graphite-100": {
+      "hex": "#dde2e8",
+      "luminance": 0.7559105991562998,
+      "rgb": "221,226,232"
+    },
+    "graphite-50": {
+      "hex": "#f2f4f7",
+      "luminance": 0.9029401307609618,
+      "rgb": "242,244,247"
+    },
+    "signal": {
+      "hex": "#e5484d",
+      "luminance": 0.21828565045428178,
+      "rgb": "229,72,77"
+    },
+    "positive": {
+      "hex": "#3dd68c",
+      "luminance": 0.5097868406850029,
+      "rgb": "61,214,140"
+    },
+    "contrastPairs": [
+      {
+        "pair": "graphite-950 bg/graphite-100 text",
+        "ratio": "15.11",
+        "aaNormal": true,
+        "aaLarge": true
+      },
+      {
+        "pair": "graphite-900 bg/graphite-300 text",
+        "ratio": "6.18",
+        "aaNormal": true,
+        "aaLarge": true
+      },
+      {
+        "pair": "graphite-900 bg/graphite-400 text",
+        "ratio": "3.13",
+        "aaNormal": false,
+        "aaLarge": true
+      },
+      {
+        "pair": "graphite-950 bg/signal text",
+        "ratio": "5.03",
+        "aaNormal": true,
+        "aaLarge": true
+      },
+      {
+        "pair": "graphite-950 bg/graphite-500 text",
+        "ratio": "2.04",
+        "aaNormal": false,
+        "aaLarge": false
+      }
+    ]
+  },
+  "typography": {
+    "h1Size": "57.6px",
+    "h2Size": "30px",
+    "h3Size": "18px",
+    "bodySize": "16px",
+    "fontFamily": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "fontArabic": null
+  },
+  "rtl_checks": {
+    "rtlTextElements": 41,
+    "ltrTokenElements": 0,
+    "htmlDir": "rtl",
+    "htmlLang": "ar",
+    "navItemsCount": 5,
+    "navOverflow": false,
+    "calcInputsLtr": true
+  },
+  "rtl_arabic": {
+    "htmlDir": "rtl",
+    "htmlLang": "ar",
+    "bodyFont": "\"IBM Plex Sans Arabic\", \"Segoe UI\", ui-sans-serif, sans-serif",
+    "arLineHeight": "28px",
+    "searchLabelExists": false
+  },
+  "placeholders": {
+    "todoComments": 0,
+    "placeholderTexts": 4,
+    "emptyStateElements": 0
+  },
+  "components": {
+    "hero3DExists": true,
+    "hero3DVisible": true,
+    "navExists": true,
+    "navLinks": 6,
+    "footerExists": true,
+    "footerLinks": 4,
+    "compareTrayVisible": false,
+    "revealElements": 8,
+    "revealedElements": 0
+  }
+}

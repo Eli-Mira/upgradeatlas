@@ -1,0 +1,66 @@
+[
+  {
+    "name": "transitions-license",
+    "url": "https://raw.githubusercontent.com/Jakubantalik/transitions.dev/main/LICENSE",
+    "resolved_url": "https://raw.githubusercontent.com/Jakubantalik/transitions.dev/main/LICENSE",
+    "status": 200,
+    "sha256": "4e46c9a6c0c05a2a19b0c2914c98d912bed920462f4edcf741f43c6cbcf3b37a",
+    "license_heading": "Transitions.dev License\nCopyright (c) 2026 Jakub Antalik / Transitions.dev\n\nSummary: you (and any coding agent working for you) may use the transitions\nand skills in this repositor"
+  },
+  {
+    "name": "unlumen-license",
+    "url": "https://raw.githubusercontent.com/leovvx/unlumen-ui-docs/main/LICENSE",
+    "resolved_url": "https://raw.githubusercontent.com/leovvx/unlumen-ui-docs/main/LICENSE",
+    "status": 200,
+    "sha256": "c792250e3556d37b0e80e64fe9a0fdad64af04bc1793c7925046786456c16c4a",
+    "license_heading": "MIT License\n\nCopyright (c) 2026 L\u00e9o Wicki\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"So"
+  },
+  {
+    "name": "smoothui-license",
+    "url": "https://raw.githubusercontent.com/educlopez/smoothui/main/LICENSE",
+    "resolved_url": "https://raw.githubusercontent.com/educlopez/smoothui/main/LICENSE",
+    "status": 200,
+    "sha256": "9877f4310c0549e5ce26affe52ba97c4e60325472bdcdd308a92fccd90f119cc",
+    "license_heading": "MIT License\n\nCopyright (c) 2024 Eduardo Calvo\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the"
+  },
+  {
+    "name": "originkit-license",
+    "url": "https://raw.githubusercontent.com/vellum-ai/originkit/main/LICENSE",
+    "resolved_url": "https://raw.githubusercontent.com/vellum-ai/originkit/main/LICENSE",
+    "status": 200,
+    "sha256": "2418c77fdf595dae52afc8e959a5e50527127dbb47b01a57c8e151f41af1d7fb",
+    "license_heading": "MIT License\n\nCopyright (c) 2026 Vellum, Inc.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "
+  },
+  {
+    "name": "21st-home",
+    "url": "https://21st.dev/",
+    "resolved_url": "https://21st.dev/",
+    "status": 200,
+    "sha256": "3fffdb833e404d965119c78b58c011acf6ab22d497ef93937cbe3d2f86359cf9",
+    "license_heading": null
+  },
+  {
+    "name": "originkit-home",
+    "url": "https://www.originkit.dev/",
+    "resolved_url": "https://www.originkit.dev/",
+    "status": 200,
+    "sha256": "63e6416bd9a4b522f8a57df056bb52fb610136fbf503aadb5c182e92632a71c8",
+    "license_heading": null
+  },
+  {
+    "name": "unlumen-home",
+    "url": "https://ui.unlumen.com/",
+    "resolved_url": "https://ui.unlumen.com/",
+    "status": 200,
+    "sha256": "466c8a1f37d6b62090367ec33043b9f6d085b2cd1c4788418d094c3d329ff11a",
+    "license_heading": null
+  },
+  {
+    "name": "transitions-home",
+    "url": "https://transitions.dev/",
+    "resolved_url": "https://transitions.dev/",
+    "status": 200,
+    "sha256": "d2501f99528c24da64c056492c19ffc34675425f1e951bf413b33345cde059b5",
+    "license_heading": null
+  }
+]

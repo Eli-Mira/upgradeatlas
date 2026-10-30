@@ -5,7 +5,7 @@
 
 ```
 REPO / BRANCH / HEAD:
-  Repo:   C:\Desktop\💻 Dev Corner\Projects\CODING\CODINGWITHMIRA\EliLain_College_PROJECT
+  Repo:   the local repository checkout
   main:                     3f65ad9 → fdb0933 (Batch 0 + M3 landed on main)
   integration/cinematic-api: f1ab261 (dirty-work baseline) → fac397a (M4.2 fixes)
                              → 850f3b2 (M4 receipt+seeder) → 12bed70 (M5/M6/M7) → <final-commit> (M8)
@@ -42,11 +42,11 @@ M4 CINEMATIC API + BROWSER: PASS
     Phase B (fixture DB): published card visible at 360/390/768/1024/1440, draft hidden
     in cards+detail+counts, compare renders, upgrade page renders, calculator math
     (42,600 EGP), keyboard focus, anonymous admin POST→401, zero console errors.
-    Receipts: C:\Users\emadg\upgradeatlas-evidence\browser\receipt.json + 13 screenshots.
+    Receipts: the local evidence directory (outside the repo) + 13 screenshots.
 
 M5 SCHEMA + SECURITY: PASS (dev-DB mutation BLOCKED by design)
   - Fresh migrate/up/down/re-up proven on the project-owned upgradeatlas_pg container;
-    historical med_dms_db permanently out of scope (incident documented in BLOCKERS).
+    historical the previously-shared development container permanently out of scope (incident documented in BLOCKERS).
   - timestamptz drift: exact reversible remediation SQL prepared in BLOCKERS B3,
     awaiting owner approval (fresh DBs are drift-free).
   - Auth hardening: token endpoint rate-limited (10/min); revoked/expired-token behaviour
@@ -59,7 +59,7 @@ M6 SEC LOOP: PASS — 10 threat cases covered (SecurityLoopTest)
   5 publication race (double publish 409, single audit event) ✓
   6 SQL injection literal-needle ✓   7 unicode/bidi search ✓
   8 intake dry-run zero-write + idempotence ✓
-  9 audit immutability (no mutation route) ✓  10 cross-project isolation (med_dms_db untouched) ✓
+  9 audit immutability (no mutation route) ✓  10 cross-project isolation (the previously-shared development container untouched) ✓
   No assertion was weakened; 1 test expectation was corrected to the honest outcome
   (injection literal matches nothing rather than everything).
 
@@ -87,8 +87,8 @@ BROWSER: 30/30 journeys PASS, 0 failed; Chromium headless 147 (Playwright 1.59, 
 
 DB: dedicated disposable upgradeatlas_pg (127.0.0.1:5434, isolated volume) carried
   upgradeatlas / upgradeatlas_test / upgradeatlas_empty (+ transient _migrate_check databases,
-  always dropped). ERP resources untouched all session: med_dms_db, b01_isolated_pg,
-  salesreport_isolated_pg, erp-i1-i1-final-focused — no start/stop/query/config against any of them.
+  always dropped). ERP resources untouched all session: the previously-shared development container, another project container,
+  another project container, another project container — no start/stop/query/config against any of them.
 
 SKUS: verified real 0 · synthetic 2 (both draft, hidden) — unchanged at every gate.
   Browser fixtures (RC-EX-C15-01-DEMO published / RC-EX-C15-02-DRAFT draft) exist ONLY in
@@ -103,7 +103,7 @@ PRIVACY/SECURITY FINDINGS:
   1. .env.testing git-tracked with dev-only APP_KEY (BLOCKERS B4; proposal ready; no rotation
      without owner authorization).
   2. Demo credentials in docs/DEMO_SCRIPT.md are synthetic and scoped to disposable DBs.
-  3. No secrets printed to logs; med_dms_db incident previously recorded, no recurrence.
+  3. No secrets printed to logs; the previously-shared development container incident previously recorded, no recurrence.
 
 APPROVALS NEEDED (consolidated owner decisions — nothing below is bypassed):
   A1 Confirm/replace the dedicated upgradeatlas_pg container (BLOCKERS B2).

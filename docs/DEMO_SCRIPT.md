@@ -99,4 +99,4 @@ docker exec upgradeatlas_pg psql -U postgres -c "DROP DATABASE upgradeatlas_demo
 ```
 
 Everything above ran during RC verification; the full-artifact browser
-matrix (30/30 journeys) is in `C:\Users\emadg\upgradeatlas-evidence\browser\`.
+matrix (30/30 journeys) is in `the local evidence directory (outside the repo)
