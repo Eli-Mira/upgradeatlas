@@ -15,3 +15,12 @@ node_modules/
 .next/
 .vscode/
 .idea/
+
+# Local session artifacts (never publish)
+apps/web/e2e_*
+apps/web/calc_test.py
+apps/web/audit_report.json
+apps/web/final_audit.json
+apps/web/final_result.json
+apps/web/e2e_screenshots/
+docs/.hermes-tmp.*
