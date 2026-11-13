@@ -24,3 +24,4 @@ apps/web/final_audit.json
 apps/web/final_result.json
 apps/web/e2e_screenshots/
 docs/.hermes-tmp.*
+*.dump
